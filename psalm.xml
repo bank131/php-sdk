@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<psalm
+    errorLevel="1"
+    resolveFromConfigFile="true"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="https://getpsalm.org/schema/config"
+    xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+>
+    <projectFiles>
+        <directory name="src" />
+        <ignoreFiles>
+            <directory name="vendor" />
+        </ignoreFiles>
+    </projectFiles>
+    <issueHandlers>
+        <MissingConstructor>
+            <errorLevel type="info">
+                <file name="src/API/Response/ErrorResponse.php" />
+                <file name="src/DTO/Session.php" />
+                <file name="src/Services/WebHook/Hook/AbstractWebHook.php" />
+                <file name="src/API/Response/Session/SessionResponse.php" />
+                <file name="src/DTO/AcquiringPayment.php" />
+                <file name="src/DTO/AcquiringPaymentRefund.php" />
+                <file name="src/DTO/CustomerInteraction/Redirect.php" />
+                <file name="src/DTO/Error.php" />
+                <file name="src/DTO/CustomerInteraction/CustomerInteractionContainer.php" />
+                <file name="src/API/Response/Widget/PublicTokenResponse.php" />
+                <file name="src/API/Request/Widget/IssuePublicTokenRequest.php" />
+                <file name="src/DTO/FiscalizationReceipt.php" />
+                <file name="src/DTO/Payout.php" />
+                <file name="src/DTO/WalletDetails.php" />
+                <file name="src/API/Response/AbstractResponse.php" />
+            </errorLevel>
+        </MissingConstructor>
+    </issueHandlers>
+</psalm>
