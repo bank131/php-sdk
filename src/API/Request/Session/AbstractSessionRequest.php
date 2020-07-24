@@ -35,7 +35,7 @@ abstract class AbstractSessionRequest extends AbstractRequest
     private $payment_options;
 
     /**
-     * @var string
+     * @var mixed
      */
     private $metadata;
 
@@ -60,10 +60,11 @@ abstract class AbstractSessionRequest extends AbstractRequest
     private $fiscalization_details;
 
     /**
-     * @param string $metadata
+     * @param mixed $metadata
      */
-    public function setMetadata(string $metadata): void
+    public function setMetadata($metadata): void
     {
+        $this->validateScalarOrArray($metadata);
         $this->metadata = $metadata;
     }
 

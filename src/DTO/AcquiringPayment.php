@@ -77,7 +77,7 @@ class AcquiringPayment
     private $customer_interaction;
 
     /**
-     * @var string|null
+     * @var mixed
      */
     private $metadata;
 
@@ -191,9 +191,9 @@ class AcquiringPayment
     }
 
     /**
-     * @return string|null
+     * @return mixed
      */
-    public function getMetadata(): ?string
+    public function getMetadata()
     {
         return $this->metadata;
     }

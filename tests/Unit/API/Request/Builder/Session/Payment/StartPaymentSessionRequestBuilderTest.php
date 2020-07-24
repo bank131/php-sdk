@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Bank131\SDK\Tests\Unit\API\Request\Builder\Session\Payment;
 

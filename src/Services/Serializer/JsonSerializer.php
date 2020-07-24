@@ -184,7 +184,9 @@ final class JsonSerializer implements SerializerInterface
                             $property->setValue($instance, $this->denormalize($value, $typeName));
                         }
                     } else {
-                        settype($value, $typeName);
+                        if ($typeName) {
+                            settype($value, $typeName);
+                        }
                         $property->setValue($instance, $value);
                     }
                 }
@@ -213,8 +215,6 @@ final class JsonSerializer implements SerializerInterface
                 case is_object($entry):
                     $entry = $this->normalize($entry);
                     break;
-                default:
-                    $entries[] = $entry;
 
             }
             $entries[$key] = $entry;

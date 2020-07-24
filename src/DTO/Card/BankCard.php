@@ -138,7 +138,7 @@ class BankCard extends AbstractCard
             $currentDate     = new DateTime('today midnight');
             $cardExpiredDate = DateTime::createFromFormat(
                 'Y-m',
-                sprintf('%s-%s', $this->expiration_year, $this->expiration_month)
+                sprintf('20%s-%s', $this->expiration_year, $this->expiration_month)
             );
 
             if ($cardExpiredDate < $currentDate) {
