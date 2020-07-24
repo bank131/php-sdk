@@ -13,6 +13,7 @@ use Bank131\SDK\Exception\InvalidArgumentException;
 use Bank131\SDK\Services\Serializer\JsonSerializer;
 use DateTimeImmutable;
 use PHPUnit\Framework\TestCase;
+use ReflectionObject;
 
 class JsonSerializerTest extends TestCase
 {
@@ -111,15 +112,98 @@ class JsonSerializerTest extends TestCase
 
         $jsonString = $this->serializer->serialize($object);
 
-        $expected = [
-            'collection' => [
-                'test' => [
-                    'property' => 'string'
-                ]
-            ]
+        $this->assertEquals('{"collection":[{"test":{"property":"string"}}]}', $jsonString);
+    }
+
+    public function testSerializeAssociativeArray(): void
+    {
+        $object = new class {
+            /**
+             * @var mixed
+             */
+            public $collection;
+
+            /**
+             * @return mixed
+             */
+            public function getCollection()
+            {
+                return $this->collection;
+            }
+        };
+
+        $object->collection = ['sadfsdf' => 'erwgbxv', 1 => 'dfsafd', '5' => true];
+        $jsonString         = $this->serializer->serialize($object);
+
+        $this->assertEquals(
+        /** @lang JSON */ '{"collection":{"sadfsdf":"erwgbxv","1":"dfsafd","5":true}}',
+            $jsonString
+        );
+    }
+
+    public function testDeserializeMixedProperty(): void
+    {
+        $normalizedObject = [
+            'case1' => 'a12345',
+            'case2' => true,
+            'case3' => ['a12345', 12345, 12345.12, true, null],
+            'case4' => ['asdfasdf' => 'a12345', 2 => 12345, 12345.12, 'sdfasfcbv34r' => true, '5' => null],
         ];
 
-        $this->assertEquals('{"collection":[{"test":{"property":"string"}}]}', $jsonString);
+        $jsonString = json_encode($normalizedObject);
+
+        /** @var SessionResponse $result */
+        $result = $this->serializer->deserialize(
+            $jsonString,
+            get_class(
+                new class {
+                    /**
+                     * @return mixed
+                     */
+                    public function getCase1()
+                    {
+                        return $this->case1;
+                    }
+
+                    /**
+                     * @return mixed
+                     */
+                    public function getCase2()
+                    {
+                        return $this->case2;
+                    }
+
+                    /**
+                     * @return mixed
+                     */
+                    public function getCase3()
+                    {
+                        return $this->case3;
+                    }
+
+                    /**
+                     * @return mixed
+                     */
+                    public function getCase4()
+                    {
+                        return $this->case4;
+                    }
+
+                    private $case1;
+
+                    private $case2;
+
+                    private $case3;
+
+                    private $case4;
+                }
+            )
+        );
+
+        foreach ((new ReflectionObject($result))->getProperties() as $property) {
+            $property->setAccessible(true);
+            $this->assertSame($normalizedObject[$property->getName()], $property->getValue($result));
+        }
     }
 
     public function testSerializeObjectWithDateTime(): void

@@ -25,13 +25,4 @@ class RefundSessionRequestBuilderTest extends TestCase
         $request = $this->builder->build();
         $this->assertInstanceOf(RefundPaymentSessionRequest::class, $request);
     }
-
-    public function testSuccessBuildFullSession(): void
-    {
-        $request = $this->builder
-            ->setAmount(100, 'rub')
-            ->setMetadata(json_encode(['key' => 'value']))
-            ->build();
-        $this->assertInstanceOf(RefundPaymentSessionRequest::class, $request);
-    }
 }

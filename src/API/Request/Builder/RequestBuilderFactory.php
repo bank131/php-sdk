@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bank131\SDK\API\Request\Builder;
 
+use Bank131\SDK\API\Request\Builder\Recurrent\DisableRecurrentRequestBuilder;
+use Bank131\SDK\API\Request\Builder\Recurrent\RecurrentStatusRequestBuilder;
 use Bank131\SDK\API\Request\Builder\Session\Payment\CreatePaymentSessionRequestBuilder;
 use Bank131\SDK\API\Request\Builder\Session\Payment\InitPaymentSessionRequestBuilder;
 use Bank131\SDK\API\Request\Builder\Session\Payment\StartPaymentSessionRequestBuilder;
@@ -119,5 +121,21 @@ final class RequestBuilderFactory
     public function issuePublicTokenBuilder(): IssuePublicTokenBuilder
     {
         return new IssuePublicTokenBuilder();
+    }
+
+    /**
+     * @return RecurrentStatusRequestBuilder
+     */
+    public function recurrentStatusRequestBuilder(): RecurrentStatusRequestBuilder
+    {
+        return new RecurrentStatusRequestBuilder();
+    }
+
+    /**
+     * @return DisableRecurrentRequestBuilder
+     */
+    public function disableRecurrentRequestBuilder(): DisableRecurrentRequestBuilder
+    {
+        return new DisableRecurrentRequestBuilder();
     }
 }

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bank131\SDK;
 
+use Bank131\SDK\API\RecurrentApi;
 use Bank131\SDK\API\SessionApi;
 use Bank131\SDK\API\WalletApi;
 use Bank131\SDK\API\WidgetApi;
@@ -140,6 +141,14 @@ final class Client implements LoggerAwareInterface
     public function wallet(): WalletApi
     {
         return new WalletApi($this);
+    }
+
+    /**
+     * @return RecurrentApi
+     */
+    public function recurrent(): RecurrentApi
+    {
+        return new RecurrentApi($this);
     }
 
     /**

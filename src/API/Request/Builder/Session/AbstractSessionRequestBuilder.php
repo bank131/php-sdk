@@ -28,7 +28,7 @@ abstract class AbstractSessionRequestBuilder extends AbstractBuilder
     protected $participantDetails;
 
     /**
-     * @var string|null
+     * @var mixed
      */
     protected $metadata;
 
@@ -86,11 +86,9 @@ abstract class AbstractSessionRequestBuilder extends AbstractBuilder
     }
 
     /**
-     * @param string $metadata
-     *
-     * @return $this
+     * @param mixed $metadata
      */
-    public function setMetadata(string $metadata): self
+    public function setMetadata($metadata): self
     {
         $this->metadata = $metadata;
 

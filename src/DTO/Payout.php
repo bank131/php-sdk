@@ -55,7 +55,7 @@ class Payout
     private $customer_interaction;
 
     /**
-     * @var string|null
+     * @var mixed
      */
     private $metadata;
 
@@ -142,9 +142,9 @@ class Payout
     }
 
     /**
-     * @return string|null
+     * @return mixed
      */
-    public function getMetadata(): ?string
+    public function getMetadata()
     {
         return $this->metadata;
     }

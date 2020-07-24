@@ -12,19 +12,19 @@ use Bank131\SDK\DTO\Amount;
 final class RefundSessionRequestBuilder extends AbstractBuilder
 {
     /**
-     * @var string
-     */
-    private $sessionId;
-
-    /**
      * @var Amount|null
      */
     protected $amount;
 
     /**
-     * @var string|null
+     * @var mixed
      */
     protected $metadata;
+
+    /**
+     * @var string
+     */
+    private $sessionId;
 
     /**
      * RefundSessionRequestBuilder constructor.
@@ -50,11 +50,11 @@ final class RefundSessionRequestBuilder extends AbstractBuilder
     }
 
     /**
-     * @param string $metadata
+     * @param mixed $metadata
      *
      * @return $this
      */
-    public function setMetadata(string $metadata): self
+    public function setMetadata($metadata): self
     {
         $this->metadata = $metadata;
 

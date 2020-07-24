@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bank131\SDK\Tests\Unit;
 
+use Bank131\SDK\API\RecurrentApi;
 use Bank131\SDK\API\SessionApi;
 use Bank131\SDK\API\WalletApi;
 use Bank131\SDK\API\WidgetApi;
@@ -91,5 +92,13 @@ class ClientTest extends TestCase
 
         $api = $client->wallet();
         $this->assertInstanceOf(WalletApi::class, $api);;
+    }
+
+    public function testRecurrentApi(): void
+    {
+        $client = new Client($this->config);
+
+        $api = $client->recurrent();
+        $this->assertInstanceOf(RecurrentApi::class, $api);
     }
 }
