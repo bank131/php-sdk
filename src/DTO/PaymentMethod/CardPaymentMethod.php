@@ -7,6 +7,7 @@ namespace Bank131\SDK\DTO\PaymentMethod;
 use Bank131\SDK\DTO\Card\AbstractCard;
 use Bank131\SDK\DTO\Card\BankCard;
 use Bank131\SDK\DTO\Card\EncryptedCard;
+use Bank131\SDK\DTO\Card\TokenizedCard;
 use Bank131\SDK\DTO\PaymentMethod\Enum\PaymentMethodEnum;
 use Bank131\SDK\Exception\InvalidArgumentException;
 
@@ -15,27 +16,32 @@ class CardPaymentMethod extends PaymentMethod
     /**
      * @var string
      */
-    protected $type;
+    private $type;
+
+    /**
+     * @var TokenizedCard|null
+     */
+    private $tokenized_card;
 
     /**
      * @var EncryptedCard|null
      */
-    protected $encrypted_card;
+    private $encrypted_card;
 
     /**
      * @var BankCard|null
      */
-    protected $bank_card;
+    private $bank_card;
 
     /**
      * @var string|null
      */
-    protected $brand;
+    private $brand;
 
     /**
      * @var string|null
      */
-    protected $last4;
+    private $last4;
 
     /**
      * CardPaymentMethod constructor.

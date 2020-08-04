@@ -8,7 +8,9 @@ use Bank131\SDK\Helper\BaseEnum;
 
 class CardEnum extends BaseEnum
 {
-    public const BANK_CARD = 'bank_card';
+    public const BANK_CARD      = 'bank_card';
 
     public const ENCRYPTED_CARD = 'encrypted_card';
+
+    public const TOKENIZED_CARD = "tokenized_card";
 }
