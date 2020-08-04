@@ -10,6 +10,7 @@ use DateTime;
 use DateTimeInterface;
 use ReflectionClass;
 use ReflectionException;
+use ReflectionNamedType;
 use ReflectionProperty;
 
 final class JsonSerializer implements SerializerInterface
@@ -154,14 +155,14 @@ final class JsonSerializer implements SerializerInterface
                 $getterName = 'get' . str_replace('_', '', $property->getName());
 
                 if ($reflection->hasMethod($getterName)) {
-
+                    /** @var ReflectionNamedType $typeReflection */
                     $typeReflection = $reflection->getMethod($getterName)->getReturnType();
-
-                    /** @var class-string $typeName */
-                    $typeName = (string) $typeReflection;
 
                     if ($typeReflection && !$typeReflection->isBuiltin()) {
                         /** @var array<string, string|array> $value */
+
+                        /** @var class-string $typeName */
+                        $typeName = $typeReflection->getName();
 
                         $objectReflection = new ReflectionClass($typeName);
 
@@ -184,8 +185,8 @@ final class JsonSerializer implements SerializerInterface
                             $property->setValue($instance, $this->denormalize($value, $typeName));
                         }
                     } else {
-                        if ($typeName) {
-                            settype($value, $typeName);
+                        if ($typeReflection) {
+                            settype($value, $typeReflection->getName());
                         }
                         $property->setValue($instance, $value);
                     }
