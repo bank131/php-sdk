@@ -7,6 +7,7 @@ namespace Bank131\SDK\DTO;
 use Bank131\SDK\DTO\Collection\AcquiringPaymentRefundCollection;
 use Bank131\SDK\DTO\CustomerInteraction\CustomerInteractionContainer;
 use Bank131\SDK\DTO\Enum\AcquiringPaymentStatusEnum;
+use Bank131\SDK\DTO\Recurrent\RecurrentDetails;
 use DateTimeImmutable;
 
 class AcquiringPayment
@@ -67,9 +68,9 @@ class AcquiringPayment
     private $refunds;
 
     /**
-     * @var string|null
+     * @var RecurrentDetails|null
      */
-    private $recurrent_token;
+    private $recurrent;
 
     /**
      * @var CustomerInteractionContainer|null
@@ -175,11 +176,11 @@ class AcquiringPayment
     }
 
     /**
-     * @return string|null
+     * @return RecurrentDetails|null
      */
-    public function getRecurrentToken(): ?string
+    public function getRecurrent(): ?RecurrentDetails
     {
-        return $this->recurrent_token;
+        return $this->recurrent;
     }
 
     /**

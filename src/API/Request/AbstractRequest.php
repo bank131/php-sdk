@@ -11,7 +11,7 @@ abstract class AbstractRequest
     /**
      * Validate value is scalar, array or null
      *
-     * @param $value
+     * @param mixed $value
      *
      * @internal
      */
