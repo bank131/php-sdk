@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Bank131\SDK\API\Response\Recurrent;
 
 use Bank131\SDK\API\Response\AbstractResponse;
-use DateTimeImmutable;
+use Bank131\SDK\DTO\Recurrent\RecurrentDetails;
 
 /**
  * Class RecurrentStatusResponse
@@ -15,47 +15,15 @@ use DateTimeImmutable;
 class RecurrentStatusResponse extends AbstractResponse
 {
     /**
-     * @var DateTimeImmutable
+     * @var RecurrentDetails
      */
-    private $created_at;
+    private $recurrent;
 
     /**
-     * @var DateTimeImmutable
+     * @return RecurrentDetails
      */
-    private $finished_at;
-
-    /**
-     * @var bool
-     */
-    private $is_active;
-
-    /**
-     * Get createdAt property
-     *
-     * @return DateTimeImmutable
-     */
-    public function getCreatedAt(): DateTimeImmutable
+    public function getRecurrent(): RecurrentDetails
     {
-        return $this->created_at;
-    }
-
-    /**
-     * Get finishedAt property
-     *
-     * @return DateTimeImmutable
-     */
-    public function getFinishedAt(): DateTimeImmutable
-    {
-        return $this->finished_at;
-    }
-
-    /**
-     * Get isActive property
-     *
-     * @return bool
-     */
-    public function getIsActive(): bool
-    {
-        return $this->is_active;
+        return $this->recurrent;
     }
 }
