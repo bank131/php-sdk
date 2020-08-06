@@ -16,6 +16,7 @@ class RecurrentApiTest extends AbstractApiTest
             'status'    => $status = 'ok',
             'recurrent' =>
                 [
+                    'token'       => $token = 'KfvLRzCG7TT8cvCptBkCmAgLVZsp94tcT3CsaJJr',
                     'created_at'  => $createdAt = '2020-07-07T07:11:27.499907Z',
                     'finished_at' => $finishedAt = '2020-07-08T07:11:27.499907Z',
                     'is_active'   => $isActive = true,
@@ -32,6 +33,7 @@ class RecurrentApiTest extends AbstractApiTest
         $recurrentDetails = $statusResponse->getRecurrent();
         $this->assertEquals(new DateTimeImmutable($finishedAt), $recurrentDetails->getFinishedAt());
         $this->assertEquals(new DateTimeImmutable($createdAt), $recurrentDetails->getCreatedAt());
+        $this->assertSame($token, $recurrentDetails->getToken());
         $this->assertSame($isActive, $recurrentDetails->getIsActive());
         $this->assertSame($status, $statusResponse->getStatus());
     }
@@ -41,6 +43,7 @@ class RecurrentApiTest extends AbstractApiTest
         $intendedResponseBody = [
             'status'    => $status = 'ok',
             'recurrent' => [
+                'token'       => $token = 'KfvLRzCG7TT8cvCptBkCmAgLVZsp94tcT3CsaJJr',
                 'created_at'  => $createdAt = '2020-07-08T07:11:27.499907Z',
                 'finished_at' => $finishedAt = '2020-07-09T07:11:27.499907Z',
                 'is_active'   => $isActive = false,
@@ -58,6 +61,7 @@ class RecurrentApiTest extends AbstractApiTest
 
         $this->assertEquals(new DateTimeImmutable($finishedAt), $recurrentDetails->getFinishedAt());
         $this->assertEquals(new DateTimeImmutable($createdAt), $recurrentDetails->getCreatedAt());
+        $this->assertSame($token, $recurrentDetails->getToken());
         $this->assertSame($isActive, $recurrentDetails->getIsActive());
         $this->assertSame($status, $disableResponse->getStatus());
     }
