@@ -6,7 +6,7 @@ namespace Bank131\SDK;
 
 class Version
 {
-    private const VERSION = '0.0.1';
+    private const VERSION = '0.4.1';
 
     public static function getVersion(): string
     {
