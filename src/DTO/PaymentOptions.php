@@ -38,6 +38,14 @@ class PaymentOptions
         return $this->return_url;
     }
 
+    /**
+     * @return bool|null
+     */
+    public function getSavePaymentDetails(): ?bool
+    {
+        return $this->save_payment_details;
+    }
+
     public function savePaymentDetails(): void
     {
         $this->save_payment_details = true;
