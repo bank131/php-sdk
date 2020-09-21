@@ -16,7 +16,7 @@ class PaymentOptions
     /**
      * @var bool|null
      */
-    private $save_payment_details;
+    private $recurrent;
 
     /**
      * @param string $returnUrl
@@ -41,21 +41,24 @@ class PaymentOptions
     /**
      * @return bool|null
      */
-    public function getSavePaymentDetails(): ?bool
+    public function getRecurrent(): ?bool
     {
-        return $this->save_payment_details;
+        return $this->recurrent;
     }
 
-    public function savePaymentDetails(): void
+    /**
+     * @param bool $recurrent
+     */
+    public function setRecurrent(bool $recurrent): void
     {
-        $this->save_payment_details = true;
+        $this->recurrent = $recurrent;
     }
 
     /**
      * @return bool
      */
-    public function isPaymentDetailsSaved(): bool
+    public function isRecurrent(): bool
     {
-        return $this->save_payment_details === true;
+        return $this->recurrent === true;
     }
 }
