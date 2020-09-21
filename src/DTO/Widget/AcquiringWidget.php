@@ -24,6 +24,11 @@ class AcquiringWidget
     private $failure_return_url;
 
     /**
+     * @var bool
+     */
+    private $show_recurrent_checkbox = false;
+
+    /**
      * AcquiringWidget constructor.
      *
      * @param string $sessionId
@@ -55,5 +60,13 @@ class AcquiringWidget
         }
 
         $this->failure_return_url = $failureReturnUrl;
+    }
+
+    /**
+     * @param bool $needToSave
+     */
+    public function setShowRecurrentCheckbox(bool $needToSave): void
+    {
+        $this->show_recurrent_checkbox = $needToSave;
     }
 }

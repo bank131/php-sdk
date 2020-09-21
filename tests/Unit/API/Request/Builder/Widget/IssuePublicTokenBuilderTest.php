@@ -33,7 +33,8 @@ class IssuePublicTokenBuilderTest extends TestCase
             ->setAcquiringWidget(
                 'test_ps_id',
                 'http://success.url',
-                'http://failed.url'
+                'http://failed.url',
+                false
             )
             ->setSelfEmployedWidget('123456789012')
             ->setTokenizeWidget()

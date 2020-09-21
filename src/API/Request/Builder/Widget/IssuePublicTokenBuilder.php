@@ -65,17 +65,21 @@ class IssuePublicTokenBuilder extends AbstractBuilder
 
     /**
      * @param string      $sessionId
-     * @param string|null $failedReturnUrl
      * @param string|null $successReturnUrl
+     * @param string|null $failedReturnUrl
+     * @param bool        $showRecurrentCheckbox
      *
      * @return $this
      */
     public function setAcquiringWidget(
         string $sessionId,
         ?string $successReturnUrl = null,
-        ?string $failedReturnUrl = null
+        ?string $failedReturnUrl = null,
+        bool $showRecurrentCheckbox = false
     ): self {
         $acquiringWidget = new AcquiringWidget($sessionId);
+
+        $acquiringWidget->setShowRecurrentCheckbox($showRecurrentCheckbox);
 
         if ($successReturnUrl) {
             $acquiringWidget->setSuccessReturnUrl($successReturnUrl);
