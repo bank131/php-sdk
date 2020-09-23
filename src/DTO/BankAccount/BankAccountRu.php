@@ -27,19 +27,31 @@ class BankAccountRu extends AbstractBankAccount
     private $description;
 
     /**
+     * @var bool
+     */
+    private $is_fast;
+
+    /**
      * BankAccountRu constructor.
      *
      * @param string $bik
      * @param string $account
-     * @param string $full_name
+     * @param string $fullName
      * @param string $description
+     * @param bool   $isFast
      */
-    public function __construct(string $bik, string $account, string $full_name, string $description)
-    {
+    public function __construct(
+        string $bik,
+        string $account,
+        string $fullName,
+        string $description,
+        bool $isFast = false
+    ) {
         $this->bik         = $bik;
         $this->account     = $account;
-        $this->full_name   = $full_name;
+        $this->full_name   = $fullName;
         $this->description = $description;
+        $this->is_fast     = $isFast;
     }
 
     /**
