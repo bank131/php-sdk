@@ -53,6 +53,11 @@ class AcquiringPayment
     private $amount_details;
 
     /**
+     * @var Amounts
+     */
+    private $amounts;
+
+    /**
      * @var ParticipantDetails|null
      */
     private $participant_details;
@@ -149,6 +154,14 @@ class AcquiringPayment
     public function getAmountDetails(): Amount
     {
         return $this->amount_details;
+    }
+
+    /**
+     * @return Amounts
+     */
+    public function getAmounts(): Amounts
+    {
+        return $this->amounts;
     }
 
     /**
