@@ -40,10 +40,10 @@ class JsonSerializerTest extends TestCase
             ->setAmount(1000, 'rub')
             ->setCard(
                 new EncryptedCard(
-                'number_hash',
-                'expiration_date_hash',
-                'security_code_hash',
-                'cardholder_name_hash'
+                    'number_hash',
+                    'expiration_date_hash',
+                    'security_code_hash',
+                    'cardholder_name_hash'
                 )
             )
             ->build();
@@ -51,22 +51,22 @@ class JsonSerializerTest extends TestCase
         $jsonString = $this->serializer->serialize($session);
 
         $expected = [
-            'amount_details' => [
-                'amount' => 1000,
-                'currency' => 'rub'
+            'amount_details'  => [
+                'amount'   => 1000,
+                'currency' => 'rub',
             ],
             'payment_details' => [
                 'type' => 'card',
                 'card' => [
-                    'type' => 'encrypted_card',
+                    'type'           => 'encrypted_card',
                     'encrypted_card' => [
-                        'number_hash' => 'number_hash',
+                        'number_hash'          => 'number_hash',
                         'expiration_date_hash' => 'expiration_date_hash',
-                        'security_code_hash' => 'security_code_hash',
-                        'cardholder_name_hash' => 'cardholder_name_hash'
-                    ]
-                ]
-            ]
+                        'security_code_hash'   => 'security_code_hash',
+                        'cardholder_name_hash' => 'cardholder_name_hash',
+                    ],
+                ],
+            ],
         ];
 
         $this->assertEquals(json_encode($expected), $jsonString);
@@ -215,7 +215,7 @@ class JsonSerializerTest extends TestCase
         $jsonString = $this->serializer->serialize($object);
 
         $expected = [
-            'request_datetime' => '2019-10-14T19:53:00+03:00'
+            'request_datetime' => '2019-10-14T19:53:00+03:00',
         ];
         $this->assertEquals(json_encode($expected), $jsonString);
 
@@ -224,37 +224,47 @@ class JsonSerializerTest extends TestCase
     public function testDeserializeObject(): void
     {
         $normalizedObject = [
-            'status' => $responseStatus = 'ok',
+            'status'  => $responseStatus = 'ok',
             'session' => [
-                'id' => $sessionId ='test_ps_1',
-                'status' => $sessionStatus = 'in_progress',
-                'created_at' => $sessionCreatedAt = '2020-05-29T07:01:37.499907Z',
-                'updated_at' => $sessionUpdatedAt = '2020-05-29T07:01:37.499907Z',
+                'id'                 => $sessionId = 'test_ps_1',
+                'status'             => $sessionStatus = 'in_progress',
+                'created_at'         => $sessionCreatedAt = '2020-05-29T07:01:37.499907Z',
+                'updated_at'         => $sessionUpdatedAt = '2020-05-29T07:01:37.499907Z',
                 'acquiring_payments' => [
                     [
-                        'id' => $paymentId = 'test_pm_1',
-                        'status' => $paymentStatus = 'in_progress',
-                        'created_at' => $paymentCreatedAt = '2020-05-29T07:01:37.499907Z',
-                        'customer' => [
-                            'reference' => $customerReference = 'lucky'
+                        'id'              => $paymentId = 'test_pm_1',
+                        'status'          => $paymentStatus = 'in_progress',
+                        'created_at'      => $paymentCreatedAt = '2020-05-29T07:01:37.499907Z',
+                        'customer'        => [
+                            'reference' => $customerReference = 'lucky',
                         ],
-                        'payment_details'=> [
-                            'type'=> $paymentDetailsType = 'card',
-                            'card'=> [
-                                'brand'=> $cardBrand = 'visa',
-                                'last4'=> $cardLastFour ='4242'
-                            ]
+                        'payment_details' => [
+                            'type' => $paymentDetailsType = 'card',
+                            'card' => [
+                                'brand' => $cardBrand = 'visa',
+                                'last4' => $cardLastFour = '4242',
+                            ],
                         ],
-                        'amount_details'=> [
-                            'amount'=> $amountValue =10000,
-                            'currency'=> $amountCurrency = 'rub'
+                        'amount_details'  => [
+                            'amount'   => $amountValue = 10000,
+                            'currency' => $amountCurrency = 'rub',
                         ],
-                        'metadata'=> $metadata = '{"key":"value"}',
-                        'payment_options'=> [
-                            'return_url'=> $returnUrl = 'http=>//bank131.ru'
+                        'amounts'         => [
+                            'gross' => [
+                                'amount'   => $amountValue = 10000,
+                                'currency' => $amountCurrency = 'rub',
+                            ],
+                            'net'   => [
+                                'amount'   => $amountValue = 10000,
+                                'currency' => $amountCurrency = 'rub',
+                            ],
                         ],
-                    ]
-                ]
+                        'metadata'        => $metadata = '{"key":"value"}',
+                        'payment_options' => [
+                            'return_url' => $returnUrl = 'http=>//bank131.ru',
+                        ],
+                    ],
+                ],
             ],
         ];
 
@@ -284,6 +294,10 @@ class JsonSerializerTest extends TestCase
         $this->assertEquals($customerReference, $acquiringPayment->getCustomer()->getReference());
         $this->assertEquals($amountValue, $acquiringPayment->getAmountDetails()->getAmount());
         $this->assertEquals($amountCurrency, $acquiringPayment->getAmountDetails()->getCurrency());
+        $this->assertEquals($amountValue, $acquiringPayment->getAmounts()->getGross()->getAmount());
+        $this->assertEquals($amountCurrency, $acquiringPayment->getAmounts()->getGross()->getCurrency());
+        $this->assertEquals($amountValue, $acquiringPayment->getAmounts()->getNet()->getAmount());
+        $this->assertEquals($amountCurrency, $acquiringPayment->getAmounts()->getNet()->getCurrency());
         $this->assertEquals($metadata, $acquiringPayment->getMetadata());
         $this->assertEquals($returnUrl, $acquiringPayment->getPaymentOptions()->getReturnUrl());
     }
