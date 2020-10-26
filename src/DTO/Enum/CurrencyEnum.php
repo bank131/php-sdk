@@ -9,4 +9,6 @@ use Bank131\SDK\Helper\BaseEnum;
 class CurrencyEnum extends BaseEnum
 {
     public const RUB = 'rub';
+
+    public const USD = 'usd';
 }
