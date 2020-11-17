@@ -11,4 +11,6 @@ class CurrencyEnum extends BaseEnum
     public const RUB = 'rub';
 
     public const USD = 'usd';
+
+    public const EUR = 'eur';
 }
