@@ -9,4 +9,6 @@ use Bank131\SDK\Helper\BaseEnum;
 class WalletEnum extends BaseEnum
 {
     public const QIWI = 'qiwi';
+
+    public const YOOMONEY = 'yoomoney';
 }

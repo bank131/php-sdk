@@ -14,9 +14,12 @@ use Bank131\SDK\DTO\Card\EncryptedCard;
 use Bank131\SDK\DTO\Customer;
 use Bank131\SDK\DTO\Participant;
 use Bank131\SDK\DTO\ProfessionalIncomeTaxpayer;
+use Bank131\SDK\DTO\Wallet\AbstractWallet;
 use Bank131\SDK\DTO\Wallet\QiwiWallet;
 use Bank131\SDK\DTO\Wallet\WalletEnum;
+use Bank131\SDK\DTO\Wallet\YoomoneyWallet;
 use Bank131\SDK\Exception\InvalidArgumentException;
+use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class InitPayoutSessionRequestWithFiscalizationBuilderTest extends TestCase
@@ -172,19 +175,32 @@ class InitPayoutSessionRequestWithFiscalizationBuilderTest extends TestCase
         $this->assertInstanceOf(InitPayoutSessionRequest::class, $request);
     }
 
-    public function testSuccessBuildQiwiWalletSession(): void
+
+    public function walletProvider(): array
+    {
+        return [
+            [QiwiWallet::class, WalletEnum::QIWI],
+            [YoomoneyWallet::class, WalletEnum::YOOMONEY],
+        ];
+    }
+
+    /**
+     * @dataProvider walletProvider
+     */
+    public function testSuccessBuildWalletSession(string $walletClassName, string $systemType): void
     {
         $recipient = new Participant();
         $recipient->setFullName('Recipient Full Name');
 
-        $qiwiWalletMock = $this->createMock(QiwiWallet::class);
-        $qiwiWalletMock->method('getType')->willReturn(WalletEnum::QIWI);
+        /** @var AbstractWallet|MockObject $walletMock */
+        $walletMock = $this->createMock($walletClassName);
+        $walletMock->method('getType')->willReturn($systemType);
 
         $request = $this->builder
             ->setIncomeInformation(
                 $this->createMock(ProfessionalIncomeTaxpayer::class)
             )
-            ->setWallet($qiwiWalletMock)
+            ->setWallet($walletMock)
             ->setAmount(1000, 'rub')
             ->setRecipient($recipient)
             ->build();
