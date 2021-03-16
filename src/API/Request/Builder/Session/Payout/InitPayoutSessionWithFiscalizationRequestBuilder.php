@@ -52,7 +52,7 @@ final class InitPayoutSessionWithFiscalizationRequestBuilder extends AbstractPay
             throw new InvalidArgumentException('You must specify participant details (sender/customer)');
         }
 
-        if (!($this->participantDetails->getRecipient() && $this->participantDetails->getRecipient()->getFullName())) {
+        if (!($this->participantDetails->getRecipient() && $this->participantDetails->getRecipient()->hasFullName())) {
             throw new InvalidArgumentException('You must specify recipient with full name');
         }
     }

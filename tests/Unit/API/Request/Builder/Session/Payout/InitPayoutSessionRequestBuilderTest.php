@@ -7,6 +7,7 @@ namespace Bank131\SDK\Tests\Unit\API\Request\Builder\Session\Payout;
 use Bank131\SDK\API\Request\Builder\Session\Payout\InitPayoutSessionRequestBuilder;
 use Bank131\SDK\API\Request\Session\InitPayoutSessionRequest;
 use Bank131\SDK\DTO\BankAccount\BankAccountEnum;
+use Bank131\SDK\DTO\BankAccount\BankAccountIban;
 use Bank131\SDK\DTO\BankAccount\BankAccountRu;
 use Bank131\SDK\DTO\Card\BankCard;
 use Bank131\SDK\DTO\Card\CardEnum;
@@ -207,6 +208,26 @@ class InitPayoutSessionRequestBuilderTest extends TestCase
 
         $request = $this->builder
             ->setBankAccount($bankAccountMock)
+            ->setRecipient($recipient)
+            ->setAmount(1000, 'rub')
+            ->build();
+
+        $this->assertInstanceOf(InitPayoutSessionRequest::class, $request);
+    }
+
+    public function testSuccessBuildUkrainianAccountSession(): void
+    {
+        $recipient = new Participant();
+        $recipient->setFirstName('Taras');
+        $recipient->setLastName('Shevchenko');
+        $recipient->setMiddleName('Hryhorovych');
+        $recipient->setTaxReference('590613976191');
+
+        $bankAccountIbanMock = $this->createMock(BankAccountIban::class);
+        $bankAccountIbanMock->method('getType')->willReturn(BankAccountEnum::IBAN);
+
+        $request = $this->builder
+            ->setBankAccount($bankAccountIbanMock)
             ->setRecipient($recipient)
             ->setAmount(1000, 'rub')
             ->build();
