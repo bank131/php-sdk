@@ -9,4 +9,6 @@ use Bank131\SDK\Helper\BaseEnum;
 class BankAccountEnum extends BaseEnum
 {
     public const RU = 'ru';
+
+    public const IBAN = 'iban';
 }

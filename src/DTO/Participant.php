@@ -16,12 +16,32 @@ class Participant
     /**
      * @var string|null
      */
+    protected $first_name;
+
+    /**
+     * @var string|null
+     */
+    protected $last_name;
+
+    /**
+     * @var string|null
+     */
+    protected $middle_name;
+
+    /**
+     * @var string|null
+     */
     protected $company_name;
 
     /**
      * @var string|null
      */
     protected $reference;
+
+    /**
+     * @var string|null
+     */
+    protected $tax_reference;
 
     /**
      * @var string|null
@@ -69,6 +89,30 @@ class Participant
     /**
      * @return string|null
      */
+    public function getFirstName(): ?string
+    {
+        return $this->first_name;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getLastName(): ?string
+    {
+        return $this->last_name;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getMiddleName(): ?string
+    {
+        return $this->middle_name;
+    }
+
+    /**
+     * @return string|null
+     */
     public function getCompanyName(): ?string
     {
         return $this->company_name;
@@ -80,6 +124,14 @@ class Participant
     public function getReference(): ?string
     {
         return $this->reference;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getTaxReference(): ?string
+    {
+        return $this->tax_reference;
     }
 
     /**
@@ -147,6 +199,30 @@ class Participant
     }
 
     /**
+     * @param string $first_name
+     */
+    public function setFirstName(string $first_name): void
+    {
+        $this->first_name = $first_name;
+    }
+
+    /**
+     * @param string $last_name
+     */
+    public function setLastName(string $last_name): void
+    {
+        $this->last_name = $last_name;
+    }
+
+    /**
+     * @param string $middle_name
+     */
+    public function setMiddleName(string $middle_name): void
+    {
+        $this->middle_name = $middle_name;
+    }
+
+    /**
      * @param string $company_name
      */
     public function setCompanyName(string $company_name): void
@@ -160,6 +236,14 @@ class Participant
     public function setReference(string $reference): void
     {
         $this->reference = $reference;
+    }
+
+    /**
+     * @param string $tax_reference
+     */
+    public function setTaxReference(string $tax_reference): void
+    {
+        $this->tax_reference = $tax_reference;
     }
 
     /**
@@ -224,5 +308,11 @@ class Participant
         }
 
         $this->ipv6 = $ipv6;
+    }
+
+    public function hasFullName(): bool
+    {
+        return $this->full_name !== null
+            || ($this->first_name !== null && $this->last_name !== null);
     }
 }

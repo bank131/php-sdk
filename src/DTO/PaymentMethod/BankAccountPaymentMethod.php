@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bank131\SDK\DTO\PaymentMethod;
 
 use Bank131\SDK\DTO\BankAccount\AbstractBankAccount;
+use Bank131\SDK\DTO\BankAccount\BankAccountIban;
 use Bank131\SDK\DTO\BankAccount\BankAccountRu;
 use Bank131\SDK\DTO\PaymentMethod\Enum\PaymentMethodEnum;
 use Bank131\SDK\Exception\InvalidArgumentException;
@@ -20,6 +21,11 @@ class BankAccountPaymentMethod extends PaymentMethod
      * @var BankAccountRU|null
      */
     private $ru;
+
+    /**
+     * @var BankAccountIban|null
+     */
+    private $iban;
 
     /**
      * BankAccountPaymentMethod constructor.
