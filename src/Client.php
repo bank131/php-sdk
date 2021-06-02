@@ -9,10 +9,9 @@ use Bank131\SDK\API\SessionApi;
 use Bank131\SDK\API\WalletApi;
 use Bank131\SDK\API\WidgetApi;
 use Bank131\SDK\Exception\InvalidArgumentException;
+use Bank131\SDK\Exception\InvalidConfigurationException;
 use Bank131\SDK\Services\Logger\SensitiveDataLoggerDecorator;
 use Bank131\SDK\Services\Middleware\AuthenticateMiddleware;
-use Bank131\SDK\Services\Middleware\ExceptionsHandlerMiddleware;
-use Bank131\SDK\Services\Middleware\LogRequestsMiddleware;
 use Bank131\SDK\Services\Security\SignatureGenerator;
 use Bank131\SDK\Services\Serializer\JsonSerializer;
 use Bank131\SDK\Services\Serializer\SerializerInterface;
@@ -28,7 +27,7 @@ use Psr\Log\NullLogger;
 final class Client implements LoggerAwareInterface
 {
     /**
-     * @var ClientInterface
+     * @var ClientInterface|null
      */
     private $client;
 
@@ -52,14 +51,14 @@ final class Client implements LoggerAwareInterface
      *
      * @psalm-suppress PossiblyNullArgument
      *
-     * @param Config                       $config
+     * @param Config|null                  $config
      * @param ClientInterface|null         $client
      * @param SerializerInterface|null     $serializer
      * @param LoggerInterface|null         $logger
      * @param WebHookHandlerInterface|null $webHookHandler
      */
     public function __construct(
-        Config $config,
+        ?Config $config = null,
         ?ClientInterface $client = null,
         ?SerializerInterface $serializer = null,
         ?LoggerInterface $logger = null,
@@ -68,19 +67,90 @@ final class Client implements LoggerAwareInterface
         $this->serializer = $serializer ?? new JsonSerializer();
         $this->setLogger($logger ?? new NullLogger());
 
-        $this->client = $client ?? $this->createHttpClient($config, $this->serializer, $this->logger);
+        if ($client !== null) {
+            $this->client = $client;
+        } elseif ($config !== null) {
+            $this->client = HttpClientFactory::create($this->serializer, $this->logger, [], $config);
+        } else {
+            $this->client = null;
+        }
+
         $this->webHookHandler = $webHookHandler;
 
-        if (!$this->webHookHandler && $config->hasBank131PublicKey()) {
+        if (!$this->webHookHandler && $config && $config->hasBank131PublicKey()) {
             $this->webHookHandler = WebHookHandlerFactory::create($config->getBank131PublicKey(), $this->serializer);
         }
     }
 
     /**
+     * @psalm-suppress PossiblyNullArgument
+     *
+     * @param Config $config
+     *
+     * @return $this
+     */
+    public function withConfig(Config $config): self
+    {
+        if ($this->client !== null) {
+            /** @var array $httpClientConfig */
+            $httpClientConfig = $this->client->getConfig();
+
+            $httpClientConfig['base_uri']         = $config->getUri();
+            $httpClientConfig['timeout']          = $config->getTimeout();
+            $httpClientConfig['connect_timeout']  = $config->getConnectTimeout();
+
+            /** @var HandlerStack|null $handlerStack */
+            $handlerStack = $this->client->getConfig('handler');
+
+            if ($handlerStack instanceof HandlerStack) {
+                $clonedStack = clone $handlerStack;
+
+                $clonedStack->remove(AuthenticateMiddleware::class);
+                $clonedStack->push(
+                    new AuthenticateMiddleware(
+                        $config->getProjectId(),
+                        new SignatureGenerator($config->getPrivateKey())
+                    ),
+                    AuthenticateMiddleware::class
+                );
+
+                $httpClientConfig['handler']  = $clonedStack;
+            }
+
+            $httpClient = new \GuzzleHttp\Client($httpClientConfig);
+        } else {
+            $httpClient = HttpClientFactory::create($this->serializer, $this->logger, [], $config);
+        }
+
+        $clone = clone $this;
+
+        if (!$clone->webHookHandler && $config->hasBank131PublicKey()) {
+            $clone->webHookHandler = WebHookHandlerFactory::create($config->getBank131PublicKey(), $clone->serializer);
+        }
+
+        $clone->client = $httpClient;
+
+        return $clone;
+    }
+
+    /**
      * @return ClientInterface
+     * @throws InvalidConfigurationException
      */
     public function getHttpClient(): ClientInterface
     {
+        if ($this->client === null) {
+            throw new InvalidConfigurationException(
+                sprintf(
+                    'HTTP client has not been instantiated.
+                    You should pass a `%s` object as the first argument or an instance of the `%s` interface as the second argument when instantiating `%s` object',
+                    Config::class,
+                    ClientInterface::class,
+                    self::class
+                )
+            );
+        }
+
         return $this->client;
     }
 
@@ -134,7 +204,6 @@ final class Client implements LoggerAwareInterface
         return new WidgetApi($this);
     }
 
-
     /**
      * @return WalletApi
      */
@@ -149,42 +218,5 @@ final class Client implements LoggerAwareInterface
     public function recurrent(): RecurrentApi
     {
         return new RecurrentApi($this);
-    }
-
-    /**
-     * @param Config              $config
-     * @param SerializerInterface $serializer
-     * @param LoggerInterface     $logger
-     *
-     * @return ClientInterface
-     */
-    private function createHttpClient(
-        Config $config,
-        SerializerInterface $serializer,
-        LoggerInterface $logger
-    ): ClientInterface {
-        $stack = HandlerStack::create();
-
-        $stack->remove('http_errors');
-        $stack->push(
-            new AuthenticateMiddleware(
-                $config->getProjectId(),
-                new SignatureGenerator($config->getPrivateKey())
-            )
-        );
-        $stack->push(new ExceptionsHandlerMiddleware($serializer));
-        $stack->push(new LogRequestsMiddleware($logger));
-
-        $client = new \GuzzleHttp\Client([
-            'base_uri' => $config->getUri(),
-            'headers'  => [
-                'Accept' => 'application/json',
-                'Content-Type' => 'application/json',
-                'X-SDK-VERSION' => Version::getVersion(),
-            ],
-            'handler' => $stack
-        ]);
-
-        return $client;
     }
 }
