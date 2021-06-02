@@ -85,7 +85,7 @@ final class JsonSerializer implements SerializerInterface
                     $normalized = $this->normalizeIterable($value);
                     break;
                 case $value instanceof DateTimeInterface:
-                    $normalized = $value->format(DateTime::ATOM);
+                    $normalized = $value->format(DateTimeInterface::ATOM);
                     break;
                 default:
                     $normalized = $this->normalize($value);
