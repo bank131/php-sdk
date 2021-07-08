@@ -13,4 +13,6 @@ class PaymentMethodEnum
     public const BANK_ACCOUNT = 'bank_account';
 
     public const RECURRENT = 'recurrent';
+
+    public const SECURED_CARD = 'secured_card';
 }

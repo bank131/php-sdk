@@ -9,7 +9,9 @@ use Bank131\SDK\DTO\Card\AbstractCard;
 use Bank131\SDK\DTO\PaymentDetails;
 use Bank131\SDK\DTO\PaymentMethod\CardPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\RecurrentPaymentMethod;
+use Bank131\SDK\DTO\PaymentMethod\SecuredCardPaymentMethod;
 use Bank131\SDK\DTO\PaymentOptions;
+use Bank131\SDK\DTO\SecuredCard\AbstractSecuredCard;
 
 abstract class AbstractPaymentSessionRequestBuilder extends AbstractSessionRequestBuilder
 {
@@ -60,6 +62,22 @@ abstract class AbstractPaymentSessionRequestBuilder extends AbstractSessionReque
     {
         $paymentDetails = new PaymentDetails(
             new RecurrentPaymentMethod($token)
+        );
+
+        $this->paymentDetails = $paymentDetails;
+
+        return $this;
+    }
+
+    /**
+     * @param AbstractSecuredCard $securedCard
+     *
+     * @return $this
+     */
+    public function setSecuredCard(AbstractSecuredCard $securedCard): self
+    {
+        $paymentDetails = new PaymentDetails(
+            new SecuredCardPaymentMethod($securedCard)
         );
 
         $this->paymentDetails = $paymentDetails;

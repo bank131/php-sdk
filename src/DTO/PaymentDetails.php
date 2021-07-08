@@ -7,6 +7,8 @@ namespace Bank131\SDK\DTO;
 use Bank131\SDK\DTO\PaymentMethod\BankAccountPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\CardPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\PaymentMethod;
+use Bank131\SDK\DTO\PaymentMethod\RecurrentPaymentMethod;
+use Bank131\SDK\DTO\PaymentMethod\SecuredCardPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\WalletPaymentMethod;
 
 class PaymentDetails
@@ -32,9 +34,14 @@ class PaymentDetails
     private $bank_account;
 
     /**
-     * @var
+     * @var RecurrentPaymentMethod|null
      */
     private $recurrent;
+
+    /**
+     * @var SecuredCardPaymentMethod|null
+     */
+    private $secured_card;
 
     /**
      * PaymentDetails constructor.
@@ -61,5 +68,25 @@ class PaymentDetails
     public function getCard(): ?CardPaymentMethod
     {
         return $this->card;
+    }
+
+    public function getWallet(): ?WalletPaymentMethod
+    {
+        return $this->wallet;
+    }
+
+    public function getBankAccount(): ?BankAccountPaymentMethod
+    {
+        return $this->bank_account;
+    }
+
+    public function getRecurrent(): ?RecurrentPaymentMethod
+    {
+        return $this->recurrent;
+    }
+
+    public function getSecuredCard(): ?SecuredCardPaymentMethod
+    {
+        return $this->secured_card;
     }
 }
