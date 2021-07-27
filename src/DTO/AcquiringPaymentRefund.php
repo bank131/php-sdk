@@ -35,6 +35,11 @@ class AcquiringPaymentRefund
     private $amount_details;
 
     /**
+     * @var mixed
+     */
+    private $metadata;
+
+    /**
      * @return string
      */
     public function getId(): string
@@ -104,5 +109,13 @@ class AcquiringPaymentRefund
     public function isFailed(): bool
     {
         return $this->status === AcquiringPaymentRefundStatusEnum::ERROR;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMetadata()
+    {
+        return $this->metadata;
     }
 }
