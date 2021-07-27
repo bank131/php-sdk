@@ -583,7 +583,8 @@ class SessionApiTest extends AbstractApiTest
                                 "amount_details"=> [
                                     "amount" => $refundAmount = 10000,
                                     "currency"=> $refundCurrency ="rub"
-                                ]
+                                ],
+                                "metadata" => $metadata
                             ]
                         ]
                     ]
@@ -634,6 +635,7 @@ class SessionApiTest extends AbstractApiTest
         $this->assertEquals(new DateTimeImmutable($refundCreatedAt), $refund->getCreatedAt());
         $this->assertEquals($refundAmount, $refund->getAmountDetails()->getAmount());
         $this->assertEquals($refundCurrency, $refund->getAmountDetails()->getCurrency());
+        $this->assertEquals($metadata, $refund->getMetadata());
     }
 
     public function testSessionConfirm(): void
