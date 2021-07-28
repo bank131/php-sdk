@@ -88,6 +88,11 @@ class AcquiringPayment
     private $metadata;
 
     /**
+     * @var Subscription|null
+     */
+    private $subscription;
+
+    /**
      * @var Error|null
      */
     private $error;
@@ -210,6 +215,14 @@ class AcquiringPayment
     public function getMetadata()
     {
         return $this->metadata;
+    }
+
+    /**
+     * @return Subscription|null
+     */
+    public function getSubscription(): ?Subscription
+    {
+        return $this->subscription;
     }
 
     /**

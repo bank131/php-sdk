@@ -19,6 +19,11 @@ class PaymentOptions
     private $recurrent;
 
     /**
+     * @var Subscription|null
+     */
+    private $subscription;
+
+    /**
      * @param string $returnUrl
      */
     public function setReturnUrl(string $returnUrl): void
@@ -60,5 +65,21 @@ class PaymentOptions
     public function isRecurrent(): bool
     {
         return $this->recurrent === true;
+    }
+
+    /**
+     * @return Subscription|null
+     */
+    public function getSubscription(): ?Subscription
+    {
+        return $this->subscription;
+    }
+
+    /**
+     * @param Subscription|null $subscription
+     */
+    public function setSubscription(Subscription $subscription): void
+    {
+        $this->subscription = $subscription;
     }
 }
