@@ -16,6 +16,11 @@ class Subscription
     private $period;
 
     /**
+     * @var bool|null
+     */
+    private $initial;
+
+    /**
      * Subscription constructor.
      *
      * @param string $period
@@ -39,5 +44,15 @@ class Subscription
     public function getPeriod(): string
     {
         return $this->period;
+    }
+
+    public function getInitial(): ?bool
+    {
+        return $this->initial;
+    }
+
+    public function isInitial(): bool
+    {
+        return $this->initial === true;
     }
 }
