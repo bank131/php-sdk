@@ -76,10 +76,15 @@ class PaymentOptions
     }
 
     /**
-     * @param Subscription|null $subscription
+     * @param Subscription $subscription
      */
     public function setSubscription(Subscription $subscription): void
     {
         $this->subscription = $subscription;
+    }
+
+    public function isInitiatedBySubscription(): bool
+    {
+        return $this->subscription && $this->subscription->isNotInitial();
     }
 }

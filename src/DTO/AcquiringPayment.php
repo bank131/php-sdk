@@ -264,4 +264,9 @@ class AcquiringPayment
     {
         return $this->status === AcquiringPaymentStatusEnum::FAILED;
     }
+
+    public function isInitiatedBySubscription(): bool
+    {
+        return $this->payment_options && $this->payment_options->isInitiatedBySubscription();
+    }
 }

@@ -55,4 +55,9 @@ class Subscription
     {
         return $this->initial === true;
     }
+
+    public function isNotInitial(): bool
+    {
+        return $this->initial === false;
+    }
 }
