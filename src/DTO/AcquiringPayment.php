@@ -88,6 +88,11 @@ class AcquiringPayment
     private $metadata;
 
     /**
+     * @var Subscription|null
+     */
+    private $subscription;
+
+    /**
      * @var Error|null
      */
     private $error;
@@ -213,6 +218,14 @@ class AcquiringPayment
     }
 
     /**
+     * @return Subscription|null
+     */
+    public function getSubscription(): ?Subscription
+    {
+        return $this->subscription;
+    }
+
+    /**
      * @return Error|null
      */
     public function getError(): ?Error
@@ -250,5 +263,10 @@ class AcquiringPayment
     public function isFailed(): bool
     {
         return $this->status === AcquiringPaymentStatusEnum::FAILED;
+    }
+
+    public function isInitiatedBySubscription(): bool
+    {
+        return $this->payment_options && $this->payment_options->isInitiatedBySubscription();
     }
 }
