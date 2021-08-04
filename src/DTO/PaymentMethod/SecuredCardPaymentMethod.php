@@ -6,6 +6,7 @@ namespace Bank131\SDK\DTO\PaymentMethod;
 
 use Bank131\SDK\DTO\PaymentMethod\Enum\PaymentMethodEnum;
 use Bank131\SDK\DTO\SecuredCard\AbstractSecuredCard;
+use Bank131\SDK\DTO\SecuredCard\ApplePaySecuredCard;
 use Bank131\SDK\DTO\SecuredCard\GooglePaySecuredCard;
 use Bank131\SDK\Exception\InvalidArgumentException;
 
@@ -20,6 +21,11 @@ class SecuredCardPaymentMethod extends PaymentMethod
      * @var GooglePaySecuredCard|null
      */
     private $google_pay;
+
+    /**
+     * @var ApplePaySecuredCard|null
+     */
+    private $apple_pay;
 
     /**
      * SecuredCardPaymentMethod constructor.
@@ -47,5 +53,10 @@ class SecuredCardPaymentMethod extends PaymentMethod
     public function getGooglePay(): ?GooglePaySecuredCard
     {
         return $this->google_pay;
+    }
+
+    public function getApplePay(): ?ApplePaySecuredCard
+    {
+        return $this->apple_pay;
     }
 }
