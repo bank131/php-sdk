@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Bank131\SDK\DTO;
 
+use DateTimeImmutable;
+
 class Subscription
 {
     /**
@@ -19,6 +21,16 @@ class Subscription
      * @var bool|null
      */
     private $initial;
+
+    /**
+     * @var DateTimeImmutable|null
+     */
+    private $next_point;
+
+    /**
+     * @var bool|null
+     */
+    private $retries_exceeded;
 
     /**
      * Subscription constructor.
@@ -59,5 +71,15 @@ class Subscription
     public function isNotInitial(): bool
     {
         return $this->initial === false;
+    }
+
+    public function getNextPoint(): ?DateTimeImmutable
+    {
+        return $this->next_point;
+    }
+
+    public function getRetriesExceeded(): ?bool
+    {
+        return $this->retries_exceeded;
     }
 }
