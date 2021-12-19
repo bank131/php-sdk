@@ -15,4 +15,6 @@ class PaymentMethodEnum
     public const RECURRENT = 'recurrent';
 
     public const SECURED_CARD = 'secured_card';
+
+    public const CRYPTO_WALLET = 'crypto_wallet';
 }
