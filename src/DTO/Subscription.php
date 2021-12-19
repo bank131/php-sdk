@@ -33,6 +33,16 @@ class Subscription
     private $retries_exceeded;
 
     /**
+     * @var string|null
+     */
+    private $unsubscribe_url;
+
+    /**
+     * @var string|null
+     */
+    private $provider_subscription_id;
+
+    /**
      * Subscription constructor.
      *
      * @param string $period
@@ -81,5 +91,15 @@ class Subscription
     public function getRetriesExceeded(): ?bool
     {
         return $this->retries_exceeded;
+    }
+
+    public function getUnsubscribeUrl(): ?string
+    {
+        return $this->unsubscribe_url;
+    }
+
+    public function getProviderSubscriptionId(): ?string
+    {
+        return $this->provider_subscription_id;
     }
 }

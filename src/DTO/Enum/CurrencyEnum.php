@@ -13,4 +13,6 @@ class CurrencyEnum extends BaseEnum
     public const USD = 'usd';
 
     public const EUR = 'eur';
+
+    public const TONC = 'tonc';
 }
