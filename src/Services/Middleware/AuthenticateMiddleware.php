@@ -46,14 +46,11 @@ class AuthenticateMiddleware
     public function __invoke(callable $next): callable
     {
         return function (RequestInterface $request, array $options = []) use ($next) {
-            $authenticatedRequest = modify_request($request, [
-                'set_headers' => [
-                    self::X_PARTNER_PROJECT_HEADER => $this->projectId,
-                    self::X_PARTNER_SIGN_HEADER    => $this->signatureGenerator->generate(
-                        $test = (string) $request->getBody()
-                    )
-                ]
-            ]);
+            $authenticatedRequest = $request
+                ->withHeader(self::X_PARTNER_PROJECT_HEADER, $this->projectId)
+                ->withHeader(self::X_PARTNER_SIGN_HEADER,  $this->signatureGenerator->generate(
+                (string) $request->getBody()
+            ));
 
             return $next($authenticatedRequest, $options);
         };
