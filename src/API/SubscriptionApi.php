@@ -5,7 +5,6 @@ namespace Bank131\SDK\API;
 
 use Bank131\SDK\API\Enum\HttpVerbEnum;
 use Bank131\SDK\API\Request\Subscription\SubscriptionIdRequest;
-use Bank131\SDK\API\Response\Session\SessionResponse;
 use Bank131\SDK\API\Response\Subscription\SubscriptionResponse;
 
 class SubscriptionApi extends AbstractApi
@@ -25,6 +24,26 @@ class SubscriptionApi extends AbstractApi
         $response = $this->request(
             HttpVerbEnum::POST,
             self::BASE_URI . '/cancel',
+            SubscriptionResponse::class,
+            $request
+        );
+
+        return $response;
+    }
+
+    /**
+     * @param string $subscriptionId
+     *
+     * @return SubscriptionResponse
+     */
+    public function restore(string $subscriptionId): SubscriptionResponse
+    {
+        $request = new SubscriptionIdRequest($subscriptionId);
+
+        /** @var SubscriptionResponse $response */
+        $response = $this->request(
+            HttpVerbEnum::POST,
+            self::BASE_URI . '/restore',
             SubscriptionResponse::class,
             $request
         );
