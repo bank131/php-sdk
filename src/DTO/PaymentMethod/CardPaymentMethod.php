@@ -44,6 +44,11 @@ class CardPaymentMethod extends PaymentMethod
     private $last4;
 
     /**
+     * @var string|null
+     */
+    private $country_iso3;
+
+    /**
      * CardPaymentMethod constructor.
      *
      * @param AbstractCard $card
@@ -80,5 +85,10 @@ class CardPaymentMethod extends PaymentMethod
     public function getType(): string
     {
         return PaymentMethodEnum::CARD;
+    }
+
+    public function getCountryIso3(): ?string
+    {
+        return $this->country_iso3;
     }
 }
