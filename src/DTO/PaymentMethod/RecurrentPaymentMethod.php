@@ -14,13 +14,20 @@ class RecurrentPaymentMethod extends PaymentMethod
     private $token;
 
     /**
+     * @var string|null
+     */
+    private $initiator;
+
+    /**
      * RecurrentPaymentMethod constructor.
      *
-     * @param string $token
+     * @param string      $token
+     * @param string|null $initiator
      */
-    public function __construct(string $token)
+    public function __construct(string $token, ?string $initiator = null)
     {
-        $this->token = $token;
+        $this->token     = $token;
+        $this->initiator = $initiator;
     }
 
     /**
@@ -37,5 +44,10 @@ class RecurrentPaymentMethod extends PaymentMethod
     public function getType(): string
     {
         return PaymentMethodEnum::RECURRENT;
+    }
+
+    public function getInitiator(): ?string
+    {
+        return $this->initiator;
     }
 }

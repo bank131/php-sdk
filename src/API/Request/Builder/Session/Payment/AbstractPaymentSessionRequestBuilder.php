@@ -56,14 +56,15 @@ abstract class AbstractPaymentSessionRequestBuilder extends AbstractSessionReque
     }
 
     /**
-     * @param string $token
+     * @param string      $token
+     * @param string|null $initiator
      *
      * @return $this
      */
-    public function setRecurrentToken(string $token): self
+    public function setRecurrentToken(string $token, ?string $initiator = null): self
     {
         $paymentDetails = new PaymentDetails(
-            new RecurrentPaymentMethod($token)
+            new RecurrentPaymentMethod($token, $initiator)
         );
 
         $this->paymentDetails = $paymentDetails;
