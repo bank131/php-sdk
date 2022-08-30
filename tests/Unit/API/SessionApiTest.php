@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bank131\SDK\Tests\Unit\API;
 
+use Bank131\SDK\API\Request\Session\ChargebackPaymentSessionRequest;
 use Bank131\SDK\API\Request\Session\CreateSessionRequest;
 use Bank131\SDK\API\Request\Session\InitPaymentSessionRequest;
 use Bank131\SDK\API\Request\Session\InitPayoutSessionRequest;
@@ -636,6 +637,77 @@ class SessionApiTest extends AbstractApiTest
         $this->assertEquals($refundAmount, $refund->getAmountDetails()->getAmount());
         $this->assertEquals($refundCurrency, $refund->getAmountDetails()->getCurrency());
         $this->assertEquals($metadata, $refund->getMetadata());
+    }
+
+    public function testSessionChargeback(): void
+    {
+        $expectedResponseBody = [
+            'status' => $status = 'ok',
+            'session' => [
+                'id' => $sessionId ='test_ps_1',
+                'status' => $sessionStatus = 'in_progress',
+                'created_at' => $sessionCreatedAt = '2022-08-15T07:01:37.499907Z',
+                'updated_at' => $sessionUpdatedAt = '2022-08-15T07:01:37.499907Z',
+                'acquiring_payments' => [
+                    [
+                        'id' => $paymentId = 'test_pm_1',
+                        'status' => 'in_progress',
+                        'created_at' => '2022-08-15T07:01:37.499907Z',
+                        'customer' => [
+                            'reference' => $customerReference = 'lucky'
+                        ],
+                        'payment_details'=> [
+                            'type' => 'card',
+                            'card' => [
+                                'brand' => 'visa',
+                                'last4' => '4242'
+                            ]
+                        ],
+                        'amount_details'=> [
+                            'amount' => $amountValue = 10000,
+                            'currency' => $amountCurrency = 'rub'
+                        ],
+                        'metadata' => $metadata = '{"key":"value"}',
+                        'payment_options' => [
+                            'return_url' => $returnUrl = 'http=>//bank131.ru'
+                        ],
+                    ]
+                ]
+            ],
+        ];
+
+        $client = $this->createClientWithMockResponse([
+            new Response(200, [], json_encode($expectedResponseBody))
+        ]);
+
+        $sessionResponse = $client->session()->chargeback(
+            $this->createMock(ChargebackPaymentSessionRequest::class)
+        );
+
+        $this->assertEquals($sessionResponse->getStatus(), $status);
+
+        $this->assertNotNull($session = $sessionResponse->getSession());
+
+        $this->assertEquals($sessionId, $session->getId());
+        $this->assertEquals($sessionStatus, $session->getStatus());
+        $this->assertEquals(new DateTimeImmutable($sessionCreatedAt), $session->getCreatedAt());
+        $this->assertEquals(new DateTimeImmutable($sessionUpdatedAt), $session->getUpdatedAt());
+
+        $this->assertIsIterable($session->getAcquiringPayments());
+        $this->assertCount(1, $session->getAcquiringPayments());
+
+        /** @var AcquiringPayment $acquiringPayment */
+        $acquiringPayment = $session->getAcquiringPayments()[0];
+
+        $this->assertNotNull($acquiringPayment->getId());
+        $this->assertNotNull($acquiringPayment->getStatus());
+        $this->assertNotNull($acquiringPayment->getCreatedAt());
+        $this->assertEquals($paymentId, $acquiringPayment->getId());
+        $this->assertEquals($customerReference, $acquiringPayment->getCustomer()->getReference());
+        $this->assertEquals($amountValue, $acquiringPayment->getAmountDetails()->getAmount());
+        $this->assertEquals($amountCurrency, $acquiringPayment->getAmountDetails()->getCurrency());
+        $this->assertEquals($metadata, $acquiringPayment->getMetadata());
+        $this->assertEquals($returnUrl, $acquiringPayment->getPaymentOptions()->getReturnUrl());
     }
 
     public function testSessionConfirm(): void

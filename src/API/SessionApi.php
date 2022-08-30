@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bank131\SDK\API;
 
 use Bank131\SDK\API\Enum\HttpVerbEnum;
+use Bank131\SDK\API\Request\Session\ChargebackPaymentSessionRequest;
 use Bank131\SDK\API\Request\Session\CreateSessionRequest;
 use Bank131\SDK\API\Request\Session\InitPaymentSessionRequest;
 use Bank131\SDK\API\Request\Session\InitPayoutSessionRequest;
@@ -157,6 +158,19 @@ class SessionApi extends AbstractApi
         $response = $this->request(
             HttpVerbEnum::POST,
             self::BASE_URI . '/refund',
+            SessionResponse::class,
+            $request
+        );
+
+        return $response;
+    }
+
+    public function chargeback(ChargebackPaymentSessionRequest $request): SessionResponse
+    {
+        /** @var SessionResponse $response */
+        $response = $this->request(
+            HttpVerbEnum::POST,
+            self::BASE_URI . '/chargeback',
             SessionResponse::class,
             $request
         );
