@@ -40,6 +40,11 @@ class AcquiringPaymentRefund
     private $metadata;
 
     /**
+     * @var boolean|null
+     */
+    private $is_chargeback;
+
+    /**
      * @return string
      */
     public function getId(): string
@@ -117,5 +122,10 @@ class AcquiringPaymentRefund
     public function getMetadata()
     {
         return $this->metadata;
+    }
+
+    public function getIsChargeback(): bool
+    {
+        return $this->is_chargeback === true;
     }
 }

@@ -637,6 +637,7 @@ class SessionApiTest extends AbstractApiTest
         $this->assertEquals($refundAmount, $refund->getAmountDetails()->getAmount());
         $this->assertEquals($refundCurrency, $refund->getAmountDetails()->getCurrency());
         $this->assertEquals($metadata, $refund->getMetadata());
+        $this->assertFalse($refund->getIsChargeback());
     }
 
     public function testSessionChargeback(): void
@@ -671,6 +672,19 @@ class SessionApiTest extends AbstractApiTest
                         'payment_options' => [
                             'return_url' => $returnUrl = 'http=>//bank131.ru'
                         ],
+                        'refunds' => [
+                            [
+                                'id' => $refundId = 'rf_101',
+                                'status' => $refundStatus = 'in_progress',
+                                'created_at' => $refundCreatedAt = "2022-08-15T08:01:12.234932Z",
+                                'amount_details' => [
+                                    'amount' => $refundAmount = 10000,
+                                    'currency' => $refundCurrency = 'rub'
+                                ],
+                                'metadata' => $metadata,
+                                'is_chargeback' => true,
+                            ]
+                        ]
                     ]
                 ]
             ],
@@ -708,6 +722,20 @@ class SessionApiTest extends AbstractApiTest
         $this->assertEquals($amountCurrency, $acquiringPayment->getAmountDetails()->getCurrency());
         $this->assertEquals($metadata, $acquiringPayment->getMetadata());
         $this->assertEquals($returnUrl, $acquiringPayment->getPaymentOptions()->getReturnUrl());
+
+        $this->assertIsIterable($acquiringPayment->getRefunds());
+        $this->assertCount(1, $acquiringPayment->getRefunds());
+
+        /** @var AcquiringPaymentRefund $refund */
+        $refund = $acquiringPayment->getRefunds()[0];
+
+        $this->assertTrue($refund->isInProgress());
+        $this->assertEquals($refundId, $refund->getId());
+        $this->assertEquals(new DateTimeImmutable($refundCreatedAt), $refund->getCreatedAt());
+        $this->assertEquals($refundAmount, $refund->getAmountDetails()->getAmount());
+        $this->assertEquals($refundCurrency, $refund->getAmountDetails()->getCurrency());
+        $this->assertEquals($metadata, $refund->getMetadata());
+        $this->assertTrue($refund->getIsChargeback());
     }
 
     public function testSessionConfirm(): void
