@@ -85,6 +85,7 @@ abstract class AbstractCollection implements Countable, ArrayAccess, Iterator, J
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->elements[$this->current];
@@ -145,6 +146,7 @@ abstract class AbstractCollection implements Countable, ArrayAccess, Iterator, J
      *
      * @return mixed|null
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->elements[$offset] ?? null;
