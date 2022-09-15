@@ -85,6 +85,7 @@ abstract class AbstractCollection implements Countable, ArrayAccess, Iterator, J
      *
      * @return mixed
      */
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->elements[$this->current];
@@ -133,6 +134,7 @@ abstract class AbstractCollection implements Countable, ArrayAccess, Iterator, J
      *
      * @return bool
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset): bool
     {
         return isset($this->elements[$offset]);
@@ -141,10 +143,11 @@ abstract class AbstractCollection implements Countable, ArrayAccess, Iterator, J
     /**
      * @internal
      *
-     * @param int|string $offset
+     * @param int|mixed $offset
      *
      * @return mixed|null
      */
+    #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
         return $this->elements[$offset] ?? null;
@@ -156,6 +159,7 @@ abstract class AbstractCollection implements Countable, ArrayAccess, Iterator, J
      * @param mixed $offset
      * @param mixed $value
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value): void
     {
         $this->addElement($value);
@@ -166,6 +170,7 @@ abstract class AbstractCollection implements Countable, ArrayAccess, Iterator, J
      *
      * @param int|string $offset
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset): void
     {
         unset($this->elements[$offset]);
@@ -177,6 +182,7 @@ abstract class AbstractCollection implements Countable, ArrayAccess, Iterator, J
      *
      * @return int
      */
+    #[\ReturnTypeWillChange]
     public function count(): int
     {
         return $this->count;
@@ -195,6 +201,7 @@ abstract class AbstractCollection implements Countable, ArrayAccess, Iterator, J
     /**
      * @return array
      */
+    #[\ReturnTypeWillChange]
     public function jsonSerialize(): array
     {
         return $this->elements;

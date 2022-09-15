@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Bank131\SDK\Services\Middleware;
 
 use Bank131\SDK\Services\Security\SignatureGenerator;
+use GuzzleHttp\Psr7\Utils;
 use Psr\Http\Message\RequestInterface;
-use function GuzzleHttp\Psr7\modify_request;
 
 class AuthenticateMiddleware
 {
@@ -46,7 +46,7 @@ class AuthenticateMiddleware
     public function __invoke(callable $next): callable
     {
         return function (RequestInterface $request, array $options = []) use ($next) {
-            $authenticatedRequest = modify_request($request, [
+            $authenticatedRequest = Utils::modifyRequest($request, [
                 'set_headers' => [
                     self::X_PARTNER_PROJECT_HEADER => $this->projectId,
                     self::X_PARTNER_SIGN_HEADER    => $this->signatureGenerator->generate(
