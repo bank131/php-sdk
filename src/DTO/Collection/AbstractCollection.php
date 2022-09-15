@@ -130,7 +130,7 @@ abstract class AbstractCollection implements Countable, ArrayAccess, Iterator, J
     /**
      * @internal
      *
-     * @param int|string $offset
+     * @param mixed $offset
      *
      * @return bool
      */
@@ -143,7 +143,7 @@ abstract class AbstractCollection implements Countable, ArrayAccess, Iterator, J
     /**
      * @internal
      *
-     * @param int|mixed $offset
+     * @param mixed $offset
      *
      * @return mixed|null
      */
@@ -168,7 +168,7 @@ abstract class AbstractCollection implements Countable, ArrayAccess, Iterator, J
     /**
      * @internal
      *
-     * @param int|string $offset
+     * @param mixed $offset
      */
     #[\ReturnTypeWillChange]
     public function offsetUnset($offset): void
