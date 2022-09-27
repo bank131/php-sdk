@@ -79,6 +79,71 @@ class Participant
     protected $ipv6;
 
     /**
+     * @var string|null
+     */
+    protected $state;
+
+    /**
+     * @var string|null
+     */
+    protected $document;
+
+    /**
+     * @var string|null
+     */
+    protected $account;
+
+    /**
+     * @var string|null
+     */
+    protected $currency;
+
+    /**
+     * @var string|null
+     */
+    protected $bank_name;
+
+    /**
+     * @var string|null
+     */
+    protected $registration_number;
+
+    /**
+     * @var string|null
+     */
+    protected $date_of_incorporation;
+
+    /**
+     * @var string|null
+     */
+    protected $msisdn;
+
+    /**
+     * @var string|null
+     */
+    protected $email;
+
+    /**
+     * @var string|null
+     */
+    protected $code;
+
+    /**
+     * @var string|null
+     */
+    protected $swift_bic_code;
+
+    /**
+     * @var string|null
+     */
+    protected $description;
+
+    /**
+     * @var IdentityDocument|null
+     */
+    protected $identity_document;
+
+    /**
      * @return string|null
      */
     public function getFullName(): ?string
@@ -314,5 +379,135 @@ class Participant
     {
         return $this->full_name !== null
             || ($this->first_name !== null && $this->last_name !== null);
+    }
+
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    public function setState(?string $state): void
+    {
+        $this->state = $state;
+    }
+
+    public function getDocument(): ?string
+    {
+        return $this->document;
+    }
+
+    public function setDocument(?string $document): void
+    {
+        $this->document = $document;
+    }
+
+    public function getAccount(): ?string
+    {
+        return $this->account;
+    }
+
+    public function setAccount(?string $account): void
+    {
+        $this->account = $account;
+    }
+
+    public function getCurrency(): ?string
+    {
+        return $this->currency;
+    }
+
+    public function setCurrency(?string $currency): void
+    {
+        $this->currency = $currency;
+    }
+
+    public function getBankName(): ?string
+    {
+        return $this->bank_name;
+    }
+
+    public function setBankName(?string $bank_name): void
+    {
+        $this->bank_name = $bank_name;
+    }
+
+    public function getRegistrationNumber(): ?string
+    {
+        return $this->registration_number;
+    }
+
+    public function setRegistrationNumber(?string $registration_number): void
+    {
+        $this->registration_number = $registration_number;
+    }
+
+    public function getDateOfIncorporation(): ?string
+    {
+        return $this->date_of_incorporation;
+    }
+
+    public function setDateOfIncorporation(?string $date_of_incorporation): void
+    {
+        $this->date_of_incorporation = $date_of_incorporation;
+    }
+
+    public function getIdentityDocument(): ?IdentityDocument
+    {
+        return $this->identity_document;
+    }
+
+    public function setIdentityDocument(?IdentityDocument $identity_document): void
+    {
+        $this->identity_document = $identity_document;
+    }
+
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(?string $description): void
+    {
+        $this->description = $description;
+    }
+
+    public function getSwiftBicCode(): ?string
+    {
+        return $this->swift_bic_code;
+    }
+
+    public function setSwiftBicCode(?string $swift_bic_code): void
+    {
+        $this->swift_bic_code = $swift_bic_code;
+    }
+
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    public function setCode(?string $code): void
+    {
+        $this->code = $code;
+    }
+
+    public function getEmail(): ?string
+    {
+        return $this->email;
+    }
+
+    public function setEmail(?string $email): void
+    {
+        $this->email = $email;
+    }
+
+    public function getMsisdn(): ?string
+    {
+        return $this->msisdn;
+    }
+
+    public function setMsisdn(?string $msisdn): void
+    {
+        $this->msisdn = $msisdn;
     }
 }

@@ -122,7 +122,8 @@ class SessionApiTest extends AbstractApiTest
                         ],
                         "participant_details"=> [
                             "recipient"=> [
-                                "full_name"=> $recipientFullName = "John Doe"
+                                "full_name"=> $recipientFullName = "John Doe",
+                                "document"=> $recipientDocument = "1234567890",
                             ]
                         ]
                     ]
@@ -162,6 +163,7 @@ class SessionApiTest extends AbstractApiTest
         $this->assertEquals($cardBrand, $payout->getPaymentMethod()->getCard()->getBrand());
         $this->assertEquals($cardLast4, $payout->getPaymentMethod()->getCard()->getLast4());
         $this->assertEquals($recipientFullName, $payout->getParticipantDetails()->getRecipient()->getFullName());
+        $this->assertEquals($recipientDocument, $payout->getParticipantDetails()->getRecipient()->getDocument());
     }
 
     public function testInitPayoutSessionWithFiscalization(): void
