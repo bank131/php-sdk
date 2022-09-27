@@ -45,6 +45,11 @@ class AcquiringPaymentRefund
     private $is_chargeback;
 
     /**
+     * @var Amounts
+     */
+    private $amounts;
+
+    /**
      * @return string
      */
     public function getId(): string
@@ -127,5 +132,13 @@ class AcquiringPaymentRefund
     public function getIsChargeback(): bool
     {
         return $this->is_chargeback === true;
+    }
+
+    /**
+     * @return Amounts
+     */
+    public function getAmounts(): Amounts
+    {
+        return $this->amounts;
     }
 }
