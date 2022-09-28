@@ -71,6 +71,11 @@ class Participant
     /**
      * @var string|null
      */
+    protected $building;
+
+    /**
+     * @var string|null
+     */
     protected $ipv4;
 
     /**
@@ -509,5 +514,15 @@ class Participant
     public function setMsisdn(?string $msisdn): void
     {
         $this->msisdn = $msisdn;
+    }
+
+    public function getBuilding(): ?string
+    {
+        return $this->building;
+    }
+
+    public function setBuilding(?string $building): void
+    {
+        $this->building = $building;
     }
 }
