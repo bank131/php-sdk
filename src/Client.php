@@ -7,6 +7,7 @@ namespace Bank131\SDK;
 use Bank131\SDK\API\RecurrentApi;
 use Bank131\SDK\API\SessionApi;
 use Bank131\SDK\API\SubscriptionApi;
+use Bank131\SDK\API\TokenApi;
 use Bank131\SDK\API\WalletApi;
 use Bank131\SDK\API\WidgetApi;
 use Bank131\SDK\Exception\InvalidArgumentException;
@@ -227,5 +228,13 @@ final class Client implements LoggerAwareInterface
     public function subscription(): SubscriptionApi
     {
         return new SubscriptionApi($this);
+    }
+
+    /**
+     * @return TokenApi
+     */
+    public function token(): TokenApi
+    {
+        return new TokenApi($this);
     }
 }
