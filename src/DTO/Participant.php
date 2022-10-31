@@ -46,6 +46,11 @@ class Participant
     /**
      * @var string|null
      */
+    protected $beneficiary_id;
+
+    /**
+     * @var string|null
+     */
     protected $country_iso2;
 
     /**
@@ -207,6 +212,14 @@ class Participant
     /**
      * @return string|null
      */
+    public function getBeneficiaryId(): ?string
+    {
+        return $this->beneficiary_id;
+    }
+
+    /**
+     * @return string|null
+     */
     public function getCountryIso2(): ?string
     {
         return $this->country_iso2;
@@ -314,6 +327,14 @@ class Participant
     public function setTaxReference(string $tax_reference): void
     {
         $this->tax_reference = $tax_reference;
+    }
+
+    /**
+     * @param  string  $beneficiary_id
+     */
+    public function setBeneficiaryId(string $beneficiary_id): void
+    {
+        $this->beneficiary_id = $beneficiary_id;
     }
 
     /**
