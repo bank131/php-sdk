@@ -9,6 +9,7 @@ use Bank131\SDK\DTO\Amount;
 use Bank131\SDK\DTO\Customer;
 use Bank131\SDK\DTO\Participant;
 use Bank131\SDK\DTO\ParticipantDetails;
+use Bank131\SDK\DTO\TransactionSplit\TransactionSplitInfo;
 
 abstract class AbstractSessionRequestBuilder extends AbstractBuilder
 {
@@ -31,6 +32,11 @@ abstract class AbstractSessionRequestBuilder extends AbstractBuilder
      * @var mixed
      */
     protected $metadata;
+
+    /**
+     * @var TransactionSplitInfo|null
+     */
+    protected $transactionSplitInfo;
 
     /**
      * @param int    $value
@@ -105,5 +111,12 @@ abstract class AbstractSessionRequestBuilder extends AbstractBuilder
         }
 
         return $this->participantDetails;
+    }
+
+    public function setTransactionSplitInfo(TransactionSplitInfo $transactionSplitInfo): self
+    {
+        $this->transactionSplitInfo = $transactionSplitInfo;
+
+        return $this;
     }
 }
