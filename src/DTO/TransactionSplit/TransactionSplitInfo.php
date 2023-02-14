@@ -12,10 +12,10 @@ class TransactionSplitInfo
     private $revenue_split_info;
 
     /**
-     * @param Recipient[] $revenue_split_info
+     * @param Recipient[] $revenueSplitInfo
      */
-    public function __construct(array $revenue_split_info)
+    public function __construct(array $revenueSplitInfo)
     {
-        $this->revenue_split_info = $revenue_split_info;
+        $this->revenue_split_info = $revenueSplitInfo;
     }
 }
