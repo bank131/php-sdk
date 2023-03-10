@@ -55,8 +55,8 @@ final class StartPaymentSessionRequestBuilder extends AbstractPaymentSessionRequ
             $request->setPaymentOptions($this->paymentOptions);
         }
 
-        if ($this->transactionSplitInfo) {
-            $request->setTransactionSplitInfo($this->transactionSplitInfo);
+        if ($this->revenueSplitInfo) {
+            $request->setRevenueSplitInfo($this->revenueSplitInfo);
         }
 
         return $request;

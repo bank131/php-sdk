@@ -7,7 +7,7 @@ namespace Bank131\SDK\DTO\TransactionSplit;
 class Recipient
 {
     /**
-     * @var RecipientInfo
+     * @var string
      */
     private $contractor_alias;
 

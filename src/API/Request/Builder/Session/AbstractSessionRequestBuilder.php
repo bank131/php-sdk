@@ -9,7 +9,7 @@ use Bank131\SDK\DTO\Amount;
 use Bank131\SDK\DTO\Customer;
 use Bank131\SDK\DTO\Participant;
 use Bank131\SDK\DTO\ParticipantDetails;
-use Bank131\SDK\DTO\TransactionSplit\TransactionSplitInfo;
+use Bank131\SDK\DTO\TransactionSplit\Recipient;
 
 abstract class AbstractSessionRequestBuilder extends AbstractBuilder
 {
@@ -34,9 +34,9 @@ abstract class AbstractSessionRequestBuilder extends AbstractBuilder
     protected $metadata;
 
     /**
-     * @var TransactionSplitInfo|null
+     * @var Recipient[]
      */
-    protected $transactionSplitInfo;
+    protected $revenueSplitInfo = [];
 
     /**
      * @param int    $value
@@ -113,9 +113,9 @@ abstract class AbstractSessionRequestBuilder extends AbstractBuilder
         return $this->participantDetails;
     }
 
-    public function setTransactionSplitInfo(TransactionSplitInfo $transactionSplitInfo): self
+    public function setRevenueSplitInfo(array $revenueSplitInfo): self
     {
-        $this->transactionSplitInfo = $transactionSplitInfo;
+        $this->revenueSplitInfo = $revenueSplitInfo;
 
         return $this;
     }
