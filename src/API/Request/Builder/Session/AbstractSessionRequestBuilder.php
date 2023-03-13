@@ -6,10 +6,10 @@ namespace Bank131\SDK\API\Request\Builder\Session;
 
 use Bank131\SDK\API\Request\Builder\AbstractBuilder;
 use Bank131\SDK\DTO\Amount;
+use Bank131\SDK\DTO\Collection\RevenueSplitInfoCollection;
 use Bank131\SDK\DTO\Customer;
 use Bank131\SDK\DTO\Participant;
 use Bank131\SDK\DTO\ParticipantDetails;
-use Bank131\SDK\DTO\TransactionSplit\Recipient;
 
 abstract class AbstractSessionRequestBuilder extends AbstractBuilder
 {
@@ -34,9 +34,9 @@ abstract class AbstractSessionRequestBuilder extends AbstractBuilder
     protected $metadata;
 
     /**
-     * @var Recipient[]
+     * @var RevenueSplitInfoCollection|null
      */
-    protected $revenueSplitInfo = [];
+    protected $revenueSplitInfo;
 
     /**
      * @param int    $value
@@ -113,7 +113,10 @@ abstract class AbstractSessionRequestBuilder extends AbstractBuilder
         return $this->participantDetails;
     }
 
-    public function setRevenueSplitInfo(array $revenueSplitInfo): self
+    /**
+     * @experimental
+     */
+    public function setRevenueSplitInfo(RevenueSplitInfoCollection $revenueSplitInfo): self
     {
         $this->revenueSplitInfo = $revenueSplitInfo;
 

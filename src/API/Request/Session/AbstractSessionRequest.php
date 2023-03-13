@@ -6,12 +6,12 @@ namespace Bank131\SDK\API\Request\Session;
 
 use Bank131\SDK\API\Request\AbstractRequest;
 use Bank131\SDK\DTO\Amount;
+use Bank131\SDK\DTO\Collection\RevenueSplitInfoCollection;
 use Bank131\SDK\DTO\Customer;
 use Bank131\SDK\DTO\FiscalizationDetails;
 use Bank131\SDK\DTO\ParticipantDetails;
 use Bank131\SDK\DTO\PaymentDetails;
 use Bank131\SDK\DTO\PaymentOptions;
-use Bank131\SDK\DTO\TransactionSplit\Recipient;
 
 abstract class AbstractSessionRequest extends AbstractRequest
 {
@@ -61,9 +61,9 @@ abstract class AbstractSessionRequest extends AbstractRequest
     private $fiscalization_details;
 
     /**
-     * @var Recipient[]
+     * @var RevenueSplitInfoCollection|null
      */
-    private $revenue_split_info = [];
+    private $revenue_split_info;
 
     /**
      * @param mixed $metadata
@@ -139,9 +139,9 @@ abstract class AbstractSessionRequest extends AbstractRequest
     }
 
     /**
-     * @param Recipient[] $revenueSplitInfo
+     * @experimental
      */
-    public function setRevenueSplitInfo(array $revenueSplitInfo): void
+    public function setRevenueSplitInfo(RevenueSplitInfoCollection $revenueSplitInfo): void
     {
         $this->revenue_split_info = $revenueSplitInfo;
     }

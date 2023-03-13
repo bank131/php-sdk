@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bank131\SDK\DTO;
 
 use Bank131\SDK\DTO\Collection\AcquiringPaymentRefundCollection;
+use Bank131\SDK\DTO\Collection\RevenueSplitInfoCollection;
 use Bank131\SDK\DTO\CustomerInteraction\CustomerInteractionContainer;
 use Bank131\SDK\DTO\Enum\AcquiringPaymentStatusEnum;
 use Bank131\SDK\DTO\Recurrent\RecurrentDetails;
@@ -96,6 +97,11 @@ class AcquiringPayment
      * @var Error|null
      */
     private $error;
+
+    /**
+     * @var RevenueSplitInfoCollection|null
+     */
+    private $revenue_split_info;
 
     /**
      * @return string
@@ -273,5 +279,13 @@ class AcquiringPayment
     public function hasSubscription(): bool
     {
         return $this->subscription !== null;
+    }
+
+    /**
+     * @experimental
+     */
+    public function getRevenueSplitInfo(): ?RevenueSplitInfoCollection
+    {
+        return $this->revenue_split_info;
     }
 }
