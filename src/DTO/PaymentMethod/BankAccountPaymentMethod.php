@@ -7,6 +7,7 @@ namespace Bank131\SDK\DTO\PaymentMethod;
 use Bank131\SDK\DTO\BankAccount\AbstractBankAccount;
 use Bank131\SDK\DTO\BankAccount\BankAccountIban;
 use Bank131\SDK\DTO\BankAccount\BankAccountRu;
+use Bank131\SDK\DTO\BankAccount\BankAccountUpi;
 use Bank131\SDK\DTO\PaymentMethod\Enum\PaymentMethodEnum;
 use Bank131\SDK\Exception\InvalidArgumentException;
 
@@ -26,6 +27,11 @@ class BankAccountPaymentMethod extends PaymentMethod
      * @var BankAccountIban|null
      */
     private $iban;
+
+    /**
+     * @var BankAccountUpi|null
+     */
+    private $upi;
 
     /**
      * BankAccountPaymentMethod constructor.
@@ -48,5 +54,13 @@ class BankAccountPaymentMethod extends PaymentMethod
     public function getType(): string
     {
         return PaymentMethodEnum::BANK_ACCOUNT;
+    }
+
+    /**
+     * @experimental
+     */
+    public function getUpi(): ?BankAccountUpi
+    {
+        return $this->upi;
     }
 }

@@ -6,6 +6,9 @@ namespace Bank131\SDK\Tests\Unit\API\Request\Builder\Session\Payment;
 
 use Bank131\SDK\API\Request\Builder\Session\Payment\CreatePaymentSessionRequestBuilder;
 use Bank131\SDK\API\Request\Session\CreateSessionRequest;
+use Bank131\SDK\DTO\BankAccount\BankAccountEnum;
+use Bank131\SDK\DTO\BankAccount\BankAccountRu;
+use Bank131\SDK\DTO\BankAccount\BankAccountUpi;
 use Bank131\SDK\DTO\Card\BankCard;
 use Bank131\SDK\DTO\Card\CardEnum;
 use Bank131\SDK\DTO\Customer;
@@ -52,6 +55,16 @@ class CreatePaymentSessionRequestBuilderTest extends TestCase
             )
             ->setAmount(100, 'rub')
             ->setMetadata(json_encode(['key' => 'value']))
+            ->build();
+        $this->assertInstanceOf(CreateSessionRequest::class, $request);
+    }
+
+    public function testSuccessBankAccountSession(): void
+    {
+        $request = $this->builder
+            ->setBankAccount(new BankAccountUpi())
+            ->setCustomer($this->createMock(Customer::class))
+            ->setAmount(100, 'rub')
             ->build();
         $this->assertInstanceOf(CreateSessionRequest::class, $request);
     }
