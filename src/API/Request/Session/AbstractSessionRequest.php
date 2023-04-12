@@ -7,6 +7,7 @@ namespace Bank131\SDK\API\Request\Session;
 use Bank131\SDK\API\Request\AbstractRequest;
 use Bank131\SDK\DTO\Amount;
 use Bank131\SDK\DTO\Customer;
+use Bank131\SDK\DTO\CustomRouting;
 use Bank131\SDK\DTO\FiscalizationDetails;
 use Bank131\SDK\DTO\ParticipantDetails;
 use Bank131\SDK\DTO\PaymentDetails;
@@ -58,6 +59,11 @@ abstract class AbstractSessionRequest extends AbstractRequest
      * @var FiscalizationDetails
      */
     private $fiscalization_details;
+
+    /**
+     * @var CustomRouting
+     */
+    private $custom_routing;
 
     /**
      * @param mixed $metadata
@@ -130,5 +136,10 @@ abstract class AbstractSessionRequest extends AbstractRequest
     public function setFiscalizationDetails(FiscalizationDetails $fiscalizationDetails): void
     {
         $this->fiscalization_details = $fiscalizationDetails;
+    }
+
+    public function setCustomRouting(CustomRouting $customRouting): void
+    {
+        $this->custom_routing = $customRouting;
     }
 }

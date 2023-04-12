@@ -33,6 +33,11 @@ abstract class AbstractSessionRequestBuilder extends AbstractBuilder
     protected $metadata;
 
     /**
+     * @var array|null
+     */
+    protected $customRoutingTags;
+
+    /**
      * @param int    $value
      * @param string $currency
      *
@@ -105,5 +110,12 @@ abstract class AbstractSessionRequestBuilder extends AbstractBuilder
         }
 
         return $this->participantDetails;
+    }
+
+    public function setCustomRoutingTags(array $tags): self
+    {
+        $this->customRoutingTags = $tags;
+
+        return $this;
     }
 }
