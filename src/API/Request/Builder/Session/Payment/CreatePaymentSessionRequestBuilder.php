@@ -6,6 +6,7 @@ namespace Bank131\SDK\API\Request\Builder\Session\Payment;
 
 use Bank131\SDK\API\Request\AbstractRequest;
 use Bank131\SDK\API\Request\Session\CreateSessionRequest;
+use Bank131\SDK\DTO\CustomRouting;
 
 final class CreatePaymentSessionRequestBuilder extends AbstractPaymentSessionRequestBuilder
 {
@@ -38,6 +39,11 @@ final class CreatePaymentSessionRequestBuilder extends AbstractPaymentSessionReq
 
         if ($this->paymentOptions) {
             $request->setPaymentOptions($this->paymentOptions);
+        }
+
+        if ($this->customRoutingTags) {
+            $customRouting = new CustomRouting($this->customRoutingTags);
+            $request->setCustomRouting($customRouting);
         }
 
         return $request;

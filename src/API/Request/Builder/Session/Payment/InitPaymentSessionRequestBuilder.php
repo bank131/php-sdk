@@ -6,6 +6,7 @@ namespace Bank131\SDK\API\Request\Builder\Session\Payment;
 
 use Bank131\SDK\API\Request\AbstractRequest;
 use Bank131\SDK\API\Request\Session\InitPaymentSessionRequest;
+use Bank131\SDK\DTO\CustomRouting;
 use Bank131\SDK\Exception\InvalidArgumentException;
 
 final class InitPaymentSessionRequestBuilder extends AbstractPaymentSessionRequestBuilder
@@ -33,6 +34,11 @@ final class InitPaymentSessionRequestBuilder extends AbstractPaymentSessionReque
 
         if ($this->participantDetails) {
             $request->setParticipantDetails($this->participantDetails);
+        }
+
+        if ($this->customRoutingTags) {
+            $customRouting = new CustomRouting($this->customRoutingTags);
+            $request->setCustomRouting($customRouting);
         }
 
         return $request;

@@ -7,6 +7,7 @@ namespace Bank131\SDK\API\Request\Builder\Session\Payout;
 use Bank131\SDK\API\Request\AbstractRequest;
 use Bank131\SDK\API\Request\Session\CreateSessionRequest;
 use Bank131\SDK\API\Request\Session\StartPayoutSessionRequest;
+use Bank131\SDK\DTO\CustomRouting;
 
 class StartPayoutSessionRequestBuilder extends AbstractPayoutSessionRequestBuilder
 {
@@ -54,6 +55,11 @@ class StartPayoutSessionRequestBuilder extends AbstractPayoutSessionRequestBuild
 
         if ($this->fiscalizationDetails) {
             $request->setFiscalizationDetails($this->fiscalizationDetails);
+        }
+
+        if ($this->customRoutingTags) {
+            $customRouting = new CustomRouting($this->customRoutingTags);
+            $request->setCustomRouting($customRouting);
         }
 
         return $request;
