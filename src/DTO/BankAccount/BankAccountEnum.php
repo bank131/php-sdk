@@ -11,4 +11,6 @@ class BankAccountEnum extends BaseEnum
     public const RU = 'ru';
 
     public const IBAN = 'iban';
+
+    public const UPI = 'upi';
 }

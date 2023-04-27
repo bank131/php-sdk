@@ -5,9 +5,11 @@ declare(strict_types=1);
 namespace Bank131\SDK\API\Request\Builder\Session\Payment;
 
 use Bank131\SDK\API\Request\Builder\Session\AbstractSessionRequestBuilder;
+use Bank131\SDK\DTO\BankAccount\AbstractBankAccount;
 use Bank131\SDK\DTO\Card\AbstractCard;
 use Bank131\SDK\DTO\CryptoWallet\AbstractCryptoWallet;
 use Bank131\SDK\DTO\PaymentDetails;
+use Bank131\SDK\DTO\PaymentMethod\BankAccountPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\CardPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\CryptoWalletPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\RecurrentPaymentMethod;
@@ -98,6 +100,19 @@ abstract class AbstractPaymentSessionRequestBuilder extends AbstractSessionReque
         $paymentDetails = new PaymentDetails(
             new CryptoWalletPaymentMethod($wallet)
         );
+
+        $this->paymentDetails = $paymentDetails;
+
+        return $this;
+    }
+
+    /**
+     * @experimental
+     * @return $this
+     */
+    public function setBankAccount(AbstractBankAccount $bankAccount): AbstractSessionRequestBuilder
+    {
+        $paymentDetails = new PaymentDetails(new BankAccountPaymentMethod($bankAccount));
 
         $this->paymentDetails = $paymentDetails;
 
