@@ -61,6 +61,10 @@ final class StartPaymentSessionRequestBuilder extends AbstractPaymentSessionRequ
             $request->setCustomRouting($customRouting);
         }
 
+        if ($this->revenueSplitInfo) {
+            $request->setRevenueSplitInfo($this->revenueSplitInfo);
+        }
+
         return $request;
     }
 }

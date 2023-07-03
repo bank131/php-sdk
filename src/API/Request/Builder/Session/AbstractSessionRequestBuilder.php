@@ -6,6 +6,7 @@ namespace Bank131\SDK\API\Request\Builder\Session;
 
 use Bank131\SDK\API\Request\Builder\AbstractBuilder;
 use Bank131\SDK\DTO\Amount;
+use Bank131\SDK\DTO\Collection\RevenueSplitInfoCollection;
 use Bank131\SDK\DTO\Customer;
 use Bank131\SDK\DTO\Participant;
 use Bank131\SDK\DTO\ParticipantDetails;
@@ -36,6 +37,11 @@ abstract class AbstractSessionRequestBuilder extends AbstractBuilder
      * @var array|null
      */
     protected $customRoutingTags;
+
+    /**
+     * @var RevenueSplitInfoCollection|null
+     */
+    protected $revenueSplitInfo;
 
     /**
      * @param int    $value
@@ -115,6 +121,16 @@ abstract class AbstractSessionRequestBuilder extends AbstractBuilder
     public function setCustomRoutingTags(array $tags): self
     {
         $this->customRoutingTags = $tags;
+
+        return $this;
+    }
+
+    /**
+     * @experimental
+     */
+    public function setRevenueSplitInfo(RevenueSplitInfoCollection $revenueSplitInfo): self
+    {
+        $this->revenueSplitInfo = $revenueSplitInfo;
 
         return $this;
     }

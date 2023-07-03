@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bank131\SDK\DTO;
 
+use Bank131\SDK\DTO\Collection\RevenueSplitInfoCollection;
 use Bank131\SDK\DTO\Enum\AcquiringPaymentRefundStatusEnum;
 use DateTimeImmutable;
 
@@ -48,6 +49,11 @@ class AcquiringPaymentRefund
      * @var Amounts
      */
     private $amounts;
+
+    /**
+     * @var RevenueSplitInfoCollection|null
+     */
+    private $revenue_split_info;
 
     /**
      * @return string
@@ -140,5 +146,10 @@ class AcquiringPaymentRefund
     public function getAmounts(): Amounts
     {
         return $this->amounts;
+    }
+
+    public function getRevenueSplitInfo(): ?RevenueSplitInfoCollection
+    {
+        return $this->revenue_split_info;
     }
 }
