@@ -6,14 +6,14 @@ namespace Bank131\SDK\Tests\Unit\API\Request\Builder\Session\Payment;
 
 use Bank131\SDK\API\Request\Builder\Session\Payment\CreatePaymentSessionRequestBuilder;
 use Bank131\SDK\API\Request\Session\CreateSessionRequest;
-use Bank131\SDK\DTO\BankAccount\BankAccountEnum;
-use Bank131\SDK\DTO\BankAccount\BankAccountRu;
 use Bank131\SDK\DTO\BankAccount\BankAccountUpi;
 use Bank131\SDK\DTO\Card\BankCard;
 use Bank131\SDK\DTO\Card\CardEnum;
+use Bank131\SDK\DTO\Collection\RevenueSplitInfoCollection;
 use Bank131\SDK\DTO\Customer;
 use Bank131\SDK\DTO\Participant;
 use Bank131\SDK\DTO\PaymentOptions;
+use Bank131\SDK\DTO\RevenueSplitInfo\RevenueSplitInfoItem;
 use PHPUnit\Framework\TestCase;
 
 class CreatePaymentSessionRequestBuilderTest extends TestCase
@@ -65,6 +65,19 @@ class CreatePaymentSessionRequestBuilderTest extends TestCase
             ->setBankAccount(new BankAccountUpi())
             ->setCustomer($this->createMock(Customer::class))
             ->setAmount(100, 'rub')
+            ->build();
+        $this->assertInstanceOf(CreateSessionRequest::class, $request);
+    }
+
+    public function testCreateSessionWithRevenueSplitInfo(): void
+    {
+        $request = $this->builder
+            ->setRevenueSplitInfo(
+                new RevenueSplitInfoCollection([
+                    new RevenueSplitInfoItem('test1', '10'),
+                    new RevenueSplitInfoItem('test2', null, true),
+                ])
+            )
             ->build();
         $this->assertInstanceOf(CreateSessionRequest::class, $request);
     }
