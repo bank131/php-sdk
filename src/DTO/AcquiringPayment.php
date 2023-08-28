@@ -178,7 +178,7 @@ class AcquiringPayment
     /**
      * @return ParticipantDetails|null
      */
-    public function getParticipantDetails(): ?object
+    public function getParticipantDetails(): ?ParticipantDetails
     {
         return $this->participant_details;
     }
