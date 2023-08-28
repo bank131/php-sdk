@@ -149,6 +149,11 @@ class Participant
     protected $identity_document;
 
     /**
+     * @var array|null
+     */
+    protected $provider_metadata;
+
+    /**
      * @return string|null
      */
     public function getFullName(): ?string
@@ -524,5 +529,15 @@ class Participant
     public function setBuilding(?string $building): void
     {
         $this->building = $building;
+    }
+
+    public function getProviderMetadata(): ?array
+    {
+        return $this->provider_metadata;
+    }
+
+    public function setProviderMetadata(?array $provider_metadata): void
+    {
+        $this->provider_metadata = $provider_metadata;
     }
 }
