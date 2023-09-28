@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bank131\SDK\DTO\PaymentMethod;
 
 use Bank131\SDK\DTO\BankAccount\AbstractBankAccount;
+use Bank131\SDK\DTO\BankAccount\BankAccountFPS;
 use Bank131\SDK\DTO\BankAccount\BankAccountIban;
 use Bank131\SDK\DTO\BankAccount\BankAccountRu;
 use Bank131\SDK\DTO\BankAccount\BankAccountUpi;
@@ -32,6 +33,11 @@ class BankAccountPaymentMethod extends PaymentMethod
      * @var BankAccountUpi|null
      */
     private $upi;
+
+    /**
+     * @var BankAccountFPS
+     */
+    private $faster_payment_system;
 
     /**
      * BankAccountPaymentMethod constructor.
@@ -62,5 +68,10 @@ class BankAccountPaymentMethod extends PaymentMethod
     public function getUpi(): ?BankAccountUpi
     {
         return $this->upi;
+    }
+
+    public function getFasterPaymentSystem(): ?BankAccountFPS
+    {
+        return $this->faster_payment_system;
     }
 }

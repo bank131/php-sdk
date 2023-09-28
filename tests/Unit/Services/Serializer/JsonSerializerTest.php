@@ -20,7 +20,7 @@ class JsonSerializerTest extends TestCase
     /**
      * @var JsonSerializer
      */
-    private $serializer;
+    protected $serializer;
 
     protected function setUp(): void
     {

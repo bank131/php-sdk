@@ -149,6 +149,11 @@ class Participant
     protected $identity_document;
 
     /**
+     * @var string|null
+     */
+    protected $beneficiary_id;
+
+    /**
      * @return string|null
      */
     public function getFullName(): ?string
@@ -524,5 +529,21 @@ class Participant
     public function setBuilding(?string $building): void
     {
         $this->building = $building;
+    }
+
+    /**
+     * @param  string  $beneficiary_id
+     */
+    public function setBeneficiaryId(string $beneficiary_id): void
+    {
+        $this->beneficiary_id = $beneficiary_id;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getBeneficiaryId(): ?string
+    {
+        return $this->beneficiary_id;
     }
 }

@@ -32,6 +32,11 @@ class BankAccountRu extends AbstractBankAccount
     private $is_fast;
 
     /**
+     * @var string|null
+     */
+    private $inn;
+
+    /**
      * BankAccountRu constructor.
      *
      * @param string $bik
@@ -45,13 +50,15 @@ class BankAccountRu extends AbstractBankAccount
         string $account,
         string $fullName,
         string $description,
-        bool $isFast = false
+        bool $isFast = false,
+        ?string $inn = null
     ) {
         $this->bik         = $bik;
         $this->account     = $account;
         $this->full_name   = $fullName;
         $this->description = $description;
         $this->is_fast     = $isFast;
+        $this->inn         = $inn;
     }
 
     /**

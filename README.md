@@ -107,6 +107,31 @@ $request = RequestBuilderFactory::create()
 
 $sessionStartResponse = $this->client->session()->startPayout($request);
 ``` 
+### Создание объекта выплатной сессии СБП
+
+```php
+$request = RequestBuilderFactory::create()
+    ->createPayoutSession()
+    ->setBankAccount(
+    new BankAccountFPS(
+        '0070009210197',
+        '100000000197',
+        'Перевод средств по договору'
+        )
+    )
+    ->build();
+```
+
+### Создание объекта платежной сессии через СБП
+
+```php
+RequestBuilderFactory::create()
+    ->createPaymentSession()
+    ->makeFasterPaymentSystem()
+    ->setAmount('3000', \Bank131\SDK\DTO\Enum\CurrencyEnum::RUB)
+    ->build();
+```
+
 
 ### Запрос статуса сессии:
 ```php
