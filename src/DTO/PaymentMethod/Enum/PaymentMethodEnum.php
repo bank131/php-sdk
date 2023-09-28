@@ -17,4 +17,6 @@ class PaymentMethodEnum
     public const SECURED_CARD = 'secured_card';
 
     public const CRYPTO_WALLET = 'crypto_wallet';
+
+    public const FASTER_PAYMENT_SYSTEM = 'faster_payment_system';
 }
