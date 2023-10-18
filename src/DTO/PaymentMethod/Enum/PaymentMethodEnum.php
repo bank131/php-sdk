@@ -19,4 +19,6 @@ class PaymentMethodEnum
     public const CRYPTO_WALLET = 'crypto_wallet';
 
     public const FASTER_PAYMENT_SYSTEM = 'faster_payment_system';
+
+    public const INTERNET_BANKING = 'internet_banking';
 }
