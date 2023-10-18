@@ -6,12 +6,20 @@ namespace Bank131\SDK\Tests\Unit\API\Request\Builder\Session\Payment;
 
 use Bank131\SDK\API\Request\Builder\Session\Payment\CreatePaymentSessionRequestBuilder;
 use Bank131\SDK\API\Request\Session\CreateSessionRequest;
+use Bank131\SDK\DTO\Amount;
 use Bank131\SDK\DTO\BankAccount\BankAccountUpi;
 use Bank131\SDK\DTO\Card\BankCard;
 use Bank131\SDK\DTO\Card\CardEnum;
 use Bank131\SDK\DTO\Collection\RevenueSplitInfoCollection;
 use Bank131\SDK\DTO\Customer;
+use Bank131\SDK\DTO\Enum\CurrencyEnum;
+use Bank131\SDK\DTO\InternetBanking\AbstractInternetBanking;
+use Bank131\SDK\DTO\InternetBanking\InternetBankingEnum;
+use Bank131\SDK\DTO\InternetBanking\SberPay;
+use Bank131\SDK\DTO\InternetBanking\SberPayChannelEnum;
 use Bank131\SDK\DTO\Participant;
+use Bank131\SDK\DTO\PaymentDetails;
+use Bank131\SDK\DTO\PaymentMethod\InternetBankingPaymentMethod;
 use Bank131\SDK\DTO\PaymentOptions;
 use Bank131\SDK\DTO\RevenueSplitInfo\RevenueSplitInfoItem;
 use PHPUnit\Framework\TestCase;
@@ -67,6 +75,47 @@ class CreatePaymentSessionRequestBuilderTest extends TestCase
             ->setAmount(100, 'rub')
             ->build();
         $this->assertInstanceOf(CreateSessionRequest::class, $request);
+    }
+
+    /** @dataProvider internetBankingData */
+    public function testSuccessInternetBankingSession(AbstractInternetBanking $internetBankingPaymentMethod): void {
+        $customer         = $this->createMock(Customer::class);
+        $expectedRequest = new CreateSessionRequest();
+        $expectedRequest->setAmount(new Amount(100, CurrencyEnum::RUB));
+        $expectedRequest->setCustomer($customer);
+        $expectedRequest->setPaymentDetails(
+            new PaymentDetails(
+                new InternetBankingPaymentMethod($internetBankingPaymentMethod)
+            )
+        );
+
+        $request = $this->builder
+            ->setInternetBanking($internetBankingPaymentMethod)
+            ->setCustomer($customer)
+            ->setAmount(100, CurrencyEnum::RUB)
+            ->build();
+        $this->assertEquals($expectedRequest, $request);
+    }
+
+    public function internetBankingData(): iterable
+    {
+        $phone = '9999999999';
+        $internetBankings = [
+            InternetBankingEnum::SBER_PAY => [
+                new SberPay(SberPayChannelEnum::APP, null),
+                new SberPay(SberPayChannelEnum::APP, $phone),
+                new SberPay(SberPayChannelEnum::MOBILE_WEB, null),
+                new SberPay(SberPayChannelEnum::MOBILE_WEB, $phone),
+                new SberPay(SberPayChannelEnum::WEB, null),
+                new SberPay(SberPayChannelEnum::WEB, $phone),
+            ],
+        ];
+
+        foreach ($internetBankings as $internetBanking) {
+            foreach ($internetBanking as $data) {
+                yield [$data];
+            }
+        }
     }
 
     public function testCreateSessionWithRevenueSplitInfo(): void

@@ -301,4 +301,94 @@ class JsonSerializerTest extends TestCase
         $this->assertEquals($metadata, $acquiringPayment->getMetadata());
         $this->assertEquals($returnUrl, $acquiringPayment->getPaymentOptions()->getReturnUrl());
     }
+
+
+    public function testDeserializeObjectSberPay(): void
+    {
+
+        $normalizedObject = [
+            'status'  => $responseStatus = 'ok',
+            'session' => [
+                'id'                 => $sessionId = 'test_ps_1',
+                'status'             => $sessionStatus = 'in_progress',
+                'created_at'         => $sessionCreatedAt = '2020-05-29T07:01:37.499907Z',
+                'updated_at'         => $sessionUpdatedAt = '2020-05-29T07:01:37.499907Z',
+                'acquiring_payments' => [
+                    [
+                        'id'              => $paymentId = 'test_pm_1',
+                        'status'          => $paymentStatus = 'in_progress',
+                        'created_at'      => $paymentCreatedAt = '2020-05-29T07:01:37.499907Z',
+                        'customer'        => [
+                            'reference' => $customerReference = 'lucky',
+                        ],
+                        'payment_details' => [
+                            'type' => $paymentDetailsType = 'internet_banking',
+                            'internet_banking'=>[
+                                'type'=> $internetBankingType = 'sber_pay',
+                                'sber_pay' => [
+                                    'channel' => $channel = 'app',
+                                    'phone' => $phone = '79313255172',
+                                ],
+                            ]
+                        ],
+                        'amount_details'  => [
+                            'amount'   => $amountValue = 10000,
+                            'currency' => $amountCurrency = 'rub',
+                        ],
+                        'amounts'         => [
+                            'gross' => [
+                                'amount'   => $amountValue = 10000,
+                                'currency' => $amountCurrency = 'rub',
+                            ],
+                            'net'   => [
+                                'amount'   => $amountValue = 10000,
+                                'currency' => $amountCurrency = 'rub',
+                            ],
+                        ],
+                        'metadata'        => $metadata = '{"key":"value"}',
+                        'payment_options' => [
+                            'return_url' => $returnUrl = 'http=>//bank131.ru',
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $jsonString = json_encode($normalizedObject);
+
+        /** @var SessionResponse $result */
+        $result = $this->serializer->deserialize($jsonString, SessionResponse::class);
+
+        $this->assertEquals($responseStatus, $result->getStatus());
+
+        $this->assertNotNull($session = $result->getSession());
+
+        $this->assertEquals($sessionId, $session->getId());
+        $this->assertEquals($sessionStatus, $session->getStatus());
+        $this->assertEquals(new DateTimeImmutable($sessionCreatedAt), $session->getCreatedAt());
+        $this->assertEquals(new DateTimeImmutable($sessionUpdatedAt), $session->getUpdatedAt());
+
+        $this->assertIsIterable($session->getAcquiringPayments());
+        $this->assertCount(1, $session->getAcquiringPayments());
+
+        /** @var AcquiringPayment $acquiringPayment */
+        $acquiringPayment = $session->getAcquiringPayments()[0];
+
+        $this->assertEquals($paymentId, $acquiringPayment->getId());
+        $this->assertEquals($paymentDetailsType, $acquiringPayment->getPaymentDetails()->getType());
+        $this->assertEquals($internetBankingType, $acquiringPayment->getPaymentDetails()->getInternetBanking()->getType());
+        $this->assertEquals($channel, $acquiringPayment->getPaymentDetails()->getInternetBanking()->getSberPay()->getChannel());
+        $this->assertEquals($phone, $acquiringPayment->getPaymentDetails()->getInternetBanking()->getSberPay()->getPhone());
+        $this->assertEquals(new DateTimeImmutable($paymentCreatedAt), $acquiringPayment->getCreatedAt());
+        $this->assertEquals($paymentStatus, $acquiringPayment->getStatus());
+        $this->assertEquals($customerReference, $acquiringPayment->getCustomer()->getReference());
+        $this->assertEquals($amountValue, $acquiringPayment->getAmountDetails()->getAmount());
+        $this->assertEquals($amountCurrency, $acquiringPayment->getAmountDetails()->getCurrency());
+        $this->assertEquals($amountValue, $acquiringPayment->getAmounts()->getGross()->getAmount());
+        $this->assertEquals($amountCurrency, $acquiringPayment->getAmounts()->getGross()->getCurrency());
+        $this->assertEquals($amountValue, $acquiringPayment->getAmounts()->getNet()->getAmount());
+        $this->assertEquals($amountCurrency, $acquiringPayment->getAmounts()->getNet()->getCurrency());
+        $this->assertEquals($metadata, $acquiringPayment->getMetadata());
+        $this->assertEquals($returnUrl, $acquiringPayment->getPaymentOptions()->getReturnUrl());
+    }
 }
