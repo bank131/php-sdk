@@ -48,6 +48,10 @@ final class StartPaymentSessionRequestBuilder extends AbstractPaymentSessionRequ
             $request->setMetadata($this->metadata);
         }
 
+        if ($this->paymentMetadata) {
+            $request->setPaymentMetadata($this->paymentMetadata);
+        }
+
         if ($this->paymentDetails) {
             $request->setPaymentDetails($this->paymentDetails);
         }

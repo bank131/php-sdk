@@ -42,6 +42,11 @@ abstract class AbstractSessionRequest extends AbstractRequest
     private $metadata;
 
     /**
+     * @var array
+     */
+    private $payment_metadata;
+
+    /**
      * @var PaymentDetails
      */
     private $payment_details;
@@ -155,5 +160,10 @@ abstract class AbstractSessionRequest extends AbstractRequest
     public function setRevenueSplitInfo(RevenueSplitInfoCollection $revenueSplitInfo): void
     {
         $this->revenue_split_info = $revenueSplitInfo;
+    }
+
+    public function setPaymentMetadata(array $payment_metadata): void
+    {
+        $this->payment_metadata = $payment_metadata;
     }
 }

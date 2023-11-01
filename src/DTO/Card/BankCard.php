@@ -71,8 +71,6 @@ class BankCard extends AbstractCard
         if ($cardholderName) {
             $this->setCardholderName($cardholderName);
         }
-
-        $this->validateExpirationDate();
     }
 
     /**
@@ -106,7 +104,7 @@ class BankCard extends AbstractCard
      */
     public function setSecurityCode(string $securityCode): void
     {
-        if (!preg_match('/^\d{3}$/', $securityCode)) {
+        if (!preg_match('/^\d{3,4}$/', $securityCode)) {
             throw new InvalidArgumentException('Security code must be three digits');
         }
 
@@ -127,23 +125,5 @@ class BankCard extends AbstractCard
     public function getType(): string
     {
         return CardEnum::BANK_CARD;
-    }
-
-    /**
-     * @throws InvalidArgumentException
-     */
-    private function validateExpirationDate(): void
-    {
-        if ($this->expiration_year && $this->expiration_month) {
-            $currentDate     = new DateTime('today midnight');
-            $cardExpiredDate = DateTime::createFromFormat(
-                'Y-m',
-                sprintf('20%s-%s', $this->expiration_year, $this->expiration_month)
-            );
-
-            if ($cardExpiredDate < $currentDate) {
-                throw new InvalidArgumentException('Your card is expired');
-            }
-        }
     }
 }

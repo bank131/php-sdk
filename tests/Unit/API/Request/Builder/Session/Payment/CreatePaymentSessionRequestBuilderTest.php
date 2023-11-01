@@ -18,7 +18,9 @@ use Bank131\SDK\DTO\InternetBanking\InternetBankingEnum;
 use Bank131\SDK\DTO\InternetBanking\SberPay;
 use Bank131\SDK\DTO\InternetBanking\SberPayChannelEnum;
 use Bank131\SDK\DTO\Participant;
+use Bank131\SDK\DTO\ParticipantDetails;
 use Bank131\SDK\DTO\PaymentDetails;
+use Bank131\SDK\DTO\PaymentMethod\CardPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\InternetBankingPaymentMethod;
 use Bank131\SDK\DTO\PaymentOptions;
 use Bank131\SDK\DTO\RevenueSplitInfo\RevenueSplitInfoItem;
@@ -47,24 +49,42 @@ class CreatePaymentSessionRequestBuilderTest extends TestCase
         $bankCardMock = $this->createMock(BankCard::class);
         $bankCardMock->method('getType')->willReturn(CardEnum::BANK_CARD);
 
+        $customerMock       = $this->createMock(Customer::class);
+        $paymentOptionsMock = $this->createMock(PaymentOptions::class);
+        $recipientMock      = $this->createMock(Participant::class);
+        $senderMock         = $this->createMock(Participant::class);
+
+        $expectedRequest = new CreateSessionRequest();
+        $expectedRequest->setPaymentDetails(
+            new PaymentDetails(
+                new CardPaymentMethod($bankCardMock)
+            )
+        );
+        $expectedRequest->setAmount(new Amount(100, 'rub'));
+        $expectedRequest->setMetadata('{"key":"value"}');
+        $expectedRequest->setPaymentMetadata(['key2' => 'value2']);
+        $expectedRequest->setCustomer($customerMock);
+        $expectedRequest->setPaymentOptions($paymentOptionsMock);
+
+        $participantDetails = new ParticipantDetails();
+        $participantDetails->setSender($senderMock);
+        $participantDetails->setRecipient($recipientMock);
+
+        $expectedRequest->setParticipantDetails($participantDetails);
+
         $request = $this->builder
             ->setCard($bankCardMock)
-            ->setCustomer(
-                $this->createMock(Customer::class)
-            )
-            ->setPaymentOptions(
-                $this->createMock(PaymentOptions::class)
-            )
-            ->setRecipient(
-                $this->createMock(Participant::class)
-            )
-            ->setSender(
-                $this->createMock(Participant::class)
-            )
+            ->setCustomer($customerMock)
+            ->setPaymentOptions($paymentOptionsMock)
+            ->setRecipient($recipientMock)
+            ->setSender($senderMock)
             ->setAmount(100, 'rub')
             ->setMetadata(json_encode(['key' => 'value']))
+            ->setPaymentMetadata(['key2' => 'value2'])
             ->build();
+
         $this->assertInstanceOf(CreateSessionRequest::class, $request);
+        $this->assertEquals($expectedRequest, $request);
     }
 
     public function testSuccessBankAccountSession(): void
@@ -78,8 +98,9 @@ class CreatePaymentSessionRequestBuilderTest extends TestCase
     }
 
     /** @dataProvider internetBankingData */
-    public function testSuccessInternetBankingSession(AbstractInternetBanking $internetBankingPaymentMethod): void {
-        $customer         = $this->createMock(Customer::class);
+    public function testSuccessInternetBankingSession(AbstractInternetBanking $internetBankingPaymentMethod): void
+    {
+        $customer        = $this->createMock(Customer::class);
         $expectedRequest = new CreateSessionRequest();
         $expectedRequest->setAmount(new Amount(100, CurrencyEnum::RUB));
         $expectedRequest->setCustomer($customer);
@@ -99,7 +120,7 @@ class CreatePaymentSessionRequestBuilderTest extends TestCase
 
     public function internetBankingData(): iterable
     {
-        $phone = '9999999999';
+        $phone            = '9999999999';
         $internetBankings = [
             InternetBankingEnum::SBER_PAY => [
                 new SberPay(SberPayChannelEnum::APP, null),
