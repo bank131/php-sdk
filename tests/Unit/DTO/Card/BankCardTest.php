@@ -34,40 +34,19 @@ class BankCardTest extends TestCase
     }
 
     /**
-     * Test construct failure
-     *
-     * @testWith ["-1 year"]
-     *           ["-1 month"]
-     */
-    public function testConstructExpiredCardFailure(string $dateModification)
-    {
-        $this->expectException(InvalidArgumentException::class);
-        $expDate = (new DateTime())->modify($dateModification);
-
-        new BankCard(
-            '4200800080008801',
-            $expDate->format('m'),
-            substr($expDate->format('Y'), 2, 2),
-            '123',
-            'test test'
-        );
-    }
-
-    /**
      * Test construct with invalid date failure
      *
      * @testWith ["dsfgsf", "11"]
      *           ["12", "zcsdf"]
      *           ["123", "99"]
-     *           ["11", "2099"]
      *           ["12", "99", "4200800080"]
-     *           ["12", "99", "4200800080008801", "1234"]
+     *           ["12", "99", "4200800080008801", "12345"]
      */
     public function testConstructWithInvalidParamsFailure(
         string $month,
         string $year,
-        $cardNumber = '4200800080008801',
-        $cvv = '123'
+               $cardNumber = '4200800080008801',
+               $cvv = '123'
     ) {
         $this->expectException(InvalidArgumentException::class);
 

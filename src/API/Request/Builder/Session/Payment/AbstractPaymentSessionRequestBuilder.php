@@ -33,6 +33,11 @@ abstract class AbstractPaymentSessionRequestBuilder extends AbstractSessionReque
     protected $paymentOptions;
 
     /**
+     * @var array|null
+     */
+    protected $paymentMetadata;
+
+    /**
      * @param PaymentOptions $paymentOptions
      *
      * @return $this
@@ -140,6 +145,13 @@ abstract class AbstractPaymentSessionRequestBuilder extends AbstractSessionReque
         );
 
         $this->paymentDetails = $paymentDetails;
+
+        return $this;
+    }
+
+    public function setPaymentMetadata(array $paymentMetadata): self
+    {
+        $this->paymentMetadata = $paymentMetadata;
 
         return $this;
     }
