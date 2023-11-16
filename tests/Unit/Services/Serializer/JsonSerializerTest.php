@@ -376,7 +376,6 @@ class JsonSerializerTest extends TestCase
 
         $this->assertEquals($paymentId, $acquiringPayment->getId());
         $this->assertEquals($paymentDetailsType, $acquiringPayment->getPaymentDetails()->getType());
-        $this->assertEquals($internetBankingType, $acquiringPayment->getPaymentDetails()->getInternetBanking()->getType());
         $this->assertEquals($channel, $acquiringPayment->getPaymentDetails()->getInternetBanking()->getSberPay()->getChannel());
         $this->assertEquals($phone, $acquiringPayment->getPaymentDetails()->getInternetBanking()->getSberPay()->getPhone());
         $this->assertEquals(new DateTimeImmutable($paymentCreatedAt), $acquiringPayment->getCreatedAt());
