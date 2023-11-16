@@ -5,6 +5,7 @@ namespace Bank131\SDK\DTO\PaymentMethod;
 
 use Bank131\SDK\DTO\InternetBanking\AbstractInternetBanking;
 use Bank131\SDK\DTO\InternetBanking\SberPay;
+use Bank131\SDK\DTO\PaymentMethod\Enum\PaymentMethodEnum;
 use Bank131\SDK\Exception\InvalidArgumentException;
 
 class InternetBankingPaymentMethod extends PaymentMethod
@@ -30,7 +31,7 @@ class InternetBankingPaymentMethod extends PaymentMethod
 
     public function getType(): string
     {
-        return $this->type;
+        return PaymentMethodEnum::INTERNET_BANKING;
     }
 
     public function getSberPay(): ?SberPay
