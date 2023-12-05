@@ -12,13 +12,14 @@ class QiwiWallet extends AbstractWallet
     private $account;
 
     /**
-     * QiwiAbstractWallet constructor.
-     *
-     * @param string $account
+     * @var string|null
      */
-    public function __construct(string $account)
+    private $description;
+
+    public function __construct(string $account, ?string $description = null)
     {
-        $this->account = $account;
+        $this->account     = $account;
+        $this->description = $description;
     }
 
     /**

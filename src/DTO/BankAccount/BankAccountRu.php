@@ -37,6 +37,11 @@ class BankAccountRu extends AbstractBankAccount
     private $inn;
 
     /**
+     * @var string|null
+     */
+    private $kpp;
+
+    /**
      * BankAccountRu constructor.
      *
      * @param string $bik
@@ -46,12 +51,13 @@ class BankAccountRu extends AbstractBankAccount
      * @param bool   $isFast
      */
     public function __construct(
-        string $bik,
-        string $account,
-        string $fullName,
-        string $description,
-        bool $isFast = false,
-        ?string $inn = null
+        string  $bik,
+        string  $account,
+        string  $fullName,
+        string  $description,
+        bool    $isFast = false,
+        ?string $inn = null,
+        ?string $kpp = null
     ) {
         $this->bik         = $bik;
         $this->account     = $account;
@@ -59,6 +65,7 @@ class BankAccountRu extends AbstractBankAccount
         $this->description = $description;
         $this->is_fast     = $isFast;
         $this->inn         = $inn;
+        $this->kpp         = $kpp;
     }
 
     /**
@@ -66,6 +73,6 @@ class BankAccountRu extends AbstractBankAccount
      */
     public function getType(): string
     {
-       return BankAccountEnum::RU;
+        return BankAccountEnum::RU;
     }
 }
