@@ -24,6 +24,11 @@ class PaymentOptions
     private $subscription;
 
     /**
+     * @var PlatformDetails
+     */
+    private $platform_details;
+
+    /**
      * @param string $returnUrl
      */
     public function setReturnUrl(string $returnUrl): void
@@ -81,5 +86,15 @@ class PaymentOptions
     public function setSubscription(Subscription $subscription): void
     {
         $this->subscription = $subscription;
+    }
+
+    public function getPlatformDetails(): PlatformDetails
+    {
+        return $this->platform_details;
+    }
+
+    public function setPlatformDetails(PlatformDetails $platformDetails): void
+    {
+        $this->platform_details = $platformDetails;
     }
 }
