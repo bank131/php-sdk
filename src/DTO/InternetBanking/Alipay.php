@@ -7,13 +7,13 @@ namespace Bank131\SDK\DTO\InternetBanking;
 class Alipay extends AbstractInternetBanking
 {
     /**
-     * @var string $protocol
+     * @var string $device
      */
-    private $protocol;
+    private $device;
 
-    public function __construct(string $protocol)
+    public function __construct(string $device)
     {
-        $this->protocol = $protocol;
+        $this->device = $device;
     }
 
     public function getType(): string
@@ -21,8 +21,8 @@ class Alipay extends AbstractInternetBanking
         return InternetBankingEnum::ALIPAY;
     }
 
-    public function getProtocol(): string
+    public function getDevice(): string
     {
-        return $this->protocol;
+        return $this->device;
     }
 }
