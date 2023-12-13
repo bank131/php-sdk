@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bank131\SDK\DTO;
 
+use Bank131\SDK\DTO\Collection\PayoutRefundCollection;
 use Bank131\SDK\DTO\CustomerInteraction\CustomerInteractionContainer;
 use DateTimeImmutable;
 
@@ -63,6 +64,11 @@ class Payout
      * @var Error|null
      */
     private $error;
+
+    /**
+     * @var PayoutRefundCollection
+     */
+    private $refunds;
 
     /**
      * @var ParticipantDetails
@@ -163,5 +169,15 @@ class Payout
     public function getParticipantDetails(): ParticipantDetails
     {
         return $this->participant_details;
+    }
+
+    public function getRefunds(): PayoutRefundCollection
+    {
+        return $this->refunds;
+    }
+
+    public function setRefunds(PayoutRefundCollection $refunds): void
+    {
+        $this->refunds = $refunds;
     }
 }
