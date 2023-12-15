@@ -15,48 +15,57 @@ class AbstractRefund
 {
     /**
      * @var string
+     * @final
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
+     * @final
      */
-    private $status;
+    protected $status;
 
     /**
      * @var DateTimeImmutable
+     * @final
      */
-    private $created_at;
+    protected $created_at;
 
     /**
      * @var DateTimeImmutable|null
+     * @final
      */
-    private $finished_at;
+    protected $finished_at;
 
     /**
      * @var Amount
+     * @final
      */
-    private $amount_details;
+    protected $amount_details;
 
     /**
      * @var mixed
+     * @final
      */
-    private $metadata;
+    protected $metadata;
 
     /**
      * @var boolean|null
+     * @final
      */
-    private $is_chargeback;
+    protected $is_chargeback;
 
     /**
      * @var Amounts
+     * @final
      */
-    private $amounts;
+    protected $amounts;
 
     /**
      * @var RevenueSplitInfoCollection|null
+     * @final
      */
-    private $revenue_split_info;
+    protected $revenue_split_info;
 
     /**
      * @return string
