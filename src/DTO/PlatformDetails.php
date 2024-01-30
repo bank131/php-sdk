@@ -25,4 +25,9 @@ class PlatformDetails
     {
         return $this->os;
     }
+
+    public function setType(string $type): void
+    {
+        $this->type = $type;
+    }
 }
