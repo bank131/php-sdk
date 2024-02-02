@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bank131\SDK\API;
 
+use Bank131\SDK\API\Enum\HeaderEnum;
 use Bank131\SDK\API\Request\AbstractRequest;
 use Bank131\SDK\API\Request\NullRequest;
 use Bank131\SDK\API\Response\AbstractResponse;
@@ -26,6 +27,8 @@ abstract class AbstractApi
      */
     private $serializer;
 
+    protected $headers;
+
     /**
      * AbstractApi constructor.
      *
@@ -35,6 +38,7 @@ abstract class AbstractApi
     {
         $this->httpClient = $client->getHttpClient();
         $this->serializer = $client->getSerializer();
+        $this->headers    = [];
     }
 
     /**
@@ -56,15 +60,29 @@ abstract class AbstractApi
 
         $body = $this->serializer->serialize($request);
 
+        $options = ['body' => $body];
+
+        if ($this->headers) {
+            $options['headers'] = $this->headers;
+        }
+
         $response = $this->httpClient->request(
             $method,
             $uri,
-            ['body' => $body]
+            $options
         );
 
         /** @var AbstractResponse $deserializedResponse */
         $deserializedResponse = $this->serializer->deserialize((string)$response->getBody(), $expectedClass);
 
         return $deserializedResponse;
+    }
+
+    public function withIdempotencyKey(string $key): self
+    {
+        $clone = clone $this;
+        $clone->headers[HeaderEnum::IDEMPOTENCY_KEY] = $key;
+
+        return $clone;
     }
 }
