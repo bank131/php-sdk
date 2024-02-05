@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Bank131\SDK\API;
 
-use Bank131\SDK\API\Enum\HeaderEnum;
 use Bank131\SDK\API\Request\AbstractRequest;
 use Bank131\SDK\API\Request\NullRequest;
 use Bank131\SDK\API\Response\AbstractResponse;
@@ -78,10 +77,13 @@ abstract class AbstractApi
         return $deserializedResponse;
     }
 
-    public function withIdempotencyKey(string $key): self
+    /**
+     * @return AbstractApi|static
+     */
+    public function withHeader(string $name, string $value)
     {
         $clone = clone $this;
-        $clone->headers[HeaderEnum::IDEMPOTENCY_KEY] = $key;
+        $clone->headers[$name] = $value;
 
         return $clone;
     }

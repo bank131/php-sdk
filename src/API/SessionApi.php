@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bank131\SDK\API;
 
+use Bank131\SDK\API\Enum\HeaderEnum;
 use Bank131\SDK\API\Enum\HttpVerbEnum;
 use Bank131\SDK\API\Request\Session\ChargebackPaymentSessionRequest;
 use Bank131\SDK\API\Request\Session\CreateSessionRequest;
@@ -256,5 +257,10 @@ class SessionApi extends AbstractApi
         );
 
         return $response;
+    }
+
+    public function withIdempotencyKey(string $key): SessionApi
+    {
+        return $this->withHeader(HeaderEnum::IDEMPOTENCY_KEY, $key);
     }
 }
