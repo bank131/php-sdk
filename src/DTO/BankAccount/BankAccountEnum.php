@@ -13,4 +13,8 @@ class BankAccountEnum extends BaseEnum
     public const IBAN = 'iban';
 
     public const UPI = 'upi';
+
+    public const FASTER_PAYMENT_SYSTEM = 'faster_payment_system';
+
+    public const FASTER_PAYMENT_SYSTEM_VERIFICATION = 'faster_payment_system_verification';
 }

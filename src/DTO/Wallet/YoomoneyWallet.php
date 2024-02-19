@@ -11,10 +11,15 @@ class YoomoneyWallet extends AbstractWallet
      */
     private $account;
 
+    /**
+     * @var string|null
+     */
+    private $description;
 
-    public function __construct(string $account)
+    public function __construct(string $account, ?string $description = null)
     {
-        $this->account = $account;
+        $this->account     = $account;
+        $this->description = $description;
     }
 
     /**
