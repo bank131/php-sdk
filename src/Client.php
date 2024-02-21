@@ -6,6 +6,7 @@ namespace Bank131\SDK;
 
 use Bank131\SDK\API\FpsApi;
 use Bank131\SDK\API\RecurrentApi;
+use Bank131\SDK\API\SberPayApi;
 use Bank131\SDK\API\SessionApi;
 use Bank131\SDK\API\SubscriptionApi;
 use Bank131\SDK\API\TokenApi;
@@ -242,5 +243,13 @@ final class Client implements LoggerAwareInterface
     public function fps(): FpsApi
     {
         return new FpsApi($this);
+    }
+
+    /**
+     * @return SberPayApi
+     */
+    public function sberPay(): SberPayApi
+    {
+        return new SberPayApi($this);
     }
 }
