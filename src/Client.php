@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bank131\SDK;
 
 use Bank131\SDK\API\RecurrentApi;
+use Bank131\SDK\API\SberPayApi;
 use Bank131\SDK\API\SessionApi;
 use Bank131\SDK\API\SubscriptionApi;
 use Bank131\SDK\API\TokenApi;
@@ -236,5 +237,13 @@ final class Client implements LoggerAwareInterface
     public function token(): TokenApi
     {
         return new TokenApi($this);
+    }
+
+    /**
+     * @return SberPayApi
+     */
+    public function sberPay(): SberPayApi
+    {
+        return new SberPayApi($this);
     }
 }
