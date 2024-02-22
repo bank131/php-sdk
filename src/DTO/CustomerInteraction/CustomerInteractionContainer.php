@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bank131\SDK\DTO\CustomerInteraction;
 
+use Bank131\SDK\DTO\CustomerInteraction\Inform\Inform;
+
 class CustomerInteractionContainer
 {
     /**
