@@ -32,6 +32,11 @@ class Redirect
     private $params;
 
     /**
+     * @var array|null
+     */
+    private $tds_data;
+
+    /**
      * @return string
      */
     public function getUrl(): string
@@ -69,5 +74,13 @@ class Redirect
     public function getParams(): ?array
     {
         return $this->params;
+    }
+
+    /**
+     * @return array|null
+     */
+    public function getTdsData(): ?array
+    {
+        return $this->tds_data;
     }
 }
