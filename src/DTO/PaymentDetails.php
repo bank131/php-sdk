@@ -7,6 +7,7 @@ namespace Bank131\SDK\DTO;
 use Bank131\SDK\DTO\PaymentMethod\BankAccountPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\CardPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\CryptoWalletPaymentMethod;
+use Bank131\SDK\DTO\PaymentMethod\FasterPaymentSystemPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\InternetBankingPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\PaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\RecurrentPaymentMethod;
@@ -54,6 +55,11 @@ class PaymentDetails
      * @var InternetBankingPaymentMethod|null
      */
     private $internet_banking;
+
+    /**
+     * @var FasterPaymentSystemPaymentMethod|null
+     */
+    private $faster_payment_system;
 
     /**
      * PaymentDetails constructor.
@@ -110,5 +116,10 @@ class PaymentDetails
     public function getInternetBanking(): ?InternetBankingPaymentMethod
     {
         return $this->internet_banking;
+    }
+
+    public function getFasterPaymentSystem(): ?FasterPaymentSystemPaymentMethod
+    {
+        return $this->faster_payment_system;
     }
 }

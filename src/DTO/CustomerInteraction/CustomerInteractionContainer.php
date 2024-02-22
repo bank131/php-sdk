@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Bank131\SDK\DTO\CustomerInteraction;
 
+use Bank131\SDK\DTO\CustomerInteraction\Inform\Inform;
+
 class CustomerInteractionContainer
 {
     /**
@@ -15,6 +17,11 @@ class CustomerInteractionContainer
      * @var Redirect|null
      */
     private $redirect;
+
+    /**
+     * @var Inform|null
+     */
+    private $inform;
 
     /**
      * @return string
@@ -30,5 +37,13 @@ class CustomerInteractionContainer
     public function getRedirect(): ?Redirect
     {
         return $this->redirect;
+    }
+
+    /**
+     * @return Inform|null
+     */
+    public function getInform(): ?Inform
+    {
+        return $this->inform;
     }
 }
