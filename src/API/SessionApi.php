@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace Bank131\SDK\API;
 
 use Bank131\SDK\API\Enum\HttpVerbEnum;
+use Bank131\SDK\API\Request\Confirm\ConfirmInformation;
 use Bank131\SDK\API\Request\Session\ChargebackPaymentSessionRequest;
+use Bank131\SDK\API\Request\Session\ConfirmRequest;
 use Bank131\SDK\API\Request\Session\CreateSessionRequest;
 use Bank131\SDK\API\Request\Session\InitPaymentSessionRequest;
 use Bank131\SDK\API\Request\Session\InitPayoutSessionRequest;
@@ -183,9 +185,9 @@ class SessionApi extends AbstractApi
      *
      * @return SessionResponse
      */
-    public function confirm(string $sessionId): SessionResponse
+    public function confirm(string $sessionId, ?ConfirmInformation $confirmInformation = null): SessionResponse
     {
-        $request = new SessionIdRequest($sessionId);
+        $request = new ConfirmRequest($sessionId, $confirmInformation);
 
         /** @var SessionResponse $response */
         $response = $this->request(

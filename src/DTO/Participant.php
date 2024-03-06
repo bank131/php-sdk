@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bank131\SDK\DTO;
 
 use Bank131\SDK\Exception\InvalidArgumentException;
+use DateTimeImmutable;
 
 class Participant
 {
@@ -152,6 +153,81 @@ class Participant
      * @var string|null
      */
     protected $beneficiary_id;
+
+    /**
+     * @var string|null
+     */
+    protected $wallet_id;
+
+    /**
+     * @var string|null
+     */
+    protected $citizenship_country_iso_3;
+
+    /**
+     * @var string|null
+     */
+    protected $flat;
+
+    /**
+     * @var DateTimeImmutable|null
+     */
+    protected $date_of_birth;
+
+    public function getWalletId(): ?string
+    {
+        return $this->wallet_id;
+    }
+
+    public function setWalletId(?string $wallet_id): void
+    {
+        $this->wallet_id = $wallet_id;
+    }
+
+    public function getCitizenshipCountryIso3(): ?string
+    {
+        return $this->citizenship_country_iso_3;
+    }
+
+    public function setCitizenshipCountryIso3(?string $citizenship_country_iso_3): void
+    {
+        $this->citizenship_country_iso_3 = $citizenship_country_iso_3;
+    }
+
+    public function getFlat(): ?string
+    {
+        return $this->flat;
+    }
+
+    public function setFlat(?string $flat): void
+    {
+        $this->flat = $flat;
+    }
+
+    public function getDateOfBirth(): ?DateTimeImmutable
+    {
+        return $this->date_of_birth;
+    }
+
+    public function setDateOfBirth(?DateTimeImmutable $date_of_birth): void
+    {
+        $this->date_of_birth = $date_of_birth;
+    }
+
+    public function getStreet(): ?string
+    {
+        return $this->street;
+    }
+
+    public function setStreet(?string $street): void
+    {
+        $this->street = $street;
+    }
+
+    /**
+     * @var string|null
+     */
+    protected $street;
 
     /**
      * @return string|null
@@ -532,7 +608,7 @@ class Participant
     }
 
     /**
-     * @param  string  $beneficiary_id
+     * @param string $beneficiary_id
      */
     public function setBeneficiaryId(string $beneficiary_id): void
     {
