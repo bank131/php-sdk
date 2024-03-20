@@ -26,6 +26,8 @@ abstract class AbstractApi
      */
     private $serializer;
 
+    protected $headers;
+
     /**
      * AbstractApi constructor.
      *
@@ -35,6 +37,7 @@ abstract class AbstractApi
     {
         $this->httpClient = $client->getHttpClient();
         $this->serializer = $client->getSerializer();
+        $this->headers    = [];
     }
 
     /**
@@ -56,15 +59,32 @@ abstract class AbstractApi
 
         $body = $this->serializer->serialize($request);
 
+        $options = ['body' => $body];
+
+        if ($this->headers) {
+            $options['headers'] = $this->headers;
+        }
+
         $response = $this->httpClient->request(
             $method,
             $uri,
-            ['body' => $body]
+            $options
         );
 
         /** @var AbstractResponse $deserializedResponse */
         $deserializedResponse = $this->serializer->deserialize((string)$response->getBody(), $expectedClass);
 
         return $deserializedResponse;
+    }
+
+    /**
+     * @return AbstractApi|static
+     */
+    public function withHeader(string $name, string $value)
+    {
+        $clone = clone $this;
+        $clone->headers[$name] = $value;
+
+        return $clone;
     }
 }
