@@ -25,7 +25,7 @@ final class JsonSerializer implements SerializerInterface
     {
         $normalizedObject = $this->normalize($object);
 
-        $jsonString = json_encode($normalizedObject);
+        $jsonString = json_encode($normalizedObject, JSON_UNESCAPED_UNICODE);
 
         return $jsonString;
     }
