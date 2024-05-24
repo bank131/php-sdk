@@ -50,8 +50,8 @@ class BankCard extends AbstractCard
         ?string $securityCode = null,
         ?string $cardholderName = null
     ) {
-        if (!preg_match('/^\d{16,19}$/', $number)) {
-            throw new InvalidArgumentException('Card number must be between 16 and 19 digits');
+        if (!preg_match('/^\d{14,19}$/', $number)) {
+            throw new InvalidArgumentException('Card number must be between 14 and 19 digits');
         }
 
         $this->number = $number;
