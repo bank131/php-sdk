@@ -258,6 +258,12 @@ class JsonSerializerTest extends TestCase
                                 'amount'   => $amountValue = 10000,
                                 'currency' => $amountCurrency = 'rub',
                             ],
+                            'fee' => [
+                                'merchant_fee' => [
+                                    'amount' => 100,
+                                    'currency' => 'rub',
+                                ]
+                            ],
                         ],
                         'metadata'        => $metadata = '{"key":"value"}',
                         'payment_options' => [
@@ -298,6 +304,8 @@ class JsonSerializerTest extends TestCase
         $this->assertEquals($amountCurrency, $acquiringPayment->getAmounts()->getGross()->getCurrency());
         $this->assertEquals($amountValue, $acquiringPayment->getAmounts()->getNet()->getAmount());
         $this->assertEquals($amountCurrency, $acquiringPayment->getAmounts()->getNet()->getCurrency());
+        $this->assertEquals(100, $acquiringPayment->getAmounts()->getFee()->getMerchantFee()->getAmount());
+        $this->assertEquals('rub', $acquiringPayment->getAmounts()->getFee()->getMerchantFee()->getCurrency());
         $this->assertEquals($metadata, $acquiringPayment->getMetadata());
         $this->assertEquals($returnUrl, $acquiringPayment->getPaymentOptions()->getReturnUrl());
     }
