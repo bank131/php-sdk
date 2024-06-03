@@ -30,4 +30,9 @@ class PlatformDetails
     {
         $this->type = $type;
     }
+
+    public function setOs(string $os): void
+    {
+        $this->os = $os;
+    }
 }
