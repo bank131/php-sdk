@@ -17,6 +17,11 @@ class CustomerInteractionContainer
     private $redirect;
 
     /**
+     * @var Inform|null
+     */
+    private $inform;
+
+    /**
      * @return string
      */
     public function getType(): string
@@ -30,5 +35,13 @@ class CustomerInteractionContainer
     public function getRedirect(): ?Redirect
     {
         return $this->redirect;
+    }
+
+    /**
+     * @return Inform|null
+     */
+    public function getInform(): ?Inform
+    {
+        return $this->inform;
     }
 }

@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Bank131\SDK\DTO;
 
+use Bank131\SDK\DTO\Collection\AmountCollection;
+
 class Amounts
 {
     /**
@@ -15,6 +17,11 @@ class Amounts
      */
     private $gross;
 
+    /**
+     * @var Fee|null
+     */
+    private $fee;
+
     public function getNet(): ?Amount
     {
         return $this->net;
@@ -23,5 +30,13 @@ class Amounts
     public function getGross(): ?Amount
     {
         return $this->gross;
+    }
+
+    /**
+     * @return Fee|null
+     */
+    public function getFee(): ?Fee
+    {
+        return $this->fee;
     }
 }
