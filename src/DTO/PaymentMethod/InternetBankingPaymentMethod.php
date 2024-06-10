@@ -1,9 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Bank131\SDK\DTO\PaymentMethod;
 
 use Bank131\SDK\DTO\InternetBanking\AbstractInternetBanking;
+use Bank131\SDK\DTO\InternetBanking\Alipay;
 use Bank131\SDK\DTO\InternetBanking\SberPay;
 use Bank131\SDK\DTO\PaymentMethod\Enum\PaymentMethodEnum;
 use Bank131\SDK\Exception\InvalidArgumentException;
@@ -14,10 +16,16 @@ class InternetBankingPaymentMethod extends PaymentMethod
      * @var string $type
      */
     private $type;
+
     /**
      * @var SberPay|null
      */
     private $sber_pay = null;
+
+    /**
+     * @var Alipay|null
+     */
+    private $alipay = null;
 
     public function __construct(AbstractInternetBanking $internetBanking)
     {
@@ -37,5 +45,10 @@ class InternetBankingPaymentMethod extends PaymentMethod
     public function getSberPay(): ?SberPay
     {
         return $this->sber_pay;
+    }
+
+    public function getAlipay(): ?Alipay
+    {
+        return $this->alipay;
     }
 }
