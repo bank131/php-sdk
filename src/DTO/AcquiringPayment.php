@@ -6,6 +6,7 @@ namespace Bank131\SDK\DTO;
 
 use Bank131\SDK\DTO\Collection\AcquiringPaymentRefundCollection;
 use Bank131\SDK\DTO\Collection\RevenueSplitInfoCollection;
+use Bank131\SDK\DTO\CustomerAuthorization\CustomerAuthorization;
 use Bank131\SDK\DTO\CustomerInteraction\CustomerInteractionContainer;
 use Bank131\SDK\DTO\Enum\AcquiringPaymentStatusEnum;
 use Bank131\SDK\DTO\Recurrent\RecurrentDetails;
@@ -82,6 +83,11 @@ class AcquiringPayment
      * @var CustomerInteractionContainer|null
      */
     private $customer_interaction;
+
+    /**
+     * @var CustomerAuthorization|null
+     */
+    private $customer_authorization;
 
     /**
      * @var mixed
@@ -213,6 +219,14 @@ class AcquiringPayment
     public function getCustomerInteraction(): ?CustomerInteractionContainer
     {
         return $this->customer_interaction;
+    }
+
+    /**
+     * @return CustomerAuthorization|null
+     */
+    public function getCustomerAuthorization(): ?CustomerAuthorization
+    {
+        return $this->customer_authorization;
     }
 
     /**
