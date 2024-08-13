@@ -90,10 +90,8 @@ class BankCard extends AbstractCard
      */
     public function setExpirationYear(string $expirationYear): void
     {
-        $current = (new DateTime())->format("Y");
-
-        if ((int) "20".$expirationYear < (int) $current) {
-            throw new InvalidArgumentException('Your card is expired');
+        if (!preg_match('/^\d\d$/', $expirationYear)) {
+            throw new InvalidArgumentException('Expiration year must be two digits');
         }
 
         $this->expiration_year = $expirationYear;
