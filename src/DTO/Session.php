@@ -107,11 +107,27 @@ class Session
     }
 
     /**
+     * @deprecated
+     */
+    public function getAcquiringPayments(): PaymentListCollection
+    {
+        return $this->getPaymentList();
+    }
+
+    /**
      * @return PaymentListCollection
      */
     public function getPaymentList(): PaymentListCollection
     {
         return $this->payment_list ?? $this->acquiring_payments ?? new PaymentListCollection();
+    }
+
+    /**
+     * @deprecated
+     */
+    public function getPayments(): PayoutListCollection
+    {
+        return $this->getPayoutList();
     }
 
     /**

@@ -39,7 +39,7 @@ class RequestSerializerTest extends JsonSerializerTest
             ]
         ];
 
-        self::assertEquals(json_encode($expected), $jsonString);
+        self::assertEquals(json_encode($expected, JSON_UNESCAPED_UNICODE), $jsonString);
     }
 
     public function testPaymentFpsPaymentMethodSerialize()
@@ -52,7 +52,8 @@ class RequestSerializerTest extends JsonSerializerTest
         $jsonString = $this->serializer->serialize($sessionRequest);
         $expected = [
             "payment_details" => [
-                "type" => "faster_payment_system"
+                "type" => "faster_payment_system",
+                "faster_payment_system" => [],
             ]
         ];
 
