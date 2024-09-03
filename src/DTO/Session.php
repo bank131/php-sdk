@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Bank131\SDK\DTO;
 
-use Bank131\SDK\DTO\Collection\AcquiringPaymentCollection;
-use Bank131\SDK\DTO\Collection\PaymentCollection;
+use Bank131\SDK\DTO\Collection\PaymentListCollection;
+use Bank131\SDK\DTO\Collection\PayoutListCollection;
 use Bank131\SDK\DTO\Enum\SessionStatusEnum;
 use DateTimeImmutable;
 
@@ -37,14 +37,24 @@ class Session
     private $finished_at;
 
     /**
-     * @var AcquiringPaymentCollection|null
+     * @var PaymentListCollection|null
      */
     private $acquiring_payments;
 
     /**
-     * @var PaymentCollection|null
+     * @var PaymentListCollection|null
+     */
+    private $payment_list;
+
+    /**
+     * @var PayoutListCollection|null
      */
     private $payments;
+
+    /**
+     * @var PayoutListCollection|null
+     */
+    private $payout_list;
 
     /**
      * @var string|null
@@ -97,19 +107,19 @@ class Session
     }
 
     /**
-     * @return AcquiringPaymentCollection
+     * @return PaymentListCollection
      */
-    public function getAcquiringPayments(): AcquiringPaymentCollection
+    public function getPaymentList(): PaymentListCollection
     {
-        return $this->acquiring_payments ?? new AcquiringPaymentCollection();
+        return $this->payment_list ?? $this->acquiring_payments ?? new PaymentListCollection();
     }
 
     /**
-     * @return PaymentCollection
+     * @return PayoutListCollection
      */
-    public function getPayments(): PaymentCollection
+    public function getPayoutList(): PayoutListCollection
     {
-        return $this->payments ?? new PaymentCollection();
+        return $this->payout_list ?? $this->payments ?? new PayoutListCollection();
     }
 
     /**

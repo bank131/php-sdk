@@ -26,7 +26,7 @@ class RequestSerializerTest extends JsonSerializerTest
 
         $jsonString = $this->serializer->serialize($sessionRequest);
         $expected = [
-            "payment_method" => [
+            "payout_details" => [
                 "type" => "bank_account",
                 "bank_account" => [
                     "system_type" => "faster_payment_system",
@@ -77,7 +77,7 @@ class RequestSerializerTest extends JsonSerializerTest
 
         $jsonString = $this->serializer->serialize($sessionRequest);
         $expected = [
-            "payment_method" => [
+            "payout_details" => [
                 "type" => "bank_account",
                 "bank_account" => [
                     "system_type" => "ru",
@@ -117,7 +117,7 @@ class RequestSerializerTest extends JsonSerializerTest
 
         $jsonString = $this->serializer->serialize($sessionRequest);
         $expected = [
-            "payment_method" => [
+            "payout_details" => [
                 "type" => "bank_account",
                 "bank_account" => [
                     "system_type" => "ru",

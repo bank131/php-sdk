@@ -22,7 +22,7 @@ use Bank131\SDK\API\Response\Session\SessionResponse;
 
 class SessionApi extends AbstractApi
 {
-    protected const BASE_URI = 'api/v1/session';
+    protected const BASE_URI = 'api/v2/session';
 
     /**
      * @param InitPaymentSessionRequest $request

@@ -76,11 +76,11 @@ class SessionApiTest extends AbstractApiTest
         $this->assertEquals(new DateTimeImmutable($sessionCreatedAt), $session->getCreatedAt());
         $this->assertEquals(new DateTimeImmutable($sessionUpdatedAt), $session->getUpdatedAt());
 
-        $this->assertIsIterable($session->getAcquiringPayments());
-        $this->assertCount(1, $session->getAcquiringPayments());
+        $this->assertIsIterable($session->getPaymentList());
+        $this->assertCount(1, $session->getPaymentList());
 
         /** @var AcquiringPayment $acquiringPayment */
-        $acquiringPayment = $session->getAcquiringPayments()[0];
+        $acquiringPayment = $session->getPaymentList()[0];
 
         $this->assertNotNull($acquiringPayment->getId());
         $this->assertNotNull($acquiringPayment->getStatus());
@@ -109,7 +109,7 @@ class SessionApiTest extends AbstractApiTest
                         "customer"=> [
                             "reference"=> $customerReference = "lucky"
                         ],
-                        "payment_method"=> [
+                        "payout_details"=> [
                             "type"=> "card",
                                 "card"=> [
                                     "brand"=> $cardBrand = "visa",
@@ -148,11 +148,11 @@ class SessionApiTest extends AbstractApiTest
         $this->assertEquals(new DateTimeImmutable($sessionCreatedAt), $session->getCreatedAt());
         $this->assertEquals(new DateTimeImmutable($sessionUpdatedAt), $session->getUpdatedAt());
 
-        $this->assertIsIterable($session->getPayments());
-        $this->assertCount(1, $session->getPayments());
+        $this->assertIsIterable($session->getPayoutList());
+        $this->assertCount(1, $session->getPayoutList());
 
         /** @var Payout $payout */
-        $payout = $session->getPayments()[0];
+        $payout = $session->getPayoutList()[0];
 
         $this->assertEquals($payoutId, $payout->getId());
         $this->assertEquals($payoutStatus, $payout->getStatus());
@@ -160,8 +160,8 @@ class SessionApiTest extends AbstractApiTest
         $this->assertEquals($customerReference, $payout->getCustomer()->getReference());
         $this->assertEquals($amount, $payout->getAmountDetails()->getAmount());
         $this->assertEquals($currency, $payout->getAmountDetails()->getCurrency());
-        $this->assertEquals($cardBrand, $payout->getPaymentMethod()->getCard()->getBrand());
-        $this->assertEquals($cardLast4, $payout->getPaymentMethod()->getCard()->getLast4());
+        $this->assertEquals($cardBrand, $payout->getPayoutdetails()->getCard()->getBrand());
+        $this->assertEquals($cardLast4, $payout->getPayoutdetails()->getCard()->getLast4());
         $this->assertEquals($recipientFullName, $payout->getParticipantDetails()->getRecipient()->getFullName());
         $this->assertEquals($recipientDocument, $payout->getParticipantDetails()->getRecipient()->getDocument());
     }
@@ -183,7 +183,7 @@ class SessionApiTest extends AbstractApiTest
                         "customer"=> [
                             "reference"=> $customerReference = "lucky"
                         ],
-                        "payment_method"=> [
+                        "payout_details"=> [
                             "type"=> "card",
                             "card"=> [
                                 "brand"=> $cardBrand = "visa",
@@ -237,11 +237,11 @@ class SessionApiTest extends AbstractApiTest
         $this->assertEquals(new DateTimeImmutable($sessionCreatedAt), $session->getCreatedAt());
         $this->assertEquals(new DateTimeImmutable($sessionUpdatedAt), $session->getUpdatedAt());
 
-        $this->assertIsIterable($session->getPayments());
-        $this->assertCount(1, $session->getPayments());
+        $this->assertIsIterable($session->getPayoutList());
+        $this->assertCount(1, $session->getPayoutList());
 
         /** @var Payout $payout */
-        $payout = $session->getPayments()[0];
+        $payout = $session->getPayoutList()[0];
 
         $this->assertEquals($payoutId, $payout->getId());
         $this->assertEquals($payoutStatus, $payout->getStatus());
@@ -249,8 +249,8 @@ class SessionApiTest extends AbstractApiTest
         $this->assertEquals($customerReference, $payout->getCustomer()->getReference());
         $this->assertEquals($amount, $payout->getAmountDetails()->getAmount());
         $this->assertEquals($currency, $payout->getAmountDetails()->getCurrency());
-        $this->assertEquals($cardBrand, $payout->getPaymentMethod()->getCard()->getBrand());
-        $this->assertEquals($cardLast4, $payout->getPaymentMethod()->getCard()->getLast4());
+        $this->assertEquals($cardBrand, $payout->getPayoutdetails()->getCard()->getBrand());
+        $this->assertEquals($cardLast4, $payout->getPayoutdetails()->getCard()->getLast4());
         $this->assertEquals($recipientFullName, $payout->getParticipantDetails()->getRecipient()->getFullName());
 
         $this->assertNotNull($fiscalizationDetails = $payout->getFiscalizationDetails());
@@ -354,11 +354,11 @@ class SessionApiTest extends AbstractApiTest
         $this->assertEquals(new DateTimeImmutable($sessionCreatedAt), $session->getCreatedAt());
         $this->assertEquals(new DateTimeImmutable($sessionUpdatedAt), $session->getUpdatedAt());
 
-        $this->assertIsIterable($session->getAcquiringPayments());
-        $this->assertCount(1, $session->getAcquiringPayments());
+        $this->assertIsIterable($session->getPaymentList());
+        $this->assertCount(1, $session->getPaymentList());
 
         /** @var AcquiringPayment $acquiringPayment */
-        $acquiringPayment = $session->getAcquiringPayments()[0];
+        $acquiringPayment = $session->getPaymentList()[0];
 
         $this->assertNotNull($acquiringPayment->getId());
         $this->assertNotNull($acquiringPayment->getStatus());
@@ -387,7 +387,7 @@ class SessionApiTest extends AbstractApiTest
                         "customer"=> [
                             "reference"=> $customerReference = "lucky"
                         ],
-                        "payment_method"=> [
+                        "payout_details"=> [
                             "type"=> "card",
                             "card"=> [
                                 "brand"=> $cardBrand = "visa",
@@ -424,11 +424,11 @@ class SessionApiTest extends AbstractApiTest
         $this->assertEquals(new DateTimeImmutable($sessionCreatedAt), $session->getCreatedAt());
         $this->assertEquals(new DateTimeImmutable($sessionUpdatedAt), $session->getUpdatedAt());
 
-        $this->assertIsIterable($session->getPayments());
-        $this->assertCount(1, $session->getPayments());
+        $this->assertIsIterable($session->getPayoutList());
+        $this->assertCount(1, $session->getPayoutList());
 
         /** @var Payout $payout */
-        $payout = $session->getPayments()[0];
+        $payout = $session->getPayoutList()[0];
 
         $this->assertEquals($payoutId, $payout->getId());
         $this->assertEquals($payoutStatus, $payout->getStatus());
@@ -436,8 +436,8 @@ class SessionApiTest extends AbstractApiTest
         $this->assertEquals($customerReference, $payout->getCustomer()->getReference());
         $this->assertEquals($amount, $payout->getAmountDetails()->getAmount());
         $this->assertEquals($currency, $payout->getAmountDetails()->getCurrency());
-        $this->assertEquals($cardBrand, $payout->getPaymentMethod()->getCard()->getBrand());
-        $this->assertEquals($cardLast4, $payout->getPaymentMethod()->getCard()->getLast4());
+        $this->assertEquals($cardBrand, $payout->getPayoutdetails()->getCard()->getBrand());
+        $this->assertEquals($cardLast4, $payout->getPayoutdetails()->getCard()->getLast4());
         $this->assertEquals($recipientFullName, $payout->getParticipantDetails()->getRecipient()->getFullName());
     }
 
@@ -458,7 +458,7 @@ class SessionApiTest extends AbstractApiTest
                         "customer"=> [
                             "reference"=> $customerReference = "lucky"
                         ],
-                        "payment_method"=> [
+                        "payout_details"=> [
                             "type"=> "card",
                             "card"=> [
                                 "brand"=> $cardBrand = "visa",
@@ -512,11 +512,11 @@ class SessionApiTest extends AbstractApiTest
         $this->assertEquals(new DateTimeImmutable($sessionCreatedAt), $session->getCreatedAt());
         $this->assertEquals(new DateTimeImmutable($sessionUpdatedAt), $session->getUpdatedAt());
 
-        $this->assertIsIterable($session->getPayments());
-        $this->assertCount(1, $session->getPayments());
+        $this->assertIsIterable($session->getPayoutList());
+        $this->assertCount(1, $session->getPayoutList());
 
         /** @var Payout $payout */
-        $payout = $session->getPayments()->get(0);
+        $payout = $session->getPayoutList()->get(0);
 
         $this->assertEquals($payoutId, $payout->getId());
         $this->assertEquals($payoutStatus, $payout->getStatus());
@@ -524,8 +524,8 @@ class SessionApiTest extends AbstractApiTest
         $this->assertEquals($customerReference, $payout->getCustomer()->getReference());
         $this->assertEquals($amount, $payout->getAmountDetails()->getAmount());
         $this->assertEquals($currency, $payout->getAmountDetails()->getCurrency());
-        $this->assertEquals($cardBrand, $payout->getPaymentMethod()->getCard()->getBrand());
-        $this->assertEquals($cardLast4, $payout->getPaymentMethod()->getCard()->getLast4());
+        $this->assertEquals($cardBrand, $payout->getPayoutdetails()->getCard()->getBrand());
+        $this->assertEquals($cardLast4, $payout->getPayoutdetails()->getCard()->getLast4());
         $this->assertEquals($recipientFullName, $payout->getParticipantDetails()->getRecipient()->getFullName());
 
         $this->assertNotNull($fiscalizationDetails = $payout->getFiscalizationDetails());
@@ -612,11 +612,11 @@ class SessionApiTest extends AbstractApiTest
         $this->assertEquals(new DateTimeImmutable($sessionCreatedAt), $session->getCreatedAt());
         $this->assertEquals(new DateTimeImmutable($sessionUpdatedAt), $session->getUpdatedAt());
 
-        $this->assertIsIterable($session->getAcquiringPayments());
-        $this->assertCount(1, $session->getAcquiringPayments());
+        $this->assertIsIterable($session->getPaymentList());
+        $this->assertCount(1, $session->getPaymentList());
 
         /** @var AcquiringPayment $acquiringPayment */
-        $acquiringPayment = $session->getAcquiringPayments()[0];
+        $acquiringPayment = $session->getPaymentList()[0];
 
         $this->assertNotNull($acquiringPayment->getId());
         $this->assertNotNull($acquiringPayment->getStatus());
@@ -709,11 +709,11 @@ class SessionApiTest extends AbstractApiTest
         $this->assertEquals(new DateTimeImmutable($sessionCreatedAt), $session->getCreatedAt());
         $this->assertEquals(new DateTimeImmutable($sessionUpdatedAt), $session->getUpdatedAt());
 
-        $this->assertIsIterable($session->getAcquiringPayments());
-        $this->assertCount(1, $session->getAcquiringPayments());
+        $this->assertIsIterable($session->getPaymentList());
+        $this->assertCount(1, $session->getPaymentList());
 
         /** @var AcquiringPayment $acquiringPayment */
-        $acquiringPayment = $session->getAcquiringPayments()[0];
+        $acquiringPayment = $session->getPaymentList()[0];
 
         $this->assertNotNull($acquiringPayment->getId());
         $this->assertNotNull($acquiringPayment->getStatus());
@@ -792,11 +792,11 @@ class SessionApiTest extends AbstractApiTest
         $this->assertEquals(new DateTimeImmutable($sessionCreatedAt), $session->getCreatedAt());
         $this->assertEquals(new DateTimeImmutable($sessionUpdatedAt), $session->getUpdatedAt());
 
-        $this->assertIsIterable($session->getAcquiringPayments());
-        $this->assertCount(1, $session->getAcquiringPayments());
+        $this->assertIsIterable($session->getPaymentList());
+        $this->assertCount(1, $session->getPaymentList());
 
         /** @var AcquiringPayment $acquiringPayment */
-        $acquiringPayment = $session->getAcquiringPayments()[0];
+        $acquiringPayment = $session->getPaymentList()[0];
 
         $this->assertNotNull($acquiringPayment->getId());
         $this->assertNotNull($acquiringPayment->getStatus());
@@ -860,11 +860,11 @@ class SessionApiTest extends AbstractApiTest
         $this->assertEquals(new DateTimeImmutable($sessionCreatedAt), $session->getCreatedAt());
         $this->assertEquals(new DateTimeImmutable($sessionUpdatedAt), $session->getUpdatedAt());
 
-        $this->assertIsIterable($session->getAcquiringPayments());
-        $this->assertCount(1, $session->getAcquiringPayments());
+        $this->assertIsIterable($session->getPaymentList());
+        $this->assertCount(1, $session->getPaymentList());
 
         /** @var AcquiringPayment $acquiringPayment */
-        $acquiringPayment = $session->getAcquiringPayments()[0];
+        $acquiringPayment = $session->getPaymentList()[0];
 
         $this->assertNotNull($acquiringPayment->getId());
         $this->assertNotNull($acquiringPayment->getStatus());
@@ -928,11 +928,11 @@ class SessionApiTest extends AbstractApiTest
         $this->assertEquals(new DateTimeImmutable($sessionCreatedAt), $session->getCreatedAt());
         $this->assertEquals(new DateTimeImmutable($sessionUpdatedAt), $session->getUpdatedAt());
 
-        $this->assertIsIterable($session->getAcquiringPayments());
-        $this->assertCount(1, $session->getAcquiringPayments());
+        $this->assertIsIterable($session->getPaymentList());
+        $this->assertCount(1, $session->getPaymentList());
 
         /** @var AcquiringPayment $acquiringPayment */
-        $acquiringPayment = $session->getAcquiringPayments()[0];
+        $acquiringPayment = $session->getPaymentList()[0];
 
         $this->assertNotNull($acquiringPayment->getId());
         $this->assertNotNull($acquiringPayment->getStatus());
@@ -998,11 +998,11 @@ class SessionApiTest extends AbstractApiTest
         $this->assertEquals(new DateTimeImmutable($sessionUpdatedAt), $session->getUpdatedAt());
         $this->assertEquals('confirm', $session->getNextAction());
 
-        $this->assertIsIterable($session->getAcquiringPayments());
-        $this->assertCount(1, $session->getAcquiringPayments());
+        $this->assertIsIterable($session->getPaymentList());
+        $this->assertCount(1, $session->getPaymentList());
 
         /** @var AcquiringPayment $acquiringPayment */
-        $acquiringPayment = $session->getAcquiringPayments()[0];
+        $acquiringPayment = $session->getPaymentList()[0];
 
         $this->assertNotNull($acquiringPayment->getId());
         $this->assertNotNull($acquiringPayment->getStatus());

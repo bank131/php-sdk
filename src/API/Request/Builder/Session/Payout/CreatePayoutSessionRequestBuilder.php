@@ -33,8 +33,8 @@ class CreatePayoutSessionRequestBuilder extends AbstractPayoutSessionRequestBuil
             $request->setMetadata($this->metadata);
         }
 
-        if ($this->paymentMethod) {
-            $request->setPaymentMethod($this->paymentMethod);
+        if ($this->payoutDetails) {
+            $request->setPayoutDetails($this->payoutDetails);
         }
 
         if ($this->fiscalizationDetails) {
