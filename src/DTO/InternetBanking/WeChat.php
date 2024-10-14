@@ -7,6 +7,6 @@ class WeChat extends AbstractInternetBanking
 {
     public function getType(): string
     {
-        return InternetBankingEnum::ALIPAY;
+        return InternetBankingEnum::WECHAT;
     }
 }

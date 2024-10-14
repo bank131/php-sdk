@@ -7,6 +7,7 @@ namespace Bank131\SDK\DTO\PaymentMethod;
 use Bank131\SDK\DTO\InternetBanking\AbstractInternetBanking;
 use Bank131\SDK\DTO\InternetBanking\Alipay;
 use Bank131\SDK\DTO\InternetBanking\SberPay;
+use Bank131\SDK\DTO\InternetBanking\WeChat;
 use Bank131\SDK\DTO\PaymentMethod\Enum\PaymentMethodEnum;
 use Bank131\SDK\Exception\InvalidArgumentException;
 
@@ -26,6 +27,11 @@ class InternetBankingPaymentMethod extends PaymentMethod
      * @var Alipay|null
      */
     private $alipay = null;
+
+    /**
+     * @var WeChat|null
+     */
+    private $we_chat = null;
 
     public function __construct(AbstractInternetBanking $internetBanking)
     {
@@ -50,5 +56,10 @@ class InternetBankingPaymentMethod extends PaymentMethod
     public function getAlipay(): ?Alipay
     {
         return $this->alipay;
+    }
+
+    public function getWeChat(): ?WeChat
+    {
+        return $this->we_chat;
     }
 }
