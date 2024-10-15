@@ -8,5 +8,5 @@ final class InternetBankingEnum
 {
     public const SBER_PAY = 'sber_pay';
     public const ALIPAY = 'alipay';
-    public const WECHAT = 'wechat';
+    public const WECHAT = 'we_chat';
 }
