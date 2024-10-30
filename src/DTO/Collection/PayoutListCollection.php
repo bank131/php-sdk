@@ -6,7 +6,7 @@ namespace Bank131\SDK\DTO\Collection;
 
 use Bank131\SDK\DTO\Payout;
 
-class PaymentCollection extends AbstractCollection
+class PayoutListCollection extends AbstractCollection
 {
     /**
      * @return class-string

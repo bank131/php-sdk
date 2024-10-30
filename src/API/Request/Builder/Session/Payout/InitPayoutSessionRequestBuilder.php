@@ -21,7 +21,7 @@ final class InitPayoutSessionRequestBuilder extends AbstractPayoutSessionRequest
         $this->validate();
 
         $request = new InitPayoutSessionRequest(
-            $this->paymentMethod, $this->amount, $this->participantDetails
+            $this->payoutDetails, $this->amount, $this->participantDetails
         );
 
         if ($this->customer) {
@@ -46,7 +46,7 @@ final class InitPayoutSessionRequestBuilder extends AbstractPayoutSessionRequest
 
     protected function validate(): void
     {
-        if (!$this->paymentMethod) {
+        if (!$this->payoutDetails) {
             throw new InvalidArgumentException('You must specify payment method (card/bank account/wallet)');
         }
 

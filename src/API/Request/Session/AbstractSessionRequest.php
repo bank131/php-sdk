@@ -54,7 +54,7 @@ abstract class AbstractSessionRequest extends AbstractRequest
     /**
      * @var PaymentDetails
      */
-    private $payment_method;
+    private $payout_details;
 
     /**
      * @var ParticipantDetails
@@ -102,11 +102,11 @@ abstract class AbstractSessionRequest extends AbstractRequest
     }
 
     /**
-     * @param PaymentDetails $payment_method
+     * @param PaymentDetails $payout_details
      */
-    public function setPaymentMethod(PaymentDetails $payment_method): void
+    public function setPayoutDetails(PaymentDetails $payout_details): void
     {
-        $this->payment_method = $payment_method;
+        $this->payout_details = $payout_details;
     }
 
     /**

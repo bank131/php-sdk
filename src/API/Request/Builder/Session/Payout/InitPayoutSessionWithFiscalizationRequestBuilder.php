@@ -21,7 +21,7 @@ final class InitPayoutSessionWithFiscalizationRequestBuilder extends AbstractPay
         $this->validate();
 
         $request = new InitPayoutSessionWithFiscalizationRequest(
-            $this->paymentMethod, $this->amount, $this->participantDetails, $this->fiscalizationDetails
+            $this->payoutDetails, $this->amount, $this->participantDetails, $this->fiscalizationDetails
         );
 
         if ($this->customer) {
@@ -46,7 +46,7 @@ final class InitPayoutSessionWithFiscalizationRequestBuilder extends AbstractPay
             throw new InvalidArgumentException('You must specify fiscalization details');
         }
 
-        if (!$this->paymentMethod) {
+        if (!$this->payoutDetails) {
             throw new InvalidArgumentException('You must specify payment method (card/bank account/wallet)');
         }
 
