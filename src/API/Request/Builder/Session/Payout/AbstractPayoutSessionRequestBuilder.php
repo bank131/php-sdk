@@ -20,7 +20,7 @@ abstract class AbstractPayoutSessionRequestBuilder extends AbstractSessionReques
     /**
      * @var PaymentDetails|null
      */
-    protected $paymentMethod;
+    protected $payoutDetails;
 
     /**
      * @var FiscalizationDetails|null
@@ -34,11 +34,11 @@ abstract class AbstractPayoutSessionRequestBuilder extends AbstractSessionReques
      */
     public function setCard(AbstractCard $card): AbstractSessionRequestBuilder
     {
-        $paymentMethod = new PaymentDetails(
+        $payoutDetails = new PaymentDetails(
             new CardPaymentMethod($card)
         );
 
-        $this->paymentMethod = $paymentMethod;
+        $this->payoutDetails = $payoutDetails;
 
         return $this;
     }
@@ -50,11 +50,11 @@ abstract class AbstractPayoutSessionRequestBuilder extends AbstractSessionReques
      */
     public function setWallet(AbstractWallet $wallet): AbstractSessionRequestBuilder
     {
-        $paymentMethod = new PaymentDetails(
+        $payoutDetails = new PaymentDetails(
             new WalletPaymentMethod($wallet)
         );
 
-        $this->paymentMethod = $paymentMethod;
+        $this->payoutDetails = $payoutDetails;
 
         return $this;
     }
@@ -66,11 +66,11 @@ abstract class AbstractPayoutSessionRequestBuilder extends AbstractSessionReques
      */
     public function setBankAccount(AbstractBankAccount $bankAccount): AbstractSessionRequestBuilder
     {
-        $paymentMethod = new PaymentDetails(
+        $payoutDetails = new PaymentDetails(
             new BankAccountPaymentMethod($bankAccount)
         );
 
-        $this->paymentMethod = $paymentMethod;
+        $this->payoutDetails = $payoutDetails;
 
         return $this;
     }

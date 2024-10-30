@@ -11,7 +11,7 @@ class TransferDetails
     /**
      * @var PaymentMethod
      */
-    private $payment_method;
+    private $payout_details;
 
     /**
      * @var NominalPaymentParticipant
@@ -44,12 +44,12 @@ class TransferDetails
         $this->recipient      = $recipient;
         $this->purpose        = $purpose;
         $this->amount         = $amount;
-        $this->payment_method = $paymentMethod;
+        $this->payout_details = $paymentMethod;
     }
 
-    public function getPaymentMethod(): PaymentMethod
+    public function getPayoutDetails(): PaymentMethod
     {
-        return $this->payment_method;
+        return $this->payout_details;
     }
 
     public function getCustomer(): NominalPaymentParticipant

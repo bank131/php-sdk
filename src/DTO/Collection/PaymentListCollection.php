@@ -6,7 +6,7 @@ namespace Bank131\SDK\DTO\Collection;
 
 use Bank131\SDK\DTO\AcquiringPayment;
 
-class AcquiringPaymentCollection extends AbstractCollection
+class PaymentListCollection extends AbstractCollection
 {
     /**
      * @inheritDoc

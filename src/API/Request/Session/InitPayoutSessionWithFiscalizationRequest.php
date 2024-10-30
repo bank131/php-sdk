@@ -20,18 +20,18 @@ class InitPayoutSessionWithFiscalizationRequest extends InitPayoutSessionRequest
     /**
      * InitPayoutSessionWithFiscalizationRequest constructor.
      *
-     * @param PaymentDetails       $paymentMethod
+     * @param PaymentDetails       $payoutDetails
      * @param Amount               $amount
      * @param ParticipantDetails   $participant
      * @param FiscalizationDetails $fiscalizationDetails
      */
     public function __construct(
-        PaymentDetails $paymentMethod,
+        PaymentDetails $payoutDetails,
         Amount $amount,
         ParticipantDetails $participant,
         FiscalizationDetails $fiscalizationDetails
     ) {
-        parent::__construct($paymentMethod, $amount, $participant);
+        parent::__construct($payoutDetails, $amount, $participant);
 
         $this->fiscalization_details = $fiscalizationDetails;
     }

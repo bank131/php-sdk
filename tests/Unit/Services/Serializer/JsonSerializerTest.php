@@ -288,11 +288,11 @@ class JsonSerializerTest extends TestCase
         $this->assertEquals(new DateTimeImmutable($sessionCreatedAt), $session->getCreatedAt());
         $this->assertEquals(new DateTimeImmutable($sessionUpdatedAt), $session->getUpdatedAt());
 
-        $this->assertIsIterable($session->getAcquiringPayments());
-        $this->assertCount(1, $session->getAcquiringPayments());
+        $this->assertIsIterable($session->getPaymentList());
+        $this->assertCount(1, $session->getPaymentList());
 
         /** @var AcquiringPayment $acquiringPayment */
-        $acquiringPayment = $session->getAcquiringPayments()[0];
+        $acquiringPayment = $session->getPaymentList()[0];
 
         $this->assertEquals($paymentId, $acquiringPayment->getId());
         $this->assertEquals(new DateTimeImmutable($paymentCreatedAt), $acquiringPayment->getCreatedAt());
@@ -376,11 +376,11 @@ class JsonSerializerTest extends TestCase
         $this->assertEquals(new DateTimeImmutable($sessionCreatedAt), $session->getCreatedAt());
         $this->assertEquals(new DateTimeImmutable($sessionUpdatedAt), $session->getUpdatedAt());
 
-        $this->assertIsIterable($session->getAcquiringPayments());
-        $this->assertCount(1, $session->getAcquiringPayments());
+        $this->assertIsIterable($session->getPaymentList());
+        $this->assertCount(1, $session->getPaymentList());
 
         /** @var AcquiringPayment $acquiringPayment */
-        $acquiringPayment = $session->getAcquiringPayments()[0];
+        $acquiringPayment = $session->getPaymentList()[0];
 
         $this->assertEquals($paymentId, $acquiringPayment->getId());
         $this->assertEquals($paymentDetailsType, $acquiringPayment->getPaymentDetails()->getType());

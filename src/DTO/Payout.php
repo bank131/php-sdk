@@ -36,9 +36,14 @@ class Payout
     private $customer;
 
     /**
-     * @var PaymentDetails
+     * @var PaymentDetails|null
      */
     private $payment_method;
+
+    /**
+     * @var PaymentDetails|null
+     */
+    private $payout_details;
 
     /**
      * @var Amount
@@ -118,9 +123,9 @@ class Payout
     /**
      * @return PaymentDetails
      */
-    public function getPaymentMethod(): PaymentDetails
+    public function getPayoutDetails(): PaymentDetails
     {
-        return $this->payment_method;
+        return $this->payout_details ?? $this->payment_method;
     }
 
     /**
