@@ -11,4 +11,6 @@ class WalletEnum extends BaseEnum
     public const QIWI = 'qiwi';
 
     public const YOOMONEY = 'yoomoney';
+
+    public const STEAM = 'steam';
 }
