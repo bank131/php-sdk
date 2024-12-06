@@ -9,6 +9,8 @@ use DateTimeImmutable;
 
 class Participant
 {
+    private const DOB_FORMAT = 'Y-m-d';
+
     /**
      * @var string|null
      */
@@ -170,7 +172,7 @@ class Participant
     protected $flat;
 
     /**
-     * @var DateTimeImmutable|null
+     * @var string|null
      */
     protected $date_of_birth;
 
@@ -206,12 +208,12 @@ class Participant
 
     public function getDateOfBirth(): ?DateTimeImmutable
     {
-        return $this->date_of_birth;
+        return $this->date_of_birth ? new DateTimeImmutable($this->date_of_birth) : null;
     }
 
     public function setDateOfBirth(?DateTimeImmutable $date_of_birth): void
     {
-        $this->date_of_birth = $date_of_birth;
+        $this->date_of_birth = $date_of_birth ? $date_of_birth->format(self::DOB_FORMAT) : null;
     }
 
     public function getStreet(): ?string

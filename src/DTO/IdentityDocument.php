@@ -18,7 +18,7 @@ class IdentityDocument
     private $id_number;
 
     /**
-     * @var DateTimeImmutable
+     * @var DateTimeImmutable|null
      */
     private $id_expiration_date;
 
@@ -70,7 +70,7 @@ class IdentityDocument
     public function __construct(
         string             $id_type,
         string             $id_number,
-        DateTimeImmutable  $id_expiration_date,
+        ?DateTimeImmutable $id_expiration_date = null,
         ?DateTimeImmutable $issue_date = null,
         ?string            $division_code = null,
         ?string            $issued_by = null
@@ -103,7 +103,7 @@ class IdentityDocument
         $this->id_number = $id_number;
     }
 
-    public function getIdExpirationDate(): DateTimeImmutable
+    public function getIdExpirationDate(): ?DateTimeImmutable
     {
         return $this->id_expiration_date;
     }
