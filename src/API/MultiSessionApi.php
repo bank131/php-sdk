@@ -12,8 +12,7 @@ use GuzzleHttp\Exception\GuzzleException;
 
 class MultiSessionApi extends AbstractApi
 {
-    // TODO: change to v2
-    protected const BASE_URI = 'api/v1/session';
+    protected const BASE_URI = 'api/v2/session';
 
     /**
      * @return SessionResponse
