@@ -34,7 +34,7 @@ final class InitMultiSessionRequestBuilder extends AbstractSessionRequestBuilder
     /**
      * @psalm-suppress PossiblyNullArgument
      *
-     * @return InitPayoutSessionRequest
+     * @return InitMultiSessionRequest
      */
     public function build(): AbstractRequest
     {
