@@ -16,6 +16,7 @@ use Bank131\SDK\DTO\Participant;
 use Bank131\SDK\DTO\ProfessionalIncomeTaxpayer;
 use Bank131\SDK\DTO\Wallet\AbstractWallet;
 use Bank131\SDK\DTO\Wallet\QiwiWallet;
+use Bank131\SDK\DTO\Wallet\SteamWallet;
 use Bank131\SDK\DTO\Wallet\WalletEnum;
 use Bank131\SDK\DTO\Wallet\YoomoneyWallet;
 use Bank131\SDK\Exception\InvalidArgumentException;
@@ -181,6 +182,7 @@ class InitPayoutSessionRequestWithFiscalizationBuilderTest extends TestCase
         return [
             [QiwiWallet::class, WalletEnum::QIWI],
             [YoomoneyWallet::class, WalletEnum::YOOMONEY],
+            [SteamWallet::class, WalletEnum::STEAM],
         ];
     }
 
