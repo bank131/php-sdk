@@ -7,6 +7,8 @@ use DateTimeImmutable;
 
 class IdentityDocument
 {
+    private const ID_DATE_FORMAT = 'Y-m-d';
+
     /**
      * @var string
      */
@@ -18,12 +20,12 @@ class IdentityDocument
     private $id_number;
 
     /**
-     * @var DateTimeImmutable
+     * @var string|null
      */
     private $id_expiration_date;
 
     /**
-     * @var DateTimeImmutable|null
+     * @var string|null
      */
     private $issue_date;
 
@@ -34,12 +36,12 @@ class IdentityDocument
 
     public function getIssueDate(): ?DateTimeImmutable
     {
-        return $this->issue_date;
+        return new DateTimeImmutable($this->issue_date);
     }
 
     public function setIssueDate(?DateTimeImmutable $issue_date): void
     {
-        $this->issue_date = $issue_date;
+        $this->issue_date = $issue_date ? $issue_date->format(self::ID_DATE_FORMAT) : null;
     }
 
     public function getDivisionCode(): ?string
@@ -70,15 +72,15 @@ class IdentityDocument
     public function __construct(
         string             $id_type,
         string             $id_number,
-        DateTimeImmutable  $id_expiration_date,
+        ?DateTimeImmutable $id_expiration_date = null,
         ?DateTimeImmutable $issue_date = null,
         ?string            $division_code = null,
         ?string            $issued_by = null
     ) {
         $this->id_type            = $id_type;
         $this->id_number          = $id_number;
-        $this->id_expiration_date = $id_expiration_date;
-        $this->issue_date         = $issue_date;
+        $this->setIdExpirationDate($id_expiration_date);
+        $this->setIssueDate($issue_date);
         $this->division_code      = $division_code;
         $this->issued_by          = $issued_by;
     }
@@ -103,13 +105,13 @@ class IdentityDocument
         $this->id_number = $id_number;
     }
 
-    public function getIdExpirationDate(): DateTimeImmutable
+    public function getIdExpirationDate(): ?DateTimeImmutable
     {
-        return $this->id_expiration_date;
+        return $this->id_expiration_date ? new DateTimeImmutable($this->id_expiration_date) : null;
     }
 
-    public function setIdExpirationDate(DateTimeImmutable $id_expiration_date): void
+    public function setIdExpirationDate(?DateTimeImmutable $id_expiration_date): void
     {
-        $this->id_expiration_date = $id_expiration_date;
+        $this->id_expiration_date = $id_expiration_date ? $id_expiration_date->format(self::ID_DATE_FORMAT) : null;
     }
 }
