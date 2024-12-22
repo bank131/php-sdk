@@ -7,7 +7,9 @@ namespace Bank131\SDK\API\Request\Session;
 use Bank131\SDK\DTO\Amount;
 use Bank131\SDK\DTO\Card\AbstractCard;
 use Bank131\SDK\DTO\Customer;
+use Bank131\SDK\DTO\ParticipantDetails;
 use Bank131\SDK\DTO\PaymentDetails;
+use Bank131\SDK\DTO\PaymentOptions;
 
 class InitPaymentSessionRequest extends AbstractSessionRequest
 {

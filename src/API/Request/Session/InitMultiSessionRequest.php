@@ -4,39 +4,25 @@ declare(strict_types=1);
 
 namespace Bank131\SDK\API\Request\Session;
 
-use Bank131\SDK\DTO\Amount;
-use Bank131\SDK\DTO\PaymentDetails;
+use Bank131\SDK\API\Request\AbstractRequest;
+use Bank131\SDK\DTO\Collection\PayoutRequestCollection;
+use Bank131\SDK\DTO\Collection\PaymentRequestCollection;
 
-class InitMultiSessionRequest extends AbstractSessionRequest
+class InitMultiSessionRequest extends AbstractRequest
 {
     /**
-     * @var PaymentDetails[]
+     * @var PaymentRequestCollection
      */
-    protected $payment_details_multi = [];
+    private $payment_list;
 
     /**
-     * @var PaymentDetails[]
+     * @var PayoutRequestCollection
      */
-    protected $payout_details_multi = [];
+    private $payout_list;
 
-    /**
-     * @param PaymentDetails[] $paymentDetailsMulti
-     * @param PaymentDetails[] $payoutDetailsMulti
-     */
-    public function __construct(array $paymentDetailsMulti, array $payoutDetailsMulti, Amount $amount)
+    public function __construct(PaymentRequestCollection $payment_list, PayoutRequestCollection $payout_list)
     {
-        $this->setPaymentDetailsMulti($paymentDetailsMulti);
-        $this->setPayoutDetailsMulti($payoutDetailsMulti);
-        $this->setAmount($amount);
-    }
-
-    public function setPaymentDetailsMulti(array $payment_details_multi): void
-    {
-        $this->payment_details_multi = $payment_details_multi;
-    }
-
-    public function setPayoutDetailsMulti(array $payout_details_multi): void
-    {
-        $this->payout_details_multi = $payout_details_multi;
+        $this->payment_list = $payment_list;
+        $this->payout_list = $payout_list;
     }
 }

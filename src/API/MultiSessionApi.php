@@ -23,7 +23,7 @@ class MultiSessionApi extends AbstractApi
         /** @var SessionResponse $response */
         $response = $this->request(
             HttpVerbEnum::POST,
-            self::BASE_URI.'/init/session',
+            self::BASE_URI . '/init/session',
             SessionResponse::class,
             $request
         );
