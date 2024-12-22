@@ -16,9 +16,6 @@ class SteamWallet extends AbstractWallet
         $this->account = $account;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return WalletEnum::STEAM;
