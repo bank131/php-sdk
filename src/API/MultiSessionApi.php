@@ -12,7 +12,7 @@ use GuzzleHttp\Exception\GuzzleException;
 
 class MultiSessionApi extends AbstractApi
 {
-    protected const BASE_URI = 'api/v2/session';
+    protected const BASE_URI = 'api/v2/session/multi';
 
     /**
      * @return SessionResponse
@@ -23,7 +23,7 @@ class MultiSessionApi extends AbstractApi
         /** @var SessionResponse $response */
         $response = $this->request(
             HttpVerbEnum::POST,
-            self::BASE_URI . '/init/session',
+            self::BASE_URI . '/init',
             SessionResponse::class,
             $request
         );
