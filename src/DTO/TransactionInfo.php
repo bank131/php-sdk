@@ -25,4 +25,24 @@ class TransactionInfo
         $this->auth_code     = $authCode;
         $this->fp_message_id = $fpMessageId;
     }
+
+    public function getRrn(): ?string
+    {
+        return $this->rrn;
+    }
+
+    public function getArn(): ?string
+    {
+        return $this->arn;
+    }
+
+    public function getAuthCode(): ?string
+    {
+        return $this->auth_code;
+    }
+
+    public function getFpMessageId(): ?string
+    {
+        return $this->fp_message_id;
+    }
 }
