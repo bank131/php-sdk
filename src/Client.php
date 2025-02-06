@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Bank131\SDK;
 
 use Bank131\SDK\API\FpsApi;
+use Bank131\SDK\API\MultiSessionApi;
 use Bank131\SDK\API\RecurrentApi;
 use Bank131\SDK\API\SberPayApi;
 use Bank131\SDK\API\SessionApi;
@@ -198,6 +199,11 @@ final class Client implements LoggerAwareInterface
     public function session(): SessionApi
     {
         return new SessionApi($this);
+    }
+
+    public function multiSession(): MultiSessionApi
+    {
+        return new MultiSessionApi($this);
     }
 
     /**

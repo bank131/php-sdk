@@ -6,6 +6,7 @@ namespace Bank131\SDK\API\Request\Builder;
 
 use Bank131\SDK\API\Request\Builder\Recurrent\DisableRecurrentRequestBuilder;
 use Bank131\SDK\API\Request\Builder\Recurrent\RecurrentStatusRequestBuilder;
+use Bank131\SDK\API\Request\Builder\Session\Multi\InitMultiSessionRequestBuilder;
 use Bank131\SDK\API\Request\Builder\Session\Payment\CreatePaymentSessionRequestBuilder;
 use Bank131\SDK\API\Request\Builder\Session\Payment\InitPaymentSessionRequestBuilder;
 use Bank131\SDK\API\Request\Builder\Session\Payment\StartPaymentSessionRequestBuilder;
@@ -137,5 +138,10 @@ final class RequestBuilderFactory
     public function disableRecurrentRequestBuilder(): DisableRecurrentRequestBuilder
     {
         return new DisableRecurrentRequestBuilder();
+    }
+
+    public function initMultiSession(): InitMultiSessionRequestBuilder
+    {
+        return new InitMultiSessionRequestBuilder();
     }
 }
