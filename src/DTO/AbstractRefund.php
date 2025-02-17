@@ -70,7 +70,7 @@ class AbstractRefund
     /**
      * @var TransactionInfo
      */
-    private $transaction_info;
+    protected $transaction_info;
 
     /**
      * @return string
