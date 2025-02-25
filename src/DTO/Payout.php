@@ -81,6 +81,11 @@ class Payout
     protected $participant_details;
 
     /**
+     * @var TransactionInfo
+     */
+    private $transaction_info;
+
+    /**
      * @return string
      */
     public function getId(): string
@@ -184,5 +189,10 @@ class Payout
     public function setRefunds(PayoutRefundCollection $refunds): void
     {
         $this->refunds = $refunds;
+    }
+
+    public function getTransactionInfo(): ?TransactionInfo
+    {
+        return $this->transaction_info;
     }
 }
