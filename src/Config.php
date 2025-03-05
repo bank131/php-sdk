@@ -39,6 +39,11 @@ class Config
     private $timeout = self::DEFAULT_TIMEOUT_IN_SECONDS;
 
     /**
+     * @var string|null
+     */
+    private $submerchant;
+
+    /**
      * Config constructor.
      *
      * @param string      $uri
@@ -47,6 +52,7 @@ class Config
      * @param string|null $bank131PublicKey
      * @param int         $timeout
      * @param int         $connectTimeout
+     * @param string|null $submerchant
      */
     public function __construct(
         string $uri,
@@ -54,7 +60,8 @@ class Config
         string $privateKey,
         ?string $bank131PublicKey = null,
         int $timeout = self::DEFAULT_TIMEOUT_IN_SECONDS,
-        int $connectTimeout = self::DEFAULT_TIMEOUT_IN_SECONDS
+        int $connectTimeout = self::DEFAULT_TIMEOUT_IN_SECONDS,
+        ?string $submerchant = null
     ) {
         $this->uri              = $uri;
         $this->projectId        = $projectId;
@@ -62,6 +69,7 @@ class Config
         $this->bank131PublicKey = $bank131PublicKey;
         $this->timeout          = $timeout;
         $this->connectTimeout   = $connectTimeout;
+        $this->submerchant      = $submerchant;
     }
 
     /**
@@ -118,5 +126,13 @@ class Config
     public function getTimeout(): int
     {
         return $this->timeout;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getSubmerchant(): ?string
+    {
+        return $this->submerchant;
     }
 }

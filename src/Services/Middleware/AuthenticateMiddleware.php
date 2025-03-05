@@ -6,7 +6,6 @@ namespace Bank131\SDK\Services\Middleware;
 
 use Bank131\SDK\Services\Security\SignatureGenerator;
 use Psr\Http\Message\RequestInterface;
-use function GuzzleHttp\Psr7\modify_request;
 
 class AuthenticateMiddleware
 {
@@ -14,10 +13,17 @@ class AuthenticateMiddleware
 
     public const X_PARTNER_SIGN_HEADER = 'x-partner-sign';
 
+    public const X_PARTNER_SUBMERCHAT_HEADER = 'x-partner-submerchant';
+
     /**
      * @var string
      */
     private $projectId;
+
+    /**
+     * @var string|null
+     */
+    private $submerchant;
 
     /**
      * @var SignatureGenerator
@@ -30,10 +36,14 @@ class AuthenticateMiddleware
      * @param string             $projectId
      * @param SignatureGenerator $signatureGenerator
      */
-    public function __construct(string $projectId, SignatureGenerator $signatureGenerator)
-    {
+    public function __construct(
+        string $projectId,
+        SignatureGenerator $signatureGenerator,
+        ?string $submerchant = null
+    ) {
         $this->projectId = $projectId;
         $this->signatureGenerator = $signatureGenerator;
+        $this->submerchant = $submerchant;
     }
 
     /**
@@ -48,9 +58,19 @@ class AuthenticateMiddleware
         return function (RequestInterface $request, array $options = []) use ($next) {
             $authenticatedRequest = $request
                 ->withHeader(self::X_PARTNER_PROJECT_HEADER, $this->projectId)
-                ->withHeader(self::X_PARTNER_SIGN_HEADER,  $this->signatureGenerator->generate(
-                (string) $request->getBody()
-            ));
+                ->withHeader(
+                    self::X_PARTNER_SIGN_HEADER,
+                    $this->signatureGenerator->generate(
+                        (string) $request->getBody()
+                    )
+                );
+
+            if ($this->submerchant !== null && trim($this->submerchant) !== '') {
+                $authenticatedRequest = $authenticatedRequest->withHeader(
+                    self::X_PARTNER_SUBMERCHAT_HEADER,
+                    $this->submerchant
+                );
+            }
 
             return $next($authenticatedRequest, $options);
         };
