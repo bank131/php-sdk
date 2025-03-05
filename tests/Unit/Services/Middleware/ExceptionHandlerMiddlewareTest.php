@@ -39,6 +39,8 @@ class ExceptionHandlerMiddlewareTest extends TestCase
         $client = new Client(['handler' => $handlerStack]);
 
         $this->expectException(ApiException::class);
+        $this->expectExceptionCode($response->getStatusCode());
+
         $client->post('http://any.url');
     }
 
