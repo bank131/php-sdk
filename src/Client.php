@@ -114,7 +114,8 @@ final class Client implements LoggerAwareInterface
                 $clonedStack->push(
                     new AuthenticateMiddleware(
                         $config->getProjectId(),
-                        new SignatureGenerator($config->getPrivateKey())
+                        new SignatureGenerator($config->getPrivateKey()),
+                        $config->getSubmerchant()
                     ),
                     AuthenticateMiddleware::class
                 );
