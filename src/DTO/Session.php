@@ -42,9 +42,19 @@ class Session
     private $acquiring_payments;
 
     /**
+     * @var AcquiringPaymentCollection|null
+     */
+    private $payment_list;
+
+    /**
      * @var PaymentCollection|null
      */
     private $payments;
+
+    /**
+     * @var PaymentCollection|null
+     */
+    private $payout_list;
 
     /**
      * @var string|null
@@ -101,7 +111,7 @@ class Session
      */
     public function getAcquiringPayments(): AcquiringPaymentCollection
     {
-        return $this->acquiring_payments ?? new AcquiringPaymentCollection();
+        return $this->acquiring_payments ?? $this->payment_list ?? new AcquiringPaymentCollection();
     }
 
     /**
@@ -109,7 +119,7 @@ class Session
      */
     public function getPayments(): PaymentCollection
     {
-        return $this->payments ?? new PaymentCollection();
+        return $this->payments ?? $this->payout_list ?? new PaymentCollection();
     }
 
     /**
