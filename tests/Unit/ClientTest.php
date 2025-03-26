@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bank131\SDK\Tests\Unit;
 
+use Bank131\SDK\API\Enum\ApiVersionEnum;
 use Bank131\SDK\API\MultiSessionApi;
 use Bank131\SDK\API\RecurrentApi;
 use Bank131\SDK\API\SessionApi;
@@ -125,6 +126,16 @@ class ClientTest extends TestCase
 
         $api = $client->session();
         $this->assertInstanceOf(SessionApi::class, $api);
+        $this->assertEquals(ApiVersionEnum::V2, (function() { return $this->apiVersion; })->call($api));
+    }
+
+    public function testSessionV1Api(): void
+    {
+        $client = new Client($this->config);
+
+        $api = $client->sessionV1();
+        $this->assertInstanceOf(SessionApi::class, $api);
+        $this->assertEquals(ApiVersionEnum::V1, (function() { return $this->apiVersion; })->call($api));
     }
 
     public function testWalletApi(): void

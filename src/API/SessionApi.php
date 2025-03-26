@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace Bank131\SDK\API;
 
+use Bank131\SDK\API\Enum\ApiVersionEnum;
 use Bank131\SDK\API\Enum\HeaderEnum;
 use Bank131\SDK\API\Enum\HttpVerbEnum;
+use Bank131\SDK\API\Request\AbstractRequest;
 use Bank131\SDK\API\Request\Confirm\ConfirmInformation;
+use Bank131\SDK\API\Request\Confirm\TransferDetails;
 use Bank131\SDK\API\Request\Session\ChargebackPaymentSessionRequest;
 use Bank131\SDK\API\Request\Session\ConfirmRequest;
 use Bank131\SDK\API\Request\Session\CreateSessionRequest;
@@ -18,11 +21,19 @@ use Bank131\SDK\API\Request\Session\SessionIdRequest;
 use Bank131\SDK\API\Request\Session\StartPaymentSessionRequest;
 use Bank131\SDK\API\Request\Session\StartPayoutSessionRequest;
 use Bank131\SDK\API\Request\Session\StartPayoutSessionRequestWithFiscalization;
+use Bank131\SDK\API\Response\AbstractResponse;
 use Bank131\SDK\API\Response\Session\SessionResponse;
 
 class SessionApi extends AbstractApi
 {
-    protected const BASE_URI = 'api/v2/session';
+    protected const BASE_URI = 'api/%s/session';
+
+    private $apiVersion = ApiVersionEnum::V2;
+
+    public function setToV1(): void
+    {
+        $this->apiVersion = ApiVersionEnum::V1;
+    }
 
     /**
      * @param InitPaymentSessionRequest $request
@@ -49,6 +60,10 @@ class SessionApi extends AbstractApi
      */
     public function initPayout(InitPayoutSessionRequest $request): SessionResponse
     {
+        if ($this->apiVersion == ApiVersionEnum::V1) {
+            $request = $request->createV1Version();
+        }
+
         /** @var SessionResponse $response */
         $response = $this->request(
             HttpVerbEnum::POST,
@@ -67,6 +82,10 @@ class SessionApi extends AbstractApi
      */
     public function initPayoutWithFiscalization(InitPayoutSessionWithFiscalizationRequest $request): SessionResponse
     {
+        if ($this->apiVersion == ApiVersionEnum::V1) {
+            $request = $request->createV1Version();
+        }
+
         /** @var SessionResponse $response */
         $response = $this->request(
             HttpVerbEnum::POST,
@@ -188,6 +207,18 @@ class SessionApi extends AbstractApi
      */
     public function confirm(string $sessionId, ?ConfirmInformation $confirmInformation = null): SessionResponse
     {
+        if (
+            $this->apiVersion === ApiVersionEnum::V1
+            && $confirmInformation !== null
+            && ($transferDetails = $confirmInformation->getTransferDetails()) !== null
+        ) {
+            $confirmInformation = new ConfirmInformation(
+                $transferDetails->createV1Version(),
+                $confirmInformation->getExchanges(),
+                $confirmInformation->getAccountDetails()
+            );
+        }
+
         $request = new ConfirmRequest($sessionId, $confirmInformation);
 
         /** @var SessionResponse $response */
@@ -264,5 +295,19 @@ class SessionApi extends AbstractApi
     public function withIdempotencyKey(string $key): SessionApi
     {
         return $this->withHeader(HeaderEnum::IDEMPOTENCY_KEY, $key);
+    }
+
+    protected function request(
+        string $method,
+        string $uri,
+        string $expectedClass,
+        AbstractRequest $request = null
+    ): AbstractResponse {
+        return parent::request(
+            $method,
+            sprintf($uri, $this->apiVersion),
+            $expectedClass,
+            $request
+        );
     }
 }

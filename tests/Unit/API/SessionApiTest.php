@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Bank131\SDK\Tests\Unit\API;
 
+use Bank131\SDK\API\Enum\HttpVerbEnum;
+use Bank131\SDK\API\Request\Confirm\ConfirmInformation;
+use Bank131\SDK\API\Request\Confirm\NominalPaymentParticipant;
+use Bank131\SDK\API\Request\Confirm\TransferDetails;
 use Bank131\SDK\API\Request\Session\ChargebackPaymentSessionRequest;
 use Bank131\SDK\API\Request\Session\CreateSessionRequest;
 use Bank131\SDK\API\Request\Session\InitPaymentSessionRequest;
@@ -13,11 +17,19 @@ use Bank131\SDK\API\Request\Session\RefundPaymentSessionRequest;
 use Bank131\SDK\API\Request\Session\StartPaymentSessionRequest;
 use Bank131\SDK\API\Request\Session\StartPayoutSessionRequest;
 use Bank131\SDK\API\Request\Session\StartPayoutSessionRequestWithFiscalization;
+use Bank131\SDK\Client;
 use Bank131\SDK\DTO\AcquiringPayment;
 use Bank131\SDK\DTO\AcquiringPaymentRefund;
+use Bank131\SDK\DTO\Amount;
 use Bank131\SDK\DTO\FiscalizationService;
+use Bank131\SDK\DTO\Participant;
+use Bank131\SDK\DTO\ParticipantDetails;
+use Bank131\SDK\DTO\PaymentDetails;
+use Bank131\SDK\DTO\PaymentMethod\FasterPaymentSystemPaymentMethod;
+use Bank131\SDK\DTO\PaymentMethod\RecurrentPaymentMethod;
 use Bank131\SDK\DTO\Payout;
 use DateTimeImmutable;
+use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;
 
 class SessionApiTest extends AbstractApiTest
@@ -1012,5 +1024,151 @@ class SessionApiTest extends AbstractApiTest
         $this->assertEquals($amountCurrency, $acquiringPayment->getAmountDetails()->getCurrency());
         $this->assertEquals($metadata, $acquiringPayment->getMetadata());
         $this->assertEquals($returnUrl, $acquiringPayment->getPaymentOptions()->getReturnUrl());
+    }
+
+    public function testInitPayoutSessionV1(): void
+    {
+        $httpClientMock = $this->createMock(ClientInterface::class);
+        $client = new Client(null, $httpClientMock);
+
+        $paymentDetails = new PaymentDetails(new FasterPaymentSystemPaymentMethod());
+        $amount = new Amount(777, 'eur');
+        $participant = new ParticipantDetails();
+        $participant->setSender((function () {
+            $p = new Participant();
+            $p->setEmail('nonono@email.com');
+
+            return $p;
+        })());
+
+        $request = new InitPayoutSessionRequest($paymentDetails, $amount, $participant);
+
+        $expectedResponseBody = [
+            "status"=> "ok",
+            "session"=> [
+                "id"=> $sessionId = "test_ps_1",
+                "status"=> "in_progress",
+                "created_at"=> $sessionCreatedAt = "2020-06-08T11:00:03.567464Z",
+                "updated_at"=> $sessionUpdatedAt = "2020-06-08T11:10:03.625759Z",
+                "payments"=> [
+                    [
+                        "id"=> $payoutId = "test_po_1",
+                        "status"=> $payoutStatus = "in_progress",
+                        "created_at"=> $payoutCreatedAt = "2020-06-08T11:10:03.618104Z",
+                        "customer"=> [
+                            "reference"=> $customerReference = "lucky"
+                        ],
+                        "payment_method"=> [
+                            "type"=> "faster_payment_system",
+                            "faster_payment_system"=> []
+                        ],
+                        "amount_details"=> [
+                            "amount"=> $amount->getAmount(),
+                            "currency"=> $amount->getCurrency(),
+                        ],
+                        "participant_details"=> [
+                            "sender"=> [
+                                "email"=> $participant->getSender()->getEmail(),
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ];
+
+        $httpClientMock->expects($this->once())
+            ->method('request')
+            ->with(
+                HttpVerbEnum::POST,
+                'api/v1/session/init/payout',
+                self::callback(function (array $options) use ($paymentDetails, $amount, $participant) {
+                    $body = json_decode($options['body'], true);
+
+                    $this->assertArrayNotHasKey('payout_details', $body);
+                    $this->assertEquals($paymentDetails->getType(), $body['payment_method']['type']);
+                    $this->assertEquals($amount->getAmount(), $body['amount_details']['amount']);
+                    $this->assertEquals($participant->getSender()->getEmail(), $body['participant_details']['sender']['email']);
+
+                    return true;
+                })
+            )
+            ->willReturn(new Response(200, [], json_encode($expectedResponseBody)));
+
+        $client->sessionV1()->initPayout($request);
+    }
+
+    public function testInitConfirmSessionV1(): void
+    {
+        $httpClientMock = $this->createMock(ClientInterface::class);
+        $client = new Client(null, $httpClientMock);
+
+        $confirm = new ConfirmInformation(
+            $transferDetails = new TransferDetails(
+                $customer = new NominalPaymentParticipant('account_number', 'name', 'bank name', 'bi-bik', 'corr_account_number'),
+                $recipient = new NominalPaymentParticipant('account_number', 'name', 'bank name', 'bi-bik', 'corr_account_number'),
+                $purpose = 'purpose',
+                $amount = new Amount(333, 'usd'),
+                $paymentMethod = new RecurrentPaymentMethod('card_token', 'merchant')
+            ),
+            null,
+            null
+        );
+
+        $sessionId = "test_ps_123";
+
+        $expectedResponseBody = [
+            'status' => $status = 'ok',
+            'session' => [
+                'id' => $sessionId,
+                'status' => $sessionStatus = 'in_progress',
+                'created_at' => $sessionCreatedAt = '2020-05-29T07:01:37.499907Z',
+                'updated_at' => $sessionUpdatedAt = '2020-05-29T07:01:37.499907Z',
+                'acquiring_payments' => [
+                    [
+                        'id' => $paymentId = 'test_pm_123',
+                        'status' => $paymentStatus = 'in_progress',
+                        'created_at' => $paymentCreatedAt = '2020-05-29T07:01:37.499907Z',
+                        'customer' => [
+                            'reference' => $customerReference = 'lucky'
+                        ],
+                        'payment_details'=> [
+                            'type'=> $paymentMethod->getType(),
+                            'recurrent'=> [
+                                'token'=> $paymentMethod->getToken(),
+                                'initiator'=> $paymentMethod->getInitiator(),
+                            ]
+                        ],
+                        'amount_details'=> [
+                            'amount'=> $amount->getAmount(),
+                            'currency'=> $amount->getCurrency(),
+                        ],
+                        'metadata'=> $metadata = '{"key":"value"}',
+                        'payment_options'=> [
+                            'return_url'=> $returnUrl = 'http=>//bank131.ru'
+                        ],
+                    ]
+                ]
+            ],
+        ];
+
+        $httpClientMock->expects($this->once())
+            ->method('request')
+            ->with(
+                HttpVerbEnum::POST,
+                'api/v1/session/confirm',
+                self::callback(function (array $options) use ($confirm, $sessionId) {
+                    $body = json_decode($options['body'], true);
+
+                    $this->assertArrayNotHasKey('payout_details', $body['confirm_information']['transfer_details']);
+                    $this->assertEquals($confirm->getTransferDetails()->getPayoutDetails()->getToken(), $body['confirm_information']['transfer_details']['payment_method']['token']);
+                    $this->assertEquals($confirm->getTransferDetails()->getCustomer()->getAccountNumber(), $body['confirm_information']['transfer_details']['customer']['account_number']);
+                    $this->assertEquals($sessionId, $body['session_id']);
+
+                    return true;
+                })
+            )
+            ->willReturn(new Response(200, [], json_encode($expectedResponseBody)));
+
+        $client->sessionV1()->confirm($sessionId, $confirm);
     }
 }
