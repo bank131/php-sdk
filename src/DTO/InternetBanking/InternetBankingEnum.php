@@ -6,6 +6,10 @@ namespace Bank131\SDK\DTO\InternetBanking;
 
 final class InternetBankingEnum
 {
-    public const SBER_PAY='sber_pay';
-    public const ALIPAY='alipay';
+    public const SBER_PAY   = 'sber_pay';
+    public const ALIPAY     = 'alipay';
+    public const ALIPAY_HK  = 'alipay_hk';
+    public const DANA       = 'dana';
+    public const GCASH      = 'gcash';
+    public const KAKAOPAY   = 'kakaopay';
 }

@@ -14,7 +14,12 @@ use Bank131\SDK\DTO\Collection\RevenueSplitInfoCollection;
 use Bank131\SDK\DTO\Customer;
 use Bank131\SDK\DTO\Enum\CurrencyEnum;
 use Bank131\SDK\DTO\InternetBanking\AbstractInternetBanking;
+use Bank131\SDK\DTO\InternetBanking\Alipay;
+use Bank131\SDK\DTO\InternetBanking\AlipayHK;
+use Bank131\SDK\DTO\InternetBanking\Dana;
+use Bank131\SDK\DTO\InternetBanking\GCash;
 use Bank131\SDK\DTO\InternetBanking\InternetBankingEnum;
+use Bank131\SDK\DTO\InternetBanking\Kakaopay;
 use Bank131\SDK\DTO\InternetBanking\SberPay;
 use Bank131\SDK\DTO\InternetBanking\SberPayChannelEnum;
 use Bank131\SDK\DTO\Participant;
@@ -24,6 +29,8 @@ use Bank131\SDK\DTO\PaymentMethod\CardPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\InternetBankingPaymentMethod;
 use Bank131\SDK\DTO\PaymentOptions;
 use Bank131\SDK\DTO\RevenueSplitInfo\RevenueSplitInfoItem;
+use Bank131\SDK\Services\Serializer\JsonSerializer;
+use Bank131\SDK\Services\Serializer\SerializerInterface;
 use PHPUnit\Framework\TestCase;
 
 class CreatePaymentSessionRequestBuilderTest extends TestCase
@@ -33,9 +40,15 @@ class CreatePaymentSessionRequestBuilderTest extends TestCase
      */
     private $builder;
 
+    /**
+     * @var SerializerInterface
+     */
+    private $serializer;
+
     protected function setUp(): void
     {
         $this->builder = new CreatePaymentSessionRequestBuilder();
+        $this->serializer = new JsonSerializer();
     }
 
     public function testSuccessBuildEmptySession(): void
@@ -110,12 +123,18 @@ class CreatePaymentSessionRequestBuilderTest extends TestCase
             )
         );
 
+        /** @var CreateSessionRequest $request */
         $request = $this->builder
             ->setInternetBanking($internetBankingPaymentMethod)
             ->setCustomer($customer)
             ->setAmount(100, CurrencyEnum::RUB)
             ->build();
+
+        $requestData = json_decode($this->serializer->serialize($request), true);
+
         $this->assertEquals($expectedRequest, $request);
+        $this->assertEquals($internetBankingPaymentMethod->getType(), $requestData['payment_details']['internet_banking']['type']);
+        $this->assertArrayHasKey($internetBankingPaymentMethod->getType(), $requestData['payment_details']['internet_banking']);
     }
 
     public function internetBankingData(): iterable
@@ -129,6 +148,21 @@ class CreatePaymentSessionRequestBuilderTest extends TestCase
                 new SberPay(SberPayChannelEnum::MOBILE_WEB, $phone),
                 new SberPay(SberPayChannelEnum::WEB, null),
                 new SberPay(SberPayChannelEnum::WEB, $phone),
+            ],
+            InternetBankingEnum::ALIPAY => [
+                new Alipay(),
+            ],
+            InternetBankingEnum::ALIPAY_HK => [
+                new AlipayHK(),
+            ],
+            InternetBankingEnum::DANA => [
+                new Dana(),
+            ],
+            InternetBankingEnum::GCASH => [
+                new GCash(),
+            ],
+            InternetBankingEnum::KAKAOPAY => [
+                new Kakaopay(),
             ],
         ];
 
