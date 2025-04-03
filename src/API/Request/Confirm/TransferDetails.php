@@ -14,6 +14,11 @@ class TransferDetails
     private $payout_details;
 
     /**
+     * @var PaymentMethod
+     */
+    private $payment_method;
+
+    /**
      * @var NominalPaymentParticipant
      */
     private $customer;
@@ -49,7 +54,7 @@ class TransferDetails
 
     public function getPayoutDetails(): PaymentMethod
     {
-        return $this->payout_details;
+        return $this->payout_details ?? $this->payment_method;
     }
 
     public function getCustomer(): NominalPaymentParticipant
@@ -70,5 +75,14 @@ class TransferDetails
     public function getAmount(): Amount
     {
         return $this->amount;
+    }
+
+    public function createV1Version(): self
+    {
+        $new = clone $this;
+        $new->payment_method = $this->getPayoutDetails();
+        $new->payout_details = null;
+
+        return $new;
     }
 }

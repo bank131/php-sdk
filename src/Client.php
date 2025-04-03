@@ -202,6 +202,17 @@ final class Client implements LoggerAwareInterface
         return new SessionApi($this);
     }
 
+    /**
+     * @return SessionApi
+     */
+    public function sessionV1(): SessionApi
+    {
+        $api = new SessionApi($this);
+        $api->setToV1();
+
+        return $api;
+    }
+
     public function multiSession(): MultiSessionApi
     {
         return new MultiSessionApi($this);

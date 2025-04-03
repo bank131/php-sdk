@@ -57,6 +57,11 @@ abstract class AbstractSessionRequest extends AbstractRequest
     private $payout_details;
 
     /**
+     * @var PaymentDetails
+     */
+    private $payment_method;
+
+    /**
      * @var ParticipantDetails
      */
     private $participant_details;
@@ -165,5 +170,14 @@ abstract class AbstractSessionRequest extends AbstractRequest
     public function setPaymentMetadata(array $payment_metadata): void
     {
         $this->payment_metadata = $payment_metadata;
+    }
+
+    protected function createV1(): self
+    {
+        $new = clone $this;
+        $new->payment_method = $this->payout_details ?? $this->payment_method;
+        $new->payout_details = null;
+
+        return $new;
     }
 }

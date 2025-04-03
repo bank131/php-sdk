@@ -16,4 +16,9 @@ class InitPayoutSessionRequest extends AbstractSessionRequest
         $this->setAmount($amount);
         $this->setParticipantDetails($participant);
     }
+
+    public function createV1Version(): self
+    {
+        return parent::createV1();
+    }
 }
