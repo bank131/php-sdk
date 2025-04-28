@@ -68,6 +68,11 @@ class AbstractRefund
     protected $revenue_split_info;
 
     /**
+     * @var TransactionInfo
+     */
+    protected $transaction_info;
+
+    /**
      * @return string
      */
     public function getId(): string
@@ -163,5 +168,10 @@ class AbstractRefund
     public function getRevenueSplitInfo(): ?RevenueSplitInfoCollection
     {
         return $this->revenue_split_info;
+    }
+
+    public function getTransactionInfo(): ?TransactionInfo
+    {
+        return $this->transaction_info;
     }
 }

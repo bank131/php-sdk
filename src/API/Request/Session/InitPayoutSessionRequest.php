@@ -10,10 +10,15 @@ use Bank131\SDK\DTO\PaymentDetails;
 
 class InitPayoutSessionRequest extends AbstractSessionRequest
 {
-    public function __construct(PaymentDetails $paymentMethod, Amount $amount, ParticipantDetails $participant)
+    public function __construct(PaymentDetails $payoutDetails, Amount $amount, ParticipantDetails $participant)
     {
-        $this->setPaymentMethod($paymentMethod);
+        $this->setPayoutDetails($payoutDetails);
         $this->setAmount($amount);
         $this->setParticipantDetails($participant);
+    }
+
+    public function createV1Version(): self
+    {
+        return parent::createV1();
     }
 }

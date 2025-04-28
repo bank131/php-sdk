@@ -104,6 +104,11 @@ class AcquiringPayment
     private $revenue_split_info;
 
     /**
+     * @var TransactionInfo
+     */
+    private $transaction_info;
+
+    /**
      * @return string
      */
     public function getId(): string
@@ -287,5 +292,10 @@ class AcquiringPayment
     public function getRevenueSplitInfo(): ?RevenueSplitInfoCollection
     {
         return $this->revenue_split_info;
+    }
+
+    public function getTransactionInfo(): ?TransactionInfo
+    {
+        return $this->transaction_info;
     }
 }

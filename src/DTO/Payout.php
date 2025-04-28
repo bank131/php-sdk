@@ -36,9 +36,14 @@ class Payout
     private $customer;
 
     /**
-     * @var PaymentDetails
+     * @var PaymentDetails|null
      */
     private $payment_method;
+
+    /**
+     * @var PaymentDetails|null
+     */
+    private $payout_details;
 
     /**
      * @var Amount
@@ -74,6 +79,11 @@ class Payout
      * @var ParticipantDetails
      */
     protected $participant_details;
+
+    /**
+     * @var TransactionInfo
+     */
+    private $transaction_info;
 
     /**
      * @return string
@@ -118,9 +128,9 @@ class Payout
     /**
      * @return PaymentDetails
      */
-    public function getPaymentMethod(): PaymentDetails
+    public function getPayoutDetails(): PaymentDetails
     {
-        return $this->payment_method;
+        return $this->payout_details ?? $this->payment_method;
     }
 
     /**
@@ -179,5 +189,10 @@ class Payout
     public function setRefunds(PayoutRefundCollection $refunds): void
     {
         $this->refunds = $refunds;
+    }
+
+    public function getTransactionInfo(): ?TransactionInfo
+    {
+        return $this->transaction_info;
     }
 }

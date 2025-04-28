@@ -7,6 +7,7 @@ namespace Bank131\SDK\DTO\PaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\Enum\PaymentMethodEnum;
 use Bank131\SDK\DTO\Wallet\AbstractWallet;
 use Bank131\SDK\DTO\Wallet\QiwiWallet;
+use Bank131\SDK\DTO\Wallet\SteamWallet;
 use Bank131\SDK\DTO\Wallet\YoomoneyWallet;
 use Bank131\SDK\Exception\InvalidArgumentException;
 
@@ -26,6 +27,11 @@ class WalletPaymentMethod extends PaymentMethod
      * @var YoomoneyWallet|null
      */
     private $yoomoney;
+
+    /**
+     * @var SteamWallet|null
+     */
+    private $steam;
 
     /**
      * WalletPaymentMethod constructor.

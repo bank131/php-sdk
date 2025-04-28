@@ -73,10 +73,10 @@ class ExceptionsHandlerMiddleware
             }
         }
 
-
         throw new ApiException(
             $code ?? ApiException::DEFAULT_EXCEPTION_CODE,
-            $description ?? ''
+            $description ?? '',
+            $response->getStatusCode()
         );
     }
 
