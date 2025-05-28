@@ -11,6 +11,7 @@ use Bank131\SDK\DTO\InternetBanking\Dana;
 use Bank131\SDK\DTO\InternetBanking\GCash;
 use Bank131\SDK\DTO\InternetBanking\Kakaopay;
 use Bank131\SDK\DTO\InternetBanking\SberPay;
+use Bank131\SDK\DTO\InternetBanking\WeChatPay;
 use Bank131\SDK\DTO\PaymentMethod\Enum\PaymentMethodEnum;
 use Bank131\SDK\Exception\InvalidArgumentException;
 
@@ -50,6 +51,11 @@ class InternetBankingPaymentMethod extends PaymentMethod
      * @var Kakaopay|null
      */
     private $kakaopay = null;
+
+    /**
+     * @var WeChatPay|null
+     */
+    private $wechatpay = null;
 
     public function __construct(AbstractInternetBanking $internetBanking)
     {
@@ -94,5 +100,10 @@ class InternetBankingPaymentMethod extends PaymentMethod
     public function getKakaopay(): ?Kakaopay
     {
         return $this->kakaopay;
+    }
+
+    public function getWeChat(): ?WeChatPay
+    {
+        return $this->wechatpay;
     }
 }
