@@ -6,6 +6,10 @@ namespace Bank131\SDK\DTO\PaymentMethod;
 
 use Bank131\SDK\DTO\InternetBanking\AbstractInternetBanking;
 use Bank131\SDK\DTO\InternetBanking\Alipay;
+use Bank131\SDK\DTO\InternetBanking\AlipayHK;
+use Bank131\SDK\DTO\InternetBanking\Dana;
+use Bank131\SDK\DTO\InternetBanking\GCash;
+use Bank131\SDK\DTO\InternetBanking\Kakaopay;
 use Bank131\SDK\DTO\InternetBanking\SberPay;
 use Bank131\SDK\DTO\InternetBanking\WeChatPay;
 use Bank131\SDK\DTO\PaymentMethod\Enum\PaymentMethodEnum;
@@ -27,6 +31,26 @@ class InternetBankingPaymentMethod extends PaymentMethod
      * @var Alipay|null
      */
     private $alipay = null;
+
+    /**
+     * @var AlipayHK|null
+     */
+    private $alipay_hk = null;
+
+    /**
+     * @var Dana|null
+     */
+    private $dana = null;
+
+    /**
+     * @var GCash|null
+     */
+    private $gcash = null;
+
+    /**
+     * @var Kakaopay|null
+     */
+    private $kakaopay = null;
 
     /**
      * @var WeChatPay|null
@@ -56,6 +80,26 @@ class InternetBankingPaymentMethod extends PaymentMethod
     public function getAlipay(): ?Alipay
     {
         return $this->alipay;
+    }
+
+    public function getAlipayHK(): ?AlipayHK
+    {
+        return $this->alipay_hk;
+    }
+
+    public function getDana(): ?Dana
+    {
+        return $this->dana;
+    }
+
+    public function getGCash(): ?GCash
+    {
+        return $this->gcash;
+    }
+
+    public function getKakaopay(): ?Kakaopay
+    {
+        return $this->kakaopay;
     }
 
     public function getWeChat(): ?WeChatPay
