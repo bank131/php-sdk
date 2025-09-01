@@ -20,7 +20,7 @@ class CapturePaymentSessionRequest extends AbstractRequest
 
     public function __construct(
         string $sessionId,
-        Amount $amount
+        ?Amount $amount = null
     ) {
         $this->session_id = $sessionId;
         $this->amount_details = $amount;
