@@ -9,7 +9,7 @@ use Bank131\SDK\API\Enum\HeaderEnum;
 use Bank131\SDK\API\Enum\HttpVerbEnum;
 use Bank131\SDK\API\Request\AbstractRequest;
 use Bank131\SDK\API\Request\Confirm\ConfirmInformation;
-use Bank131\SDK\API\Request\Confirm\TransferDetails;
+use Bank131\SDK\API\Request\Session\CapturePaymentSessionRequest;
 use Bank131\SDK\API\Request\Session\ChargebackPaymentSessionRequest;
 use Bank131\SDK\API\Request\Session\ConfirmRequest;
 use Bank131\SDK\API\Request\Session\CreateSessionRequest;
@@ -23,6 +23,8 @@ use Bank131\SDK\API\Request\Session\StartPayoutSessionRequest;
 use Bank131\SDK\API\Request\Session\StartPayoutSessionRequestWithFiscalization;
 use Bank131\SDK\API\Response\AbstractResponse;
 use Bank131\SDK\API\Response\Session\SessionResponse;
+use Bank131\SDK\DTO\Amount;
+use GuzzleHttp\Exception\GuzzleException;
 
 class SessionApi extends AbstractApi
 {
@@ -261,6 +263,19 @@ class SessionApi extends AbstractApi
     {
         $request = new SessionIdRequest($sessionId);
 
+        /** @var SessionResponse $response */
+        $response = $this->request(
+            HttpVerbEnum::POST,
+            self::BASE_URI . '/capture',
+            SessionResponse::class,
+            $request
+        );
+
+        return $response;
+    }
+
+    public function capturePayment(CapturePaymentSessionRequest $request): SessionResponse
+    {
         /** @var SessionResponse $response */
         $response = $this->request(
             HttpVerbEnum::POST,

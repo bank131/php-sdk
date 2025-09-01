@@ -8,6 +8,7 @@ use Bank131\SDK\API\Enum\HttpVerbEnum;
 use Bank131\SDK\API\Request\Confirm\ConfirmInformation;
 use Bank131\SDK\API\Request\Confirm\NominalPaymentParticipant;
 use Bank131\SDK\API\Request\Confirm\TransferDetails;
+use Bank131\SDK\API\Request\Session\CapturePaymentSessionRequest;
 use Bank131\SDK\API\Request\Session\ChargebackPaymentSessionRequest;
 use Bank131\SDK\API\Request\Session\CreateSessionRequest;
 use Bank131\SDK\API\Request\Session\InitPaymentSessionRequest;
@@ -21,6 +22,7 @@ use Bank131\SDK\Client;
 use Bank131\SDK\DTO\AcquiringPayment;
 use Bank131\SDK\DTO\AcquiringPaymentRefund;
 use Bank131\SDK\DTO\Amount;
+use Bank131\SDK\DTO\Enum\CurrencyEnum;
 use Bank131\SDK\DTO\FiscalizationService;
 use Bank131\SDK\DTO\Participant;
 use Bank131\SDK\DTO\ParticipantDetails;
@@ -930,6 +932,82 @@ class SessionApiTest extends AbstractApiTest
         ]);
 
         $sessionResponse = $client->session()->capture($sessionId);
+
+        $this->assertEquals($sessionResponse->getStatus(), $status);
+
+        $this->assertNotNull($session = $sessionResponse->getSession());
+
+        $this->assertEquals($sessionId, $session->getId());
+        $this->assertEquals($sessionStatus, $session->getStatus());
+        $this->assertEquals(new DateTimeImmutable($sessionCreatedAt), $session->getCreatedAt());
+        $this->assertEquals(new DateTimeImmutable($sessionUpdatedAt), $session->getUpdatedAt());
+
+        $this->assertIsIterable($session->getPaymentList());
+        $this->assertCount(1, $session->getPaymentList());
+
+        /** @var AcquiringPayment $acquiringPayment */
+        $acquiringPayment = $session->getPaymentList()[0];
+
+        $this->assertNotNull($acquiringPayment->getId());
+        $this->assertNotNull($acquiringPayment->getStatus());
+        $this->assertNotNull($acquiringPayment->getCreatedAt());
+        $this->assertEquals($customerReference, $acquiringPayment->getCustomer()->getReference());
+        $this->assertEquals($amountValue, $acquiringPayment->getAmountDetails()->getAmount());
+        $this->assertEquals($amountCurrency, $acquiringPayment->getAmountDetails()->getCurrency());
+        $this->assertEquals($metadata, $acquiringPayment->getMetadata());
+        $this->assertEquals($returnUrl, $acquiringPayment->getPaymentOptions()->getReturnUrl());
+    }
+
+    public function testSessionCapturePayment(): void
+    {
+        $expectedResponseBody = [
+            'status' => $status = 'ok',
+            'session' => [
+                'id' => $sessionId ='test_ps_1',
+                'status' => $sessionStatus = 'in_progress',
+                'created_at' => $sessionCreatedAt = '2020-05-29T07:01:37.499907Z',
+                'updated_at' => $sessionUpdatedAt = '2020-05-29T07:01:37.499907Z',
+                'acquiring_payments' => [
+                    [
+                        'id' => $paymentId = 'test_pm_1',
+                        'status' => $paymentStatus = 'in_progress',
+                        'created_at' => $paymentCreatedAt = '2020-05-29T07:01:37.499907Z',
+                        'customer' => [
+                            'reference' => $customerReference = 'lucky'
+                        ],
+                        'payment_details'=> [
+                            'type'=> $paymentDetailsType = 'card',
+                            'card'=> [
+                                'brand'=> $cardBrand = 'visa',
+                                'last4'=> $cardLastFour ='4242'
+                            ]
+                        ],
+                        'amount_details'=> [
+                            'amount'=> $amountValue = 5000,
+                            'currency'=> $amountCurrency = 'rub'
+                        ],
+                        'metadata'=> $metadata = '{"key":"value"}',
+                        'payment_options'=> [
+                            'return_url'=> $returnUrl = 'http=>//bank131.ru'
+                        ],
+                    ]
+                ]
+            ],
+        ];
+
+        $client = $this->createClientWithMockResponse([
+            new Response(200, [], json_encode($expectedResponseBody))
+        ]);
+
+        $sessionResponse = $client->session()->capturePayment(
+            new CapturePaymentSessionRequest(
+                $sessionId,
+                new Amount(
+                    5000,
+                    CurrencyEnum::RUB,
+                )
+            )
+        );
 
         $this->assertEquals($sessionResponse->getStatus(), $status);
 
