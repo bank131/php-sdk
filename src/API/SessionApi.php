@@ -259,23 +259,10 @@ class SessionApi extends AbstractApi
      *
      * @return SessionResponse
      */
-    public function capture(string $sessionId): SessionResponse
+    public function capture(string $sessionId, ?Amount $amount = null): SessionResponse
     {
-        $request = new SessionIdRequest($sessionId);
+        $request = new CapturePaymentSessionRequest($sessionId, $amount);
 
-        /** @var SessionResponse $response */
-        $response = $this->request(
-            HttpVerbEnum::POST,
-            self::BASE_URI . '/capture',
-            SessionResponse::class,
-            $request
-        );
-
-        return $response;
-    }
-
-    public function capturePayment(CapturePaymentSessionRequest $request): SessionResponse
-    {
         /** @var SessionResponse $response */
         $response = $this->request(
             HttpVerbEnum::POST,
