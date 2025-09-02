@@ -22,7 +22,6 @@ use Bank131\SDK\Client;
 use Bank131\SDK\DTO\AcquiringPayment;
 use Bank131\SDK\DTO\AcquiringPaymentRefund;
 use Bank131\SDK\DTO\Amount;
-use Bank131\SDK\DTO\Enum\CurrencyEnum;
 use Bank131\SDK\DTO\FiscalizationService;
 use Bank131\SDK\DTO\Participant;
 use Bank131\SDK\DTO\ParticipantDetails;
