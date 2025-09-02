@@ -9,7 +9,7 @@ use Bank131\SDK\API\Enum\HeaderEnum;
 use Bank131\SDK\API\Enum\HttpVerbEnum;
 use Bank131\SDK\API\Request\AbstractRequest;
 use Bank131\SDK\API\Request\Confirm\ConfirmInformation;
-use Bank131\SDK\API\Request\Confirm\TransferDetails;
+use Bank131\SDK\API\Request\Session\CapturePaymentSessionRequest;
 use Bank131\SDK\API\Request\Session\ChargebackPaymentSessionRequest;
 use Bank131\SDK\API\Request\Session\ConfirmRequest;
 use Bank131\SDK\API\Request\Session\CreateSessionRequest;
@@ -23,6 +23,7 @@ use Bank131\SDK\API\Request\Session\StartPayoutSessionRequest;
 use Bank131\SDK\API\Request\Session\StartPayoutSessionRequestWithFiscalization;
 use Bank131\SDK\API\Response\AbstractResponse;
 use Bank131\SDK\API\Response\Session\SessionResponse;
+use Bank131\SDK\DTO\Amount;
 
 class SessionApi extends AbstractApi
 {
@@ -257,9 +258,9 @@ class SessionApi extends AbstractApi
      *
      * @return SessionResponse
      */
-    public function capture(string $sessionId): SessionResponse
+    public function capture(string $sessionId, ?Amount $amount = null): SessionResponse
     {
-        $request = new SessionIdRequest($sessionId);
+        $request = new CapturePaymentSessionRequest($sessionId, $amount);
 
         /** @var SessionResponse $response */
         $response = $this->request(
