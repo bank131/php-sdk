@@ -7,6 +7,7 @@ namespace Bank131\SDK\Services\Middleware;
 use Bank131\SDK\API\Response\ErrorResponse;
 use Bank131\SDK\Exception\ApiException;
 use Bank131\SDK\Exception\Bank131Exception;
+use Bank131\SDK\Exception\IdempotencyKeyAlreadyExistsException;
 use Bank131\SDK\Services\Serializer\SerializerInterface;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -73,8 +74,18 @@ class ExceptionsHandlerMiddleware
             }
         }
 
+        $code = $code ?? ApiException::DEFAULT_EXCEPTION_CODE;
+
+        if ($code === IdempotencyKeyAlreadyExistsException::IDEMPOTENCY_KEY_ALREADY_EXISTS_CODE) {
+            throw new IdempotencyKeyAlreadyExistsException(
+                $code,
+                $description ?? '',
+                $response->getStatusCode()
+            );
+        }
+
         throw new ApiException(
-            $code ?? ApiException::DEFAULT_EXCEPTION_CODE,
+            $code,
             $description ?? '',
             $response->getStatusCode()
         );
