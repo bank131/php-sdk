@@ -19,7 +19,7 @@ class TaxPayee
     /**
      * @var string
      */
-    private $accountEks;
+    private $account_eks;
 
     /**
      * @var string
@@ -43,10 +43,10 @@ class TaxPayee
         string $name,
         string $kpp,
         string $inn
-    ) {
+    ){
         $this->bik = $bik;
         $this->account = $account;
-        $this->accountEks = $accountEks;
+        $this->account_eks = $accountEks;
         $this->name = $name;
         $this->kpp = $kpp;
         $this->inn = $inn;
@@ -64,7 +64,7 @@ class TaxPayee
 
     public function getAccountEks(): string
     {
-        return $this->accountEks;
+        return $this->account_eks;
     }
 
     public function getName(): string
