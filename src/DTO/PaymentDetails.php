@@ -12,6 +12,7 @@ use Bank131\SDK\DTO\PaymentMethod\InternetBankingPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\PaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\RecurrentPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\SecuredCardPaymentMethod;
+use Bank131\SDK\DTO\PaymentMethod\TaxFullPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\WalletPaymentMethod;
 
 class PaymentDetails
@@ -62,9 +63,12 @@ class PaymentDetails
     private $faster_payment_system;
 
     /**
+     * @var TaxFullPaymentMethod|null
+     */
+    private $tax;
+
+    /**
      * PaymentDetails constructor.
-     *
-     * @param PaymentMethod $paymentMethod
      */
     public function __construct(PaymentMethod $paymentMethod)
     {
@@ -72,17 +76,11 @@ class PaymentDetails
         $this->{$this->type} = $paymentMethod;
     }
 
-    /**
-     * @return string
-     */
     public function getType(): string
     {
         return $this->type;
     }
 
-    /**
-     * @return CardPaymentMethod|null
-     */
     public function getCard(): ?CardPaymentMethod
     {
         return $this->card;
@@ -121,5 +119,10 @@ class PaymentDetails
     public function getFasterPaymentSystem(): ?FasterPaymentSystemPaymentMethod
     {
         return $this->faster_payment_system;
+    }
+
+    public function getTax(): ?TaxFullPaymentMethod
+    {
+        return $this->tax;
     }
 }

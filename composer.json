@@ -28,7 +28,8 @@
   },
   "require-dev": {
     "phpunit/phpunit": ">=8.0",
-    "vimeo/psalm": "^3.11"
+    "vimeo/psalm": "^3.11",
+    "friendsofphp/php-cs-fixer": "^2.19"
   },
   "autoload": {
     "psr-4": {
@@ -38,6 +39,14 @@
   "autoload-dev": {
     "psr-4": {
       "Bank131\\SDK\\Tests\\": "tests/"
+    }
+  },
+  "scripts": {
+    "fixer-fix": "./vendor/bin/php-cs-fixer fix --diff --allow-risky=yes -v"
+  },
+  "config": {
+    "allow-plugins": {
+      "composer/package-versions-deprecated": false
     }
   }
 }
