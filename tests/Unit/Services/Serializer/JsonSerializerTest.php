@@ -314,7 +314,7 @@ class JsonSerializerTest extends TestCase
     public function paymentDetails(): Generator
     {
         yield [
-            'paymentDetails' => [
+            [
                 'type' => 'internet_banking',
                 'internet_banking'=>[
                     'type'=> 'sber_pay',
@@ -336,6 +336,28 @@ class JsonSerializerTest extends TestCase
                 },
                 '79313255172' => function(AcquiringPayment $payment) {
                     return $payment->getPaymentDetails()->getInternetBanking()->getSberPay()->getPhone();
+                }
+            ]
+        ];
+        yield [
+            [
+                'type' => 'internet_banking',
+                'internet_banking'=> [
+                    'type'=> 'phone_ident',
+                    'phone_ident' => [
+                        'phone' => '79313255172',
+                    ],
+                ]
+            ],
+            [
+                'internet_banking' => function(AcquiringPayment $payment) {
+                    return $payment->getPaymentDetails()->getType();
+                },
+                'phone_ident' => function(AcquiringPayment $payment) {
+                    return $payment->getPaymentDetails()->getInternetBanking()->getType();
+                },
+                '79313255172' => function(AcquiringPayment $payment) {
+                    return $payment->getPaymentDetails()->getInternetBanking()->getPhoneIdent()->getPhone();
                 }
             ]
         ];

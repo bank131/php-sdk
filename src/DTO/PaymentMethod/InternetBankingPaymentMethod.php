@@ -61,7 +61,7 @@ class InternetBankingPaymentMethod extends PaymentMethod
     /**
      * @var PhoneIdent|null
      */
-    private $phoneIdent = null;
+    private $phone_ident = null;
 
     public function __construct(AbstractInternetBanking $internetBanking)
     {
@@ -75,7 +75,7 @@ class InternetBankingPaymentMethod extends PaymentMethod
 
     public function getType(): string
     {
-        return PaymentMethodEnum::INTERNET_BANKING;
+        return $this->type;
     }
 
     public function getSberPay(): ?SberPay
@@ -111,5 +111,10 @@ class InternetBankingPaymentMethod extends PaymentMethod
     public function getWeChat(): ?WeChatPay
     {
         return $this->wechatpay;
+    }
+
+    public function getPhoneIdent(): ?PhoneIdent
+    {
+        return $this->phone_ident;
     }
 }

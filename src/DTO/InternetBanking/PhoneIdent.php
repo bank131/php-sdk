@@ -19,4 +19,9 @@ class PhoneIdent extends AbstractInternetBanking
     {
         return InternetBankingEnum::PHONE_IDENT;
     }
+
+    public function getPhone(): string
+    {
+        return $this->phone;
+    }
 }
