@@ -72,7 +72,7 @@ class PaymentDetails
      */
     public function __construct(PaymentMethod $paymentMethod)
     {
-        $this->type = $paymentMethod->getType();
+        $this->type = $paymentMethod->getPaymentMethodType();
         $this->{$this->type} = $paymentMethod;
     }
 

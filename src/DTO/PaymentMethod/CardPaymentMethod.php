@@ -84,10 +84,7 @@ class CardPaymentMethod extends PaymentMethod
         return $this->last4;
     }
 
-    /**
-     * @return string
-     */
-    public function getType(): string
+    public function getPaymentMethodType(): string
     {
         return PaymentMethodEnum::CARD;
     }

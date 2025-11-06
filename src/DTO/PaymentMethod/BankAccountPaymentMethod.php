@@ -54,10 +54,15 @@ class BankAccountPaymentMethod extends PaymentMethod
         $this->{$this->system_type} = $bankAccount;
     }
 
+    public function getSystemType(): string
+    {
+        return $this->system_type;
+    }
+
     /**
      * @return string
      */
-    public function getType(): string
+    public function getPaymentMethodType(): string
     {
         return PaymentMethodEnum::BANK_ACCOUNT;
     }

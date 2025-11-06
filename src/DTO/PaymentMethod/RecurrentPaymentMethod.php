@@ -48,7 +48,7 @@ class RecurrentPaymentMethod extends PaymentMethod
     /**
      * @return string
      */
-    public function getType(): string
+    public function getPaymentMethodType(): string
     {
         return PaymentMethodEnum::RECURRENT;
     }
