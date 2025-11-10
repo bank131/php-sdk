@@ -13,4 +13,5 @@ final class InternetBankingEnum
     public const GCASH      = 'gcash';
     public const KAKAOPAY   = 'kakaopay';
     public const WECHATPAY = 'wechatpay';
+    public const PIX       = 'pix';
 }
