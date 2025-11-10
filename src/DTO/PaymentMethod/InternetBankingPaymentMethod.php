@@ -75,7 +75,7 @@ class InternetBankingPaymentMethod extends PaymentMethod
 
     public function getType(): string
     {
-        return $this->type;
+        return PaymentMethodEnum::INTERNET_BANKING;
     }
 
     public function getSberPay(): ?SberPay
