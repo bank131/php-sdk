@@ -53,11 +53,6 @@ class WalletPaymentMethod extends PaymentMethod
      */
     public function getType(): string
     {
-        return $this->type;
-    }
-
-    public function getPaymentMethodType(): string
-    {
         return PaymentMethodEnum::WALLET;
     }
 }

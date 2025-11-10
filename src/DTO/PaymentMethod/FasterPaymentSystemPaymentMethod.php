@@ -8,7 +8,7 @@ use Bank131\SDK\DTO\PaymentMethod\Enum\PaymentMethodEnum;
 
 class FasterPaymentSystemPaymentMethod extends PaymentMethod
 {
-    public function getPaymentMethodType(): string
+    public function getType(): string
     {
         return PaymentMethodEnum::FASTER_PAYMENT_SYSTEM;
     }

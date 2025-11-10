@@ -6,5 +6,8 @@ namespace Bank131\SDK\DTO\PaymentMethod;
 
 abstract class PaymentMethod
 {
-    public abstract function getPaymentMethodType(): string;
+    /**
+     * @return string
+     */
+    abstract public function getType(): string;
 }

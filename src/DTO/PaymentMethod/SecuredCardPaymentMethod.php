@@ -42,12 +42,10 @@ class SecuredCardPaymentMethod extends PaymentMethod
         $this->{$this->type} = $card;
     }
 
+    /**
+     * @return string
+     */
     public function getType(): string
-    {
-        return $this->type;
-    }
-
-    public function getPaymentMethodType(): string
     {
         return PaymentMethodEnum::SECURED_CARD;
     }

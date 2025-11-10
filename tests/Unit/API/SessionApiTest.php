@@ -1132,7 +1132,7 @@ class SessionApiTest extends AbstractApiTest
                             'reference' => $customerReference = 'lucky'
                         ],
                         'payment_details'=> [
-                            'type'=> $paymentMethod->getPaymentMethodType(),
+                            'type'=> $paymentMethod->getType(),
                             'recurrent'=> [
                                 'token'=> $paymentMethod->getToken(),
                                 'initiator'=> $paymentMethod->getInitiator(),
