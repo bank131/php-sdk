@@ -328,9 +328,6 @@ class JsonSerializerTest extends TestCase
                 'internet_banking' => function(AcquiringPayment $payment) {
                     return $payment->getPaymentDetails()->getType();
                 },
-                'sber_pay' => function(AcquiringPayment $payment) {
-                    return $payment->getPaymentDetails()->getInternetBanking()->getType();
-                },
                 'app' => function(AcquiringPayment $payment) {
                     return $payment->getPaymentDetails()->getInternetBanking()->getSberPay()->getChannel();
                 },
@@ -352,9 +349,6 @@ class JsonSerializerTest extends TestCase
             [
                 'internet_banking' => function(AcquiringPayment $payment) {
                     return $payment->getPaymentDetails()->getType();
-                },
-                'phone_ident' => function(AcquiringPayment $payment) {
-                    return $payment->getPaymentDetails()->getInternetBanking()->getType();
                 },
                 '79313255172' => function(AcquiringPayment $payment) {
                     return $payment->getPaymentDetails()->getInternetBanking()->getPhoneIdent()->getPhone();
