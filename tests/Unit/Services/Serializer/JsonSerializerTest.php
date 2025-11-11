@@ -12,6 +12,7 @@ use Bank131\SDK\DTO\Card\EncryptedCard;
 use Bank131\SDK\Exception\InvalidArgumentException;
 use Bank131\SDK\Services\Serializer\JsonSerializer;
 use DateTimeImmutable;
+use Generator;
 use PHPUnit\Framework\TestCase;
 use ReflectionObject;
 
@@ -310,8 +311,58 @@ class JsonSerializerTest extends TestCase
         $this->assertEquals($returnUrl, $acquiringPayment->getPaymentOptions()->getReturnUrl());
     }
 
+    public function paymentDetails(): Generator
+    {
+        yield [
+            [
+                'type' => 'internet_banking',
+                'internet_banking'=>[
+                    'type'=> 'sber_pay',
+                    'sber_pay' => [
+                        'channel' => 'app',
+                        'phone' => '79313255172',
+                    ],
+                ]
+            ],
+            [
+                'internet_banking' => function(AcquiringPayment $payment) {
+                    return $payment->getPaymentDetails()->getType();
+                },
+                'app' => function(AcquiringPayment $payment) {
+                    return $payment->getPaymentDetails()->getInternetBanking()->getSberPay()->getChannel();
+                },
+                '79313255172' => function(AcquiringPayment $payment) {
+                    return $payment->getPaymentDetails()->getInternetBanking()->getSberPay()->getPhone();
+                }
+            ]
+        ];
+        yield [
+            [
+                'type' => 'internet_banking',
+                'internet_banking'=> [
+                    'type'=> 'phone_ident',
+                    'phone_ident' => [
+                        'phone' => '79313255172',
+                    ],
+                ]
+            ],
+            [
+                'internet_banking' => function(AcquiringPayment $payment) {
+                    return $payment->getPaymentDetails()->getType();
+                },
+                '79313255172' => function(AcquiringPayment $payment) {
+                    return $payment->getPaymentDetails()->getInternetBanking()->getPhoneIdent()->getPhone();
+                }
+            ]
+        ];
+    }
 
-    public function testDeserializeObjectSberPay(): void
+
+
+    /**
+     * @dataProvider paymentDetails
+     */
+    public function testDeserializePaymentDetails(array $paymentDetails, array $expectedPaid): void
     {
 
         $normalizedObject = [
@@ -329,16 +380,7 @@ class JsonSerializerTest extends TestCase
                         'customer'        => [
                             'reference' => $customerReference = 'lucky',
                         ],
-                        'payment_details' => [
-                            'type' => $paymentDetailsType = 'internet_banking',
-                            'internet_banking'=>[
-                                'type'=> $internetBankingType = 'sber_pay',
-                                'sber_pay' => [
-                                    'channel' => $channel = 'app',
-                                    'phone' => $phone = '79313255172',
-                                ],
-                            ]
-                        ],
+                        'payment_details' => $paymentDetails,
                         'amount_details'  => [
                             'amount'   => $amountValue = 10000,
                             'currency' => $amountCurrency = 'rub',
@@ -382,10 +424,11 @@ class JsonSerializerTest extends TestCase
         /** @var AcquiringPayment $acquiringPayment */
         $acquiringPayment = $session->getPaymentList()[0];
 
+        foreach ($expectedPaid as $expected => $callback) {
+            $this->assertEquals($expected, $callback($acquiringPayment));
+        }
+
         $this->assertEquals($paymentId, $acquiringPayment->getId());
-        $this->assertEquals($paymentDetailsType, $acquiringPayment->getPaymentDetails()->getType());
-        $this->assertEquals($channel, $acquiringPayment->getPaymentDetails()->getInternetBanking()->getSberPay()->getChannel());
-        $this->assertEquals($phone, $acquiringPayment->getPaymentDetails()->getInternetBanking()->getSberPay()->getPhone());
         $this->assertEquals(new DateTimeImmutable($paymentCreatedAt), $acquiringPayment->getCreatedAt());
         $this->assertEquals($paymentStatus, $acquiringPayment->getStatus());
         $this->assertEquals($customerReference, $acquiringPayment->getCustomer()->getReference());
