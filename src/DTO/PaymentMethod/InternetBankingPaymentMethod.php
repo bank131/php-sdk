@@ -10,6 +10,7 @@ use Bank131\SDK\DTO\InternetBanking\AlipayHK;
 use Bank131\SDK\DTO\InternetBanking\Dana;
 use Bank131\SDK\DTO\InternetBanking\GCash;
 use Bank131\SDK\DTO\InternetBanking\Kakaopay;
+use Bank131\SDK\DTO\InternetBanking\PhoneIdent;
 use Bank131\SDK\DTO\InternetBanking\Pix;
 use Bank131\SDK\DTO\InternetBanking\SberPay;
 use Bank131\SDK\DTO\InternetBanking\WeChatPay;
@@ -57,6 +58,11 @@ class InternetBankingPaymentMethod extends PaymentMethod
      * @var WeChatPay|null
      */
     private $wechatpay = null;
+
+    /**
+     * @var PhoneIdent|null
+     */
+    private $phone_ident = null;
 
     /**
      * @var Pix|null
@@ -111,6 +117,11 @@ class InternetBankingPaymentMethod extends PaymentMethod
     public function getWeChat(): ?WeChatPay
     {
         return $this->wechatpay;
+    }
+
+    public function getPhoneIdent(): ?PhoneIdent
+    {
+        return $this->phone_ident;
     }
 
     public function getPix(): ?Pix
