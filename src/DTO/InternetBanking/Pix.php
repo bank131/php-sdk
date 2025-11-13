@@ -9,22 +9,22 @@ final class Pix extends AbstractInternetBanking
     /**
      * @var string $document
      */
-    private string $document;
+    private $document;
 
     /**
      * @var string $name
      */
-    private string $name;
+    private $name;
 
     /**
      * @var string $email
      */
-    private string $email;
+    private $email;
 
     /**
      * @var ?string $phone
      */
-    private ?string $phone;
+    private $phone;
 
     public function __construct(
         string $document,
