@@ -11,6 +11,7 @@ use Bank131\SDK\DTO\InternetBanking\Dana;
 use Bank131\SDK\DTO\InternetBanking\GCash;
 use Bank131\SDK\DTO\InternetBanking\Kakaopay;
 use Bank131\SDK\DTO\InternetBanking\PhoneIdent;
+use Bank131\SDK\DTO\InternetBanking\Pix;
 use Bank131\SDK\DTO\InternetBanking\SberPay;
 use Bank131\SDK\DTO\InternetBanking\WeChatPay;
 use Bank131\SDK\DTO\PaymentMethod\Enum\PaymentMethodEnum;
@@ -62,6 +63,11 @@ class InternetBankingPaymentMethod extends PaymentMethod
      * @var PhoneIdent|null
      */
     private $phone_ident = null;
+
+    /**
+     * @var Pix|null
+     */
+    private $pix = null;
 
     public function __construct(AbstractInternetBanking $internetBanking)
     {
@@ -116,5 +122,10 @@ class InternetBankingPaymentMethod extends PaymentMethod
     public function getPhoneIdent(): ?PhoneIdent
     {
         return $this->phone_ident;
+    }
+
+    public function getPix(): ?Pix
+    {
+        return $this->pix;
     }
 }

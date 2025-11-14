@@ -14,4 +14,5 @@ final class InternetBankingEnum
     public const KAKAOPAY   = 'kakaopay';
     public const WECHATPAY = 'wechatpay';
     public const PHONE_IDENT = 'phone_ident';
+    public const PIX       = 'pix';
 }

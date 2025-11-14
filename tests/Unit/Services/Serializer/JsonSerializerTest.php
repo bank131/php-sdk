@@ -355,6 +355,33 @@ class JsonSerializerTest extends TestCase
                 }
             ]
         ];
+        yield [
+            [
+                'type' => 'internet_banking',
+                'internet_banking'=> [
+                    'type'=> 'pix',
+                    'pix' => [
+                        'document' => '53033319999',
+                        'name' => 'Thiago Gabriel',
+                        'email' => 'thiago@example.com'
+                    ],
+                ]
+            ],
+            [
+                'internet_banking' => function(AcquiringPayment $payment) {
+                    return $payment->getPaymentDetails()->getType();
+                },
+                '53033319999' => function(AcquiringPayment $payment) {
+                    return $payment->getPaymentDetails()->getInternetBanking()->getPix()->getDocument();
+                },
+                'Thiago Gabriel' => function(AcquiringPayment $payment) {
+                    return $payment->getPaymentDetails()->getInternetBanking()->getPix()->getName();
+                },
+                'thiago@example.com' => function(AcquiringPayment $payment) {
+                    return $payment->getPaymentDetails()->getInternetBanking()->getPix()->getEmail();
+                }
+            ]
+        ];
     }
 
 
