@@ -13,6 +13,7 @@ use Bank131\SDK\DTO\InternetBanking\Kakaopay;
 use Bank131\SDK\DTO\InternetBanking\PhoneIdent;
 use Bank131\SDK\DTO\InternetBanking\Pix;
 use Bank131\SDK\DTO\InternetBanking\SberPay;
+use Bank131\SDK\DTO\InternetBanking\TPay;
 use Bank131\SDK\DTO\InternetBanking\WeChatPay;
 use Bank131\SDK\DTO\PaymentMethod\Enum\PaymentMethodEnum;
 use Bank131\SDK\Exception\InvalidArgumentException;
@@ -68,6 +69,11 @@ class InternetBankingPaymentMethod extends PaymentMethod
      * @var Pix|null
      */
     private $pix = null;
+
+    /**
+     * @var TPay|null
+     */
+    private $tpay = null;
 
     public function __construct(AbstractInternetBanking $internetBanking)
     {
@@ -127,5 +133,10 @@ class InternetBankingPaymentMethod extends PaymentMethod
     public function getPix(): ?Pix
     {
         return $this->pix;
+    }
+
+    public function getTPay(): ?TPay
+    {
+        return $this->tpay;
     }
 }

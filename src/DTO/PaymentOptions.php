@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bank131\SDK\DTO;
 
+use Bank131\SDK\DTO\PlatformDetails\PlatformDetails;
 use Bank131\SDK\Exception\InvalidArgumentException;
 
 class PaymentOptions
