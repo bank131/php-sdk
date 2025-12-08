@@ -60,6 +60,24 @@ class RequestSerializerTest extends JsonSerializerTest
         self::assertEquals(json_encode($expected), $jsonString);
     }
 
+    public function testPaymentFpsBindingPaymentMethodSerialize()
+    {
+        $sessionRequest = RequestBuilderFactory::create()
+            ->createPaymentSession()
+            ->makeFasterPaymentSystemBinding()
+            ->build();
+
+        $jsonString = $this->serializer->serialize($sessionRequest);
+        $expected = [
+            "payment_details" => [
+                "type" => "faster_payment_system_binding",
+                "faster_payment_system_binding" => [],
+            ]
+        ];
+
+        self::assertEquals(json_encode($expected), $jsonString);
+    }
+
     public function testPayoutBankAccountRuSerialize()
     {
         $sessionRequest = RequestBuilderFactory::create()

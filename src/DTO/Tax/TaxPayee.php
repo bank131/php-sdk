@@ -43,7 +43,7 @@ class TaxPayee
         string $name,
         string $kpp,
         string $inn
-    ){
+    ) {
         $this->bik = $bik;
         $this->account = $account;
         $this->account_eks = $accountEks;

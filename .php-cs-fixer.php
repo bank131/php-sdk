@@ -7,7 +7,9 @@ $finder = (new PhpCsFixer\Finder())
         'DTO/Tax',
         'PaymentMethod/Enum',
         'PaymentMethod/TaxFullPaymentMethod',
-        'PaymentMethod/TaxShortPaymentMethod'
+        'PaymentMethod/TaxShortPaymentMethod',
+        'PaymentMethod/FasterPaymentSystem',
+        'TransactionInfo',
     ])
 ;
 
