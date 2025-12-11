@@ -51,8 +51,10 @@ class CustomerContact
      */
     public function setPhone(string $phone): void
     {
-        if (!preg_match('/^\d{10,}$/', $phone)) {
-            throw new InvalidArgumentException('Phone number must be at least ten digits long');
+        $this->phone = $phone;
+
+        if (!preg_match('/^\+?\d+$/', $phone)) {
+            throw new InvalidArgumentException('Phone number must contains only numbers and optional `+`');
         }
 
         $this->phone = $phone;
