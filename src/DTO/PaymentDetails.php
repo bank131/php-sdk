@@ -7,6 +7,7 @@ namespace Bank131\SDK\DTO;
 use Bank131\SDK\DTO\PaymentMethod\BankAccountPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\CardPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\CryptoWalletPaymentMethod;
+use Bank131\SDK\DTO\PaymentMethod\FasterPaymentSystemBindingPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\FasterPaymentSystemPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\InternetBankingPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\PaymentMethod;
@@ -61,6 +62,11 @@ class PaymentDetails
      * @var FasterPaymentSystemPaymentMethod|null
      */
     private $faster_payment_system;
+
+    /**
+     * @var FasterPaymentSystemBindingPaymentMethod|null
+     */
+    private $faster_payment_system_binding;
 
     /**
      * @var TaxFullPaymentMethod|null
@@ -119,6 +125,11 @@ class PaymentDetails
     public function getFasterPaymentSystem(): ?FasterPaymentSystemPaymentMethod
     {
         return $this->faster_payment_system;
+    }
+
+    public function getFasterPaymentSystemBinding(): ?FasterPaymentSystemBindingPaymentMethod
+    {
+        return $this->faster_payment_system_binding;
     }
 
     public function getTax(): ?TaxFullPaymentMethod

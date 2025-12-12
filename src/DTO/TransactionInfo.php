@@ -14,16 +14,20 @@ class TransactionInfo
 
     private $fp_message_id;
 
+    private $external_subscription_token;
+
     public function __construct(
         ?string $rrn,
         ?string $arn = null,
         ?string $authCode = null,
-        ?string $fpMessageId = null
+        ?string $fpMessageId = null,
+        ?string $externalSubscriptionToken = null
     ) {
-        $this->rrn           = $rrn;
-        $this->arn           = $arn;
-        $this->auth_code     = $authCode;
+        $this->rrn = $rrn;
+        $this->arn = $arn;
+        $this->auth_code = $authCode;
         $this->fp_message_id = $fpMessageId;
+        $this->external_subscription_token = $externalSubscriptionToken;
     }
 
     public function getRrn(): ?string
@@ -44,5 +48,10 @@ class TransactionInfo
     public function getFpMessageId(): ?string
     {
         return $this->fp_message_id;
+    }
+
+    public function getExternalSubscriptionToken(): ?string
+    {
+        return $this->external_subscription_token;
     }
 }

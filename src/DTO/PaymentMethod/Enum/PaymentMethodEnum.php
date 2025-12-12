@@ -20,6 +20,8 @@ class PaymentMethodEnum
 
     public const FASTER_PAYMENT_SYSTEM = 'faster_payment_system';
 
+    public const FASTER_PAYMENT_SYSTEM_BINDING = 'faster_payment_system_binding';
+
     public const INTERNET_BANKING = 'internet_banking';
 
     public const TAX = 'tax';

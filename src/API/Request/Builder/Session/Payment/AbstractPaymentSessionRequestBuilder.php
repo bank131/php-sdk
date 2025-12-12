@@ -13,6 +13,7 @@ use Bank131\SDK\DTO\PaymentDetails;
 use Bank131\SDK\DTO\PaymentMethod\BankAccountPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\CardPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\CryptoWalletPaymentMethod;
+use Bank131\SDK\DTO\PaymentMethod\FasterPaymentSystemBindingPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\FasterPaymentSystemPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\InternetBankingPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\RecurrentPaymentMethod;
@@ -131,6 +132,17 @@ abstract class AbstractPaymentSessionRequestBuilder extends AbstractSessionReque
     {
         $paymentDetails = new PaymentDetails(
             new FasterPaymentSystemPaymentMethod()
+        );
+
+        $this->paymentDetails = $paymentDetails;
+
+        return $this;
+    }
+
+    public function setFasterPaymentSystemBinding(): self
+    {
+        $paymentDetails = new PaymentDetails(
+            new FasterPaymentSystemBindingPaymentMethod()
         );
 
         $this->paymentDetails = $paymentDetails;
