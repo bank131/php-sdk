@@ -64,7 +64,7 @@ class RequestSerializerTest extends JsonSerializerTest
     {
         $sessionRequest = RequestBuilderFactory::create()
             ->createPaymentSession()
-            ->makeFasterPaymentSystemBinding()
+            ->setFasterPaymentSystemBinding()
             ->build();
 
         $jsonString = $this->serializer->serialize($sessionRequest);

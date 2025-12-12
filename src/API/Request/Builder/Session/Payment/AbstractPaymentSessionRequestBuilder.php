@@ -139,7 +139,7 @@ abstract class AbstractPaymentSessionRequestBuilder extends AbstractSessionReque
         return $this;
     }
 
-    public function makeFasterPaymentSystemBinding(): self
+    public function setFasterPaymentSystemBinding(): self
     {
         $paymentDetails = new PaymentDetails(
             new FasterPaymentSystemBindingPaymentMethod()
