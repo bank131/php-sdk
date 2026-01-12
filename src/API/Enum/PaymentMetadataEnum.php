@@ -7,4 +7,5 @@ namespace Bank131\SDK\API\Enum;
 class PaymentMetadataEnum
 {
     public const DEVICE_SESSION_ID = 'device_session_id';
+    public const DEVICE_SESSION_ID_LIST = 'device_session_id_list';
 }
