@@ -7,6 +7,7 @@ namespace Bank131\SDK\DTO\PaymentMethod;
 use Bank131\SDK\DTO\InternetBanking\AbstractInternetBanking;
 use Bank131\SDK\DTO\InternetBanking\Alipay;
 use Bank131\SDK\DTO\InternetBanking\AlipayHK;
+use Bank131\SDK\DTO\InternetBanking\CountryEwallet;
 use Bank131\SDK\DTO\InternetBanking\Dana;
 use Bank131\SDK\DTO\InternetBanking\GCash;
 use Bank131\SDK\DTO\InternetBanking\Kakaopay;
@@ -75,6 +76,11 @@ class InternetBankingPaymentMethod extends PaymentMethod
      */
     private $tpay = null;
 
+    /**
+     * @var CountryEwallet|null
+     */
+    private $countryEwallet = null;
+
     public function __construct(AbstractInternetBanking $internetBanking)
     {
         if (!property_exists($this, $internetBanking->getType())) {
@@ -138,5 +144,10 @@ class InternetBankingPaymentMethod extends PaymentMethod
     public function getTPay(): ?TPay
     {
         return $this->tpay;
+    }
+
+    public function getCountryEwallet(): ?CountryEwallet
+    {
+        return $this->countryEwallet;
     }
 }

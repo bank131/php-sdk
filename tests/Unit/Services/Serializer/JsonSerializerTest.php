@@ -382,6 +382,25 @@ class JsonSerializerTest extends TestCase
                 }
             ]
         ];
+        yield [
+            [
+                'type' => 'internet_banking',
+                'internet_banking'=> [
+                    'type'=> 'country_ewallet',
+                    'country_ewallet' => [
+                        'country_iso2' => 'BG'
+                    ],
+                ]
+            ],
+            [
+                'internet_banking' => function(AcquiringPayment $payment) {
+                    return $payment->getPaymentDetails()->getType();
+                },
+                'BG' => function(AcquiringPayment $payment) {
+                    return $payment->getPaymentDetails()->getInternetBanking()->getCountryEwallet()->getCountry();
+                }
+            ]
+        ];
     }
 
 
