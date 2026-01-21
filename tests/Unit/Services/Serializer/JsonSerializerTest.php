@@ -397,7 +397,7 @@ class JsonSerializerTest extends TestCase
                     return $payment->getPaymentDetails()->getType();
                 },
                 'BG' => function(AcquiringPayment $payment) {
-                    return $payment->getPaymentDetails()->getInternetBanking()->getCountryEwallet()->getCountry();
+                    return $payment->getPaymentDetails()->getInternetBanking()->getCountryEwallet()->getCountryIso2();
                 }
             ]
         ];

@@ -7,14 +7,14 @@ namespace Bank131\SDK\DTO\InternetBanking;
 final class CountryEwallet extends AbstractInternetBanking
 {
     /**
-     * @var string $country
+     * @var string $country_iso2
      */
-    private $country;
+    private $country_iso2;
 
     public function __construct(
-        string $country
+        string $country_iso2
     ) {
-        $this->country = $country;
+        $this->country_iso2 = $country_iso2;
     }
 
     public function getType(): string
@@ -22,8 +22,8 @@ final class CountryEwallet extends AbstractInternetBanking
         return InternetBankingEnum::COUNTRY_EWALLET;
     }
 
-    public function getCountry(): string
+    public function getCountryIso2(): string
     {
-        return $this->country;
+        return $this->country_iso2;
     }
 }
