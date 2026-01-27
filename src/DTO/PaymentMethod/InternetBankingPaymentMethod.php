@@ -79,7 +79,7 @@ class InternetBankingPaymentMethod extends PaymentMethod
     /**
      * @var CountryEwallet|null
      */
-    private $countryEwallet = null;
+    private $country_ewallet = null;
 
     public function __construct(AbstractInternetBanking $internetBanking)
     {
@@ -148,6 +148,6 @@ class InternetBankingPaymentMethod extends PaymentMethod
 
     public function getCountryEwallet(): ?CountryEwallet
     {
-        return $this->countryEwallet;
+        return $this->country_ewallet;
     }
 }
