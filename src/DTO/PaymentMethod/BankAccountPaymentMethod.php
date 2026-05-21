@@ -8,6 +8,7 @@ use Bank131\SDK\DTO\BankAccount\AbstractBankAccount;
 use Bank131\SDK\DTO\BankAccount\BankAccountFPS;
 use Bank131\SDK\DTO\BankAccount\BankAccountIban;
 use Bank131\SDK\DTO\BankAccount\BankAccountRu;
+use Bank131\SDK\DTO\BankAccount\BankAccountRuFpsVerification;
 use Bank131\SDK\DTO\BankAccount\BankAccountUpi;
 use Bank131\SDK\DTO\PaymentMethod\Enum\PaymentMethodEnum;
 use Bank131\SDK\Exception\InvalidArgumentException;
@@ -38,6 +39,11 @@ class BankAccountPaymentMethod extends PaymentMethod
      * @var BankAccountFPS
      */
     private $faster_payment_system;
+
+    /**
+     * @var BankAccountRuFpsVerification
+     */
+    private $faster_payment_system_verification;
 
     /**
      * BankAccountPaymentMethod constructor.
@@ -73,5 +79,10 @@ class BankAccountPaymentMethod extends PaymentMethod
     public function getFasterPaymentSystem(): ?BankAccountFPS
     {
         return $this->faster_payment_system;
+    }
+
+    public function getFasterPaymentSystemVerification(): ?BankAccountRuFpsVerification
+    {
+        return $this->faster_payment_system_verification;
     }
 }
