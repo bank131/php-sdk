@@ -401,6 +401,21 @@ class JsonSerializerTest extends TestCase
                 }
             ]
         ];
+        yield [
+            [
+                'type' => 'internet_banking',
+                'internet_banking'=> [
+                    'type'=> 'china_unionpay',
+                    'china_unionpay' => [
+                    ],
+                ]
+            ],
+            [
+                'internet_banking' => function(AcquiringPayment $payment) {
+                    return $payment->getPaymentDetails()->getType();
+                },
+            ]
+        ];
     }
 
 
