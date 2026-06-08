@@ -10,13 +10,15 @@ use Bank131\SDK\API\Request\AbstractRequest;
 use Bank131\SDK\API\Request\Fps\FpsVerificationRequest;
 use Bank131\SDK\API\Response\AbstractResponse;
 use Bank131\SDK\API\Response\Fps\FpsBanksListResponse;
-use Bank131\SDK\API\Response\Fps\FpsVerificationResponse;
 use Bank131\SDK\API\Response\Session\SessionResponse;
 
 class FpsApi extends AbstractApi
 {
     protected const BASE_URI = 'api/%s/fps';
 
+    /**
+     * @var string
+     */
     private $apiVersion = ApiVersionEnum::V2;
 
     public function setToV1(): void
