@@ -12,6 +12,7 @@ use Bank131\SDK\DTO\CustomRouting;
 use Bank131\SDK\DTO\FiscalizationDetails;
 use Bank131\SDK\DTO\ParticipantDetails;
 use Bank131\SDK\DTO\PaymentDetails;
+use Bank131\SDK\DTO\PaymentMethod\BankAccountPaymentMethod;
 use Bank131\SDK\DTO\PaymentOptions;
 
 abstract class AbstractSessionRequest extends AbstractRequest
@@ -179,5 +180,10 @@ abstract class AbstractSessionRequest extends AbstractRequest
         $new->payout_details = null;
 
         return $new;
+    }
+
+    protected function getBankAccountPaymentMethod(): ?BankAccountPaymentMethod
+    {
+        return $this->payment_method->getBankAccount();
     }
 }
