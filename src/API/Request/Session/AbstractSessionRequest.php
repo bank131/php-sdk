@@ -181,9 +181,4 @@ abstract class AbstractSessionRequest extends AbstractRequest
 
         return $new;
     }
-
-    protected function getBankAccountPaymentMethod(): ?BankAccountPaymentMethod
-    {
-        return $this->payment_method->getBankAccount();
-    }
 }
