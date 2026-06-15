@@ -9,6 +9,7 @@ use Bank131\SDK\DTO\BankAccount\AbstractBankAccount;
 use Bank131\SDK\DTO\Card\AbstractCard;
 use Bank131\SDK\DTO\CryptoWallet\AbstractCryptoWallet;
 use Bank131\SDK\DTO\InternetBanking\AbstractInternetBanking;
+use Bank131\SDK\DTO\Item;
 use Bank131\SDK\DTO\PaymentDetails;
 use Bank131\SDK\DTO\PaymentMethod\BankAccountPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\CardPaymentMethod;
@@ -37,6 +38,11 @@ abstract class AbstractPaymentSessionRequestBuilder extends AbstractSessionReque
      * @var array|null
      */
     protected $paymentMetadata;
+
+    /**
+     * @var array<Item>|null
+     */
+    protected $items;
 
     /**
      * @param PaymentOptions $paymentOptions
@@ -164,6 +170,17 @@ abstract class AbstractPaymentSessionRequestBuilder extends AbstractSessionReque
     public function setPaymentMetadata(array $paymentMetadata): self
     {
         $this->paymentMetadata = $paymentMetadata;
+
+        return $this;
+    }
+
+    /**
+     * @param array<Item> $items
+     * @return $this
+     */
+    public function setItems(array $items): AbstractPaymentSessionRequestBuilder
+    {
+        $this->items = $items;
 
         return $this;
     }

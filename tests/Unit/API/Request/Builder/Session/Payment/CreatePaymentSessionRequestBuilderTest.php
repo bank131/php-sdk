@@ -22,6 +22,7 @@ use Bank131\SDK\DTO\InternetBanking\InternetBankingEnum;
 use Bank131\SDK\DTO\InternetBanking\Kakaopay;
 use Bank131\SDK\DTO\InternetBanking\SberPay;
 use Bank131\SDK\DTO\InternetBanking\SberPayChannelEnum;
+use Bank131\SDK\DTO\Item;
 use Bank131\SDK\DTO\Participant;
 use Bank131\SDK\DTO\ParticipantDetails;
 use Bank131\SDK\DTO\PaymentDetails;
@@ -62,6 +63,16 @@ class CreatePaymentSessionRequestBuilderTest extends TestCase
         $bankCardMock = $this->createMock(BankCard::class);
         $bankCardMock->method('getType')->willReturn(CardEnum::BANK_CARD);
 
+        $item = Item::create(
+            '2251abb6-073e-4f1c-bf1d-03061f538f67',
+            'premium',
+            'telegram premium subscription',
+            100,
+            'EUR',
+            1,
+            'general'
+        );
+
         $customerMock       = $this->createMock(Customer::class);
         $paymentOptionsMock = $this->createMock(PaymentOptions::class);
         $recipientMock      = $this->createMock(Participant::class);
@@ -78,6 +89,7 @@ class CreatePaymentSessionRequestBuilderTest extends TestCase
         $expectedRequest->setPaymentMetadata(['key2' => 'value2']);
         $expectedRequest->setCustomer($customerMock);
         $expectedRequest->setPaymentOptions($paymentOptionsMock);
+        $expectedRequest->setItems([$item]);
 
         $participantDetails = new ParticipantDetails();
         $participantDetails->setSender($senderMock);
@@ -94,6 +106,7 @@ class CreatePaymentSessionRequestBuilderTest extends TestCase
             ->setAmount(100, 'rub')
             ->setMetadata(json_encode(['key' => 'value']))
             ->setPaymentMetadata(['key2' => 'value2'])
+            ->setItems([$item])
             ->build();
 
         $this->assertInstanceOf(CreateSessionRequest::class, $request);

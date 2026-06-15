@@ -10,6 +10,7 @@ use Bank131\SDK\DTO\Amount;
 use Bank131\SDK\DTO\Card\BankCard;
 use Bank131\SDK\DTO\Card\CardEnum;
 use Bank131\SDK\DTO\Customer;
+use Bank131\SDK\DTO\Item;
 use Bank131\SDK\DTO\Participant;
 use Bank131\SDK\DTO\ParticipantDetails;
 use Bank131\SDK\DTO\PaymentDetails;
@@ -39,6 +40,15 @@ class StartPaymentSessionRequestBuilderTest extends TestCase
     {
         $bankCardMock = $this->createMock(BankCard::class);
         $bankCardMock->method('getType')->willReturn(CardEnum::BANK_CARD);
+        $item = Item::create(
+            '2251abb6-073e-4f1c-bf1d-03061f538f67',
+            'premium',
+            'telegram premium subscription',
+            100,
+            'EUR',
+            1,
+            'general'
+        );
 
         $customerMock = $this->createMock(Customer::class);
         $paymentOptionsMock = $this->createMock(PaymentOptions::class);
@@ -60,6 +70,7 @@ class StartPaymentSessionRequestBuilderTest extends TestCase
         $participantDetails->setSender($senderMock);
         $participantDetails->setRecipient($recipientMock);
         $expectedRequest->setParticipantDetails($participantDetails);
+        $expectedRequest->setItems([$item]);
 
         $request = $this->builder
             ->setPaymentMetadata(['key2' => 'value2'])
@@ -70,6 +81,7 @@ class StartPaymentSessionRequestBuilderTest extends TestCase
             ->setSender($senderMock)
             ->setAmount(100, 'rub')
             ->setMetadata(json_encode(['key' => 'value']))
+            ->setItems([$item])
             ->build();
 
         $this->assertInstanceOf(StartPaymentSessionRequest::class, $request);
