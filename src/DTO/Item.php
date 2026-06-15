@@ -16,10 +16,6 @@ class Item
      */
     private $name;
 
-    /**
-     * @var string
-     */
-    private $description;
 
     /**
      * @var Amount
@@ -39,7 +35,6 @@ class Item
     private function __construct(
         string $id,
         string $name,
-        string $description,
         int $amount,
         string $currency,
         int $quantity,
@@ -47,7 +42,6 @@ class Item
     ) {
         $this->id = $id;
         $this->name = $name;
-        $this->description = $description;
         $this->amount_details = new Amount($amount, $currency);
         $this->quantity = $quantity;
         $this->category_code = $category_code;
@@ -56,7 +50,6 @@ class Item
     public static function create(
         string $id,
         string $name,
-        string $description,
         int $amount,
         string $currency,
         int $quantity,
@@ -65,7 +58,6 @@ class Item
         return new self(
             $id,
             $name,
-            $description,
             $amount,
             $currency,
             $quantity,

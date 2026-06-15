@@ -66,7 +66,6 @@ class CreatePaymentSessionRequestBuilderTest extends TestCase
         $item = Item::create(
             '2251abb6-073e-4f1c-bf1d-03061f538f67',
             'premium',
-            'telegram premium subscription',
             100,
             'EUR',
             1,
