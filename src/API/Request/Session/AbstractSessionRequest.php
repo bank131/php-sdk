@@ -181,4 +181,14 @@ abstract class AbstractSessionRequest extends AbstractRequest
 
         return $new;
     }
+
+    protected function getPayoutDetails(): PaymentDetails
+    {
+        return $this->payout_details;
+    }
+
+    protected function getParticipantDetails(): ParticipantDetails
+    {
+        return $this->participant_details;
+    }
 }
