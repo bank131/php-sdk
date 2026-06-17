@@ -19,11 +19,11 @@ class FpsApi extends AbstractApi
     /**
      * @var string
      */
-    private $apiVersion = ApiVersionEnum::V2;
+    private $apiVersion = ApiVersionEnum::V1;
 
-    public function setToV1(): void
+    public function setToV2(): void
     {
-        $this->apiVersion = ApiVersionEnum::V1;
+        $this->apiVersion = ApiVersionEnum::V2;
     }
 
     public function getBanks(): FpsBanksListResponse

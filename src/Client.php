@@ -263,10 +263,10 @@ final class Client implements LoggerAwareInterface
         return new FpsApi($this);
     }
 
-    public function fpsV1(): FpsApi
+    public function fpsV2(): FpsApi
     {
         $api = new FpsApi($this);
-        $api->setToV1();
+        $api->setToV2();
 
         return $api;
     }
