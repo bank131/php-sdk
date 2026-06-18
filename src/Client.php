@@ -263,6 +263,14 @@ final class Client implements LoggerAwareInterface
         return new FpsApi($this);
     }
 
+    public function fpsV2(): FpsApi
+    {
+        $api = new FpsApi($this);
+        $api->setToV2();
+
+        return $api;
+    }
+
     /**
      * @return SberPayApi
      */
