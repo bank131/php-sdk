@@ -6,6 +6,7 @@ namespace Bank131\SDK\DTO\PaymentMethod;
 
 use Bank131\SDK\DTO\PaymentMethod\Enum\PaymentMethodEnum;
 use Bank131\SDK\DTO\Wallet\AbstractWallet;
+use Bank131\SDK\DTO\Wallet\MonetaWallet;
 use Bank131\SDK\DTO\Wallet\QiwiWallet;
 use Bank131\SDK\DTO\Wallet\SteamWallet;
 use Bank131\SDK\DTO\Wallet\YoomoneyWallet;
@@ -27,6 +28,11 @@ class WalletPaymentMethod extends PaymentMethod
      * @var YoomoneyWallet|null
      */
     private $yoomoney;
+
+    /**
+     * @var MonetaWallet|null
+     */
+    private $moneta;
 
     /**
      * @var SteamWallet|null
