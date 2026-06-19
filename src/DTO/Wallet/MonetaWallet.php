@@ -18,7 +18,7 @@ class MonetaWallet extends AbstractWallet
 
     public function __construct(string $account, ?string $description = null)
     {
-        $this->account     = $account;
+        $this->account = $account;
         $this->description = $description;
     }
 
