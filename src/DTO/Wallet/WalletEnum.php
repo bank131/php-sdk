@@ -12,5 +12,7 @@ class WalletEnum extends BaseEnum
 
     public const YOOMONEY = 'yoomoney';
 
+    public const MONETA = 'moneta';
+
     public const STEAM = 'steam';
 }
