@@ -416,6 +416,21 @@ class JsonSerializerTest extends TestCase
                 },
             ]
         ];
+        yield [
+            [
+                'type' => 'wallet',
+                'wallet'=> [
+                    'type'=> 'yoomoney',
+                    'yoomoney' => [
+                    ],
+                ]
+            ],
+            [
+                'wallet' => function(AcquiringPayment $payment) {
+                    return $payment->getPaymentDetails()->getType();
+                },
+            ]
+        ];
     }
 
 
