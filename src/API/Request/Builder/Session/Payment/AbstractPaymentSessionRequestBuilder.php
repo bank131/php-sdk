@@ -18,8 +18,10 @@ use Bank131\SDK\DTO\PaymentMethod\FasterPaymentSystemPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\InternetBankingPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\RecurrentPaymentMethod;
 use Bank131\SDK\DTO\PaymentMethod\SecuredCardPaymentMethod;
+use Bank131\SDK\DTO\PaymentMethod\WalletPaymentMethod;
 use Bank131\SDK\DTO\PaymentOptions;
 use Bank131\SDK\DTO\SecuredCard\AbstractSecuredCard;
+use Bank131\SDK\DTO\Wallet\AbstractWallet;
 
 abstract class AbstractPaymentSessionRequestBuilder extends AbstractSessionRequestBuilder
 {
@@ -157,6 +159,15 @@ abstract class AbstractPaymentSessionRequestBuilder extends AbstractSessionReque
         );
 
         $this->paymentDetails = $paymentDetails;
+
+        return $this;
+    }
+
+    public function setWallet(AbstractWallet $wallet): self
+    {
+        $this->paymentDetails = new PaymentDetails(
+            new WalletPaymentMethod($wallet)
+        );
 
         return $this;
     }
