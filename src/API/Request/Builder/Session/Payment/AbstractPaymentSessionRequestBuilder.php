@@ -165,11 +165,9 @@ abstract class AbstractPaymentSessionRequestBuilder extends AbstractSessionReque
 
     public function setWallet(AbstractWallet $wallet): self
     {
-        $paymentDetails = new PaymentDetails(
+        $this->paymentDetails = new PaymentDetails(
             new WalletPaymentMethod($wallet)
         );
-
-        $this->paymentDetails = $paymentDetails;
 
         return $this;
     }
