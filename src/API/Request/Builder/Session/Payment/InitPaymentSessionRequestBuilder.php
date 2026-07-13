@@ -49,6 +49,10 @@ final class InitPaymentSessionRequestBuilder extends AbstractPaymentSessionReque
             $request->setRevenueSplitInfo($this->revenueSplitInfo);
         }
 
+        if ($this->items) {
+            $request->setItems($this->items);
+        }
+
         return $request;
     }
 

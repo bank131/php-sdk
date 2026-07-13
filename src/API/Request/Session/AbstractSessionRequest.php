@@ -10,6 +10,7 @@ use Bank131\SDK\DTO\Collection\RevenueSplitInfoCollection;
 use Bank131\SDK\DTO\Customer;
 use Bank131\SDK\DTO\CustomRouting;
 use Bank131\SDK\DTO\FiscalizationDetails;
+use Bank131\SDK\DTO\Item;
 use Bank131\SDK\DTO\ParticipantDetails;
 use Bank131\SDK\DTO\PaymentDetails;
 use Bank131\SDK\DTO\PaymentOptions;
@@ -80,6 +81,11 @@ abstract class AbstractSessionRequest extends AbstractRequest
      * @var RevenueSplitInfoCollection|null
      */
     private $revenue_split_info;
+
+    /**
+     * @var array<Item>
+     */
+    private $items;
 
     /**
      * @param mixed $metadata
@@ -170,6 +176,11 @@ abstract class AbstractSessionRequest extends AbstractRequest
     public function setPaymentMetadata(array $payment_metadata): void
     {
         $this->payment_metadata = $payment_metadata;
+    }
+
+    public function setItems(array $items): void
+    {
+        $this->items = $items;
     }
 
     protected function createV1(): self
