@@ -15,6 +15,7 @@ use Bank131\SDK\DTO\InternetBanking\Kakaopay;
 use Bank131\SDK\DTO\InternetBanking\PhoneIdent;
 use Bank131\SDK\DTO\InternetBanking\Pix;
 use Bank131\SDK\DTO\InternetBanking\SberPay;
+use Bank131\SDK\DTO\InternetBanking\TamaraPayment;
 use Bank131\SDK\DTO\InternetBanking\TPay;
 use Bank131\SDK\DTO\InternetBanking\WeChatPay;
 use Bank131\SDK\DTO\PaymentMethod\Enum\PaymentMethodEnum;
@@ -86,6 +87,11 @@ class InternetBankingPaymentMethod extends PaymentMethod
      * @var CUP|null
      */
     private $china_unionpay = null;
+
+    /**
+     * @var TamaraPayment|null
+     */
+    private $tamara = null;
 
     public function __construct(AbstractInternetBanking $internetBanking)
     {
@@ -160,5 +166,10 @@ class InternetBankingPaymentMethod extends PaymentMethod
     public function getCUP(): ?CUP
     {
         return $this->china_unionpay;
+    }
+
+    public function getTamara(): ?TamaraPayment
+    {
+        return $this->tamara;
     }
 }

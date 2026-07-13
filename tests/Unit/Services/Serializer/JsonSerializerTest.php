@@ -431,6 +431,21 @@ class JsonSerializerTest extends TestCase
                 },
             ]
         ];
+        yield [
+            [
+                'type' => 'internet_banking',
+                'internet_banking'=> [
+                    'type'=> 'tamara',
+                    'tamara' => [
+                    ],
+                ]
+            ],
+            [
+                'internet_banking' => function(AcquiringPayment $payment) {
+                    return $payment->getPaymentDetails()->getType();
+                },
+            ]
+        ];
     }
 
 

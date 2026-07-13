@@ -18,4 +18,5 @@ final class InternetBankingEnum
     public const TPAY = 'tpay';
     public const COUNTRY_EWALLET = 'country_ewallet';
     public const CUP = 'china_unionpay.';
+    public const TAMARA = 'tamara';
 }
