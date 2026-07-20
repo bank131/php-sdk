@@ -64,4 +64,29 @@ class Item
             $category_code
         );
     }
+
+    public function getId(): string
+    {
+        return $this->id;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getAmountDetails(): Amount
+    {
+        return $this->amount_details;
+    }
+
+    public function getQuantity(): int
+    {
+        return $this->quantity;
+    }
+
+    public function getCategoryCode(): string
+    {
+        return $this->category_code;
+    }
 }
