@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Bank131\SDK\DTO\InternetBanking;
 
-final class CountryEwallet extends AbstractInternetBanking
+class CountryEwallet extends AbstractInternetBanking implements SubTypeInternetBankingInterface
 {
     /**
      * @var string $country_iso2
@@ -17,13 +17,18 @@ final class CountryEwallet extends AbstractInternetBanking
         $this->country_iso2 = $country_iso2;
     }
 
+    public function getCountryIso2(): string
+    {
+        return $this->country_iso2;
+    }
+
     public function getType(): string
     {
         return InternetBankingEnum::COUNTRY_EWALLET;
     }
 
-    public function getCountryIso2(): string
+    public function getSubtype(): string
     {
-        return $this->country_iso2;
+        return InternetBankingEnum::COUNTRY_EWALLET;
     }
 }
