@@ -17,7 +17,7 @@ final class InternetBankingEnum
     public const PIX = 'pix';
     public const TPAY = 'tpay';
     public const COUNTRY_EWALLET = 'country_ewallet';
-    public const CUP = 'china_unionpay.';
+    public const CUP = 'china_unionpay';
     public const COUNTRY_EWALLET_OPAY = 'country_ewallet_opay';
     public const COUNTRY_EWALLET_PROMPTPAY = 'country_ewallet_promptpay';
     public const COUNTRY_EWALLET_YAPE = 'country_ewallet_yape';
