@@ -131,6 +131,9 @@ class Participant
      */
     protected $email;
 
+    /**
+     * @var string|null
+     */
     protected $site;
 
     /**
