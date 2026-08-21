@@ -15,6 +15,7 @@ use Bank131\SDK\DTO\InternetBanking\Kakaopay;
 use Bank131\SDK\DTO\InternetBanking\PhoneIdent;
 use Bank131\SDK\DTO\InternetBanking\Pix;
 use Bank131\SDK\DTO\InternetBanking\SberPay;
+use Bank131\SDK\DTO\InternetBanking\SubTypeInternetBankingInterface;
 use Bank131\SDK\DTO\InternetBanking\TamaraPayment;
 use Bank131\SDK\DTO\InternetBanking\TPay;
 use Bank131\SDK\DTO\InternetBanking\WeChatPay;
@@ -95,12 +96,16 @@ class InternetBankingPaymentMethod extends PaymentMethod
 
     public function __construct(AbstractInternetBanking $internetBanking)
     {
-        if (!property_exists($this, $internetBanking->getType())) {
+        $type = $internetBanking->getType();
+        if (!property_exists($this, $type)) {
             throw new InvalidArgumentException('Invalid internet banking type');
         }
 
-        $this->type          = $internetBanking->getType();
-        $this->{$this->type} = $internetBanking;
+        $this->{$type} = $internetBanking;
+
+        $this->type = $internetBanking instanceof SubTypeInternetBankingInterface
+            ? $internetBanking->getSubtype()
+            : $type;
     }
 
     public function getType(): string
