@@ -22,4 +22,5 @@ final class InternetBankingEnum
     public const COUNTRY_EWALLET_PROMPTPAY = 'country_ewallet_promptpay';
     public const COUNTRY_EWALLET_YAPE = 'country_ewallet_yape';
     public const COUNTRY_EWALLET_TRUEMONEY = 'country_ewallet_truemoney';
+    public const COUNTRY_EWALLET_VIETQR = 'country_ewallet_vietqr';
 }
