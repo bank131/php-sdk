@@ -19,6 +19,7 @@ use Bank131\SDK\DTO\Wallet\AbstractWallet;
 use Bank131\SDK\DTO\Wallet\MonetaWallet;
 use Bank131\SDK\DTO\Wallet\QiwiWallet;
 use Bank131\SDK\DTO\Wallet\SteamWallet;
+use Bank131\SDK\DTO\Wallet\TelegramWallet;
 use Bank131\SDK\DTO\Wallet\WalletEnum;
 use Bank131\SDK\DTO\Wallet\YoomoneyWallet;
 use Bank131\SDK\Exception\InvalidArgumentException;
@@ -139,27 +140,25 @@ class InitPayoutSessionRequestBuilderTest extends TestCase
     public function walletProvider(): array
     {
         return [
-            [QiwiWallet::class, WalletEnum::QIWI],
-            [YoomoneyWallet::class, WalletEnum::YOOMONEY],
-            [MonetaWallet::class, WalletEnum::MONETA],
-            [SteamWallet::class, WalletEnum::STEAM],
+            [new QiwiWallet('+79999999999')],
+            [new YoomoneyWallet('4100175017397')],
+            [new MonetaWallet('88888888')],
+            [new SteamWallet('username')],
+            [new TelegramWallet('username')],
         ];
     }
 
     /**
      * @dataProvider walletProvider
      */
-    public function testSuccessBuildWalletSession(string $walletClassName, string $systemType): void
+    public function testSuccessBuildWalletSession(AbstractWallet $wallet): void
     {
         $recipient = new Participant();
         $recipient->setFullName('Recipient Full Name');
 
-        /** @var AbstractWallet|MockObject $walletMock */
-        $walletMock = $this->createMock($walletClassName);
-        $walletMock->method('getType')->willReturn($systemType);
 
         $request = $this->builder
-            ->setWallet($walletMock)
+            ->setWallet($wallet)
             ->setRecipient($recipient)
             ->setAmount(1000, 'rub')
             ->build();
