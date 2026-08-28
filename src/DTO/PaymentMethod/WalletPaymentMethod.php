@@ -9,6 +9,7 @@ use Bank131\SDK\DTO\Wallet\AbstractWallet;
 use Bank131\SDK\DTO\Wallet\MonetaWallet;
 use Bank131\SDK\DTO\Wallet\QiwiWallet;
 use Bank131\SDK\DTO\Wallet\SteamWallet;
+use Bank131\SDK\DTO\Wallet\TelegramWallet;
 use Bank131\SDK\DTO\Wallet\YoomoneyWallet;
 use Bank131\SDK\Exception\InvalidArgumentException;
 
@@ -38,6 +39,11 @@ class WalletPaymentMethod extends PaymentMethod
      * @var SteamWallet|null
      */
     private $steam;
+
+    /**
+     * @var TelegramWallet|null
+     */
+    private $telegram;
 
     /**
      * WalletPaymentMethod constructor.

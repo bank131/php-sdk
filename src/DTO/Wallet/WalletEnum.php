@@ -15,4 +15,6 @@ class WalletEnum extends BaseEnum
     public const MONETA = 'moneta';
 
     public const STEAM = 'steam';
+
+    public const TELEGRAM = 'telegram';
 }
