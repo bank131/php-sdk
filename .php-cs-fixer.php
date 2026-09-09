@@ -3,6 +3,7 @@
 $finder = (new PhpCsFixer\Finder())
     ->in(__DIR__ . '/src')
     ->path([
+        'DTO/CustomerInteraction/Inform',
         'DTO/PaymentDetails',
         'DTO/Tax',
         'PaymentMethod/Enum',

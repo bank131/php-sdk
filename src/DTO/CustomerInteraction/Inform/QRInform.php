@@ -16,17 +16,11 @@ class QRInform
      */
     private $img;
 
-    /**
-     * @return string|null
-     */
     public function getContent(): ?string
     {
         return $this->content;
     }
 
-    /**
-     * @return string|null
-     */
     public function getImg(): ?string
     {
         return $this->img;
