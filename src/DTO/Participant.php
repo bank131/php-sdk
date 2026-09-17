@@ -59,6 +59,11 @@ class Participant
     /**
      * @var string|null
      */
+    protected $customer_language_code;
+
+    /**
+     * @var string|null
+     */
     protected $city;
 
     /**
@@ -306,6 +311,14 @@ class Participant
     /**
      * @return string|null
      */
+    public function getCustomerLanguageCode(): ?string
+    {
+        return $this->customer_language_code;
+    }
+
+    /**
+     * @return string|null
+     */
     public function getCity(): ?string
     {
         return $this->city;
@@ -413,6 +426,14 @@ class Participant
     public function setCountryIso3(string $country_iso3): void
     {
         $this->country_iso3 = $country_iso3;
+    }
+
+    /**
+     * @param string|null $customer_language_code
+     */
+    public function setCustomerLanguageCode(?string $customer_language_code): void
+    {
+        $this->customer_language_code = $customer_language_code;
     }
 
     /**
