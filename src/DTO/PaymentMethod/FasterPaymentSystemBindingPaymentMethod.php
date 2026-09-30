@@ -6,7 +6,7 @@ namespace Bank131\SDK\DTO\PaymentMethod;
 
 use Bank131\SDK\DTO\PaymentMethod\Enum\PaymentMethodEnum;
 
-class FasterPaymentSystemBindingPaymentMethod extends PaymentMethod
+class FasterPaymentSystemBindingPaymentMethod extends AbstractFPSPaymentMethod
 {
     public function getType(): string
     {
