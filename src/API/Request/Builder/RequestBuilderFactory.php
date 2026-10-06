@@ -80,6 +80,14 @@ final class RequestBuilderFactory
         return new StartPaymentSessionRequestBuilder($sessionId);
     }
 
+    public function startPaymentSessionAsync(string $sessionId): StartPaymentSessionRequestBuilder
+    {
+        $builder = new StartPaymentSessionRequestBuilder($sessionId);
+        $builder->setAsync(true);
+
+        return $builder;
+    }
+
     /**
      * @param string $sessionId
      *
