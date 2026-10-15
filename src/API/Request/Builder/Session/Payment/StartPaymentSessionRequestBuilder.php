@@ -16,6 +16,11 @@ final class StartPaymentSessionRequestBuilder extends AbstractPaymentSessionRequ
     private $sessionId;
 
     /**
+     * @var bool
+     */
+    private $async = false;
+
+    /**
      * StartSessionRequestBuilder constructor.
      *
      * @param string $sessionId
@@ -73,6 +78,13 @@ final class StartPaymentSessionRequestBuilder extends AbstractPaymentSessionRequ
             $request->setItems($this->items);
         }
 
+        $request->setAsync($this->async);
+
         return $request;
+    }
+
+    public function setAsync(bool $async): void
+    {
+        $this->async = $async;
     }
 }
