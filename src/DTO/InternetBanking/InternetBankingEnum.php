@@ -25,5 +25,6 @@ final class InternetBankingEnum
     public const COUNTRY_EWALLET_TRUEMONEY = 'country_ewallet_truemoney';
     public const COUNTRY_EWALLET_NEQUI = 'country_ewallet_nequi';
     public const COUNTRY_EWALLET_VIETQR = 'country_ewallet_vietqr';
+    public const COUNTRY_EWALLET_PSE = 'country_ewallet_pse';
     public const TAMARA = 'tamara';
 }
