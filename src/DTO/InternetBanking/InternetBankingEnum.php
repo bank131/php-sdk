@@ -24,6 +24,7 @@ final class InternetBankingEnum
     public const COUNTRY_EWALLET_MOMO = 'country_ewallet_momo';
     public const COUNTRY_EWALLET_TRUEMONEY = 'country_ewallet_truemoney';
     public const COUNTRY_EWALLET_NEQUI = 'country_ewallet_nequi';
+    public const COUNTRY_EWALLET_BREB = 'country_ewallet_breb';
     public const COUNTRY_EWALLET_VIETQR = 'country_ewallet_vietqr';
     public const COUNTRY_EWALLET_PSE = 'country_ewallet_pse';
     public const COUNTRY_EWALLET_SAFARICOM = 'country_ewallet_safaricom';
