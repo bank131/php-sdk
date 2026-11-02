@@ -29,4 +29,5 @@ final class InternetBankingEnum
     public const COUNTRY_EWALLET_PSE = 'country_ewallet_pse';
     public const COUNTRY_EWALLET_SAFARICOM = 'country_ewallet_safaricom';
     public const TAMARA = 'tamara';
+    public const COUNTRY_EWALLET_PAGOEFECTIVO = 'country_ewallet_pagoefectivo';
 }
