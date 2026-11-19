@@ -18,13 +18,16 @@ class TransactionInfo
 
     private $bank_account_ru_token;
 
+    private $sbp_member_id;
+
     public function __construct(
         ?string $rrn,
         ?string $arn = null,
         ?string $authCode = null,
         ?string $fpMessageId = null,
         ?string $externalSubscriptionToken = null,
-        ?string $bankAccountRuToken = null
+        ?string $bankAccountRuToken = null,
+        ?string $sbpMemberId = null
     ) {
         $this->rrn = $rrn;
         $this->arn = $arn;
@@ -32,6 +35,7 @@ class TransactionInfo
         $this->fp_message_id = $fpMessageId;
         $this->external_subscription_token = $externalSubscriptionToken;
         $this->bank_account_ru_token = $bankAccountRuToken;
+        $this->sbp_member_id = $sbpMemberId;
     }
 
     public function getRrn(): ?string
@@ -62,5 +66,10 @@ class TransactionInfo
     public function getBankAccountRuToken(): ?string
     {
         return $this->bank_account_ru_token;
+    }
+
+    public function getSbpMemberId(): ?string
+    {
+        return $this->sbp_member_id;
     }
 }

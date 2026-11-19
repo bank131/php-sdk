@@ -9,6 +9,7 @@ use Bank131\SDK\API\Request\Wallet\WalletBalanceRequest;
 use Bank131\SDK\API\Response\Session\SessionResponse;
 use Bank131\SDK\DTO\AcquiringPayment;
 use Bank131\SDK\DTO\Card\EncryptedCard;
+use Bank131\SDK\DTO\TransactionInfo;
 use Bank131\SDK\Exception\InvalidArgumentException;
 use Bank131\SDK\Services\Serializer\JsonSerializer;
 use DateTimeImmutable;
@@ -531,5 +532,34 @@ class JsonSerializerTest extends TestCase
         $this->assertEquals($amountCurrency, $acquiringPayment->getAmounts()->getNet()->getCurrency());
         $this->assertEquals($metadata, $acquiringPayment->getMetadata());
         $this->assertEquals($returnUrl, $acquiringPayment->getPaymentOptions()->getReturnUrl());
+    }
+
+    public function testDeserializeTransactionInfoWithSbpMemberId(): void
+    {
+        /** @var TransactionInfo $transactionInfo */
+        $transactionInfo = $this->serializer->deserialize(
+            json_encode([
+                'rrn'           => '123456789012',
+                'fp_message_id' => 'A4321',
+                'sbp_member_id' => '100000000111',
+            ]),
+            TransactionInfo::class
+        );
+
+        $this->assertSame('123456789012', $transactionInfo->getRrn());
+        $this->assertSame('A4321', $transactionInfo->getFpMessageId());
+        $this->assertSame('100000000111', $transactionInfo->getSbpMemberId());
+    }
+
+    public function testDeserializeTransactionInfoWithoutSbpMemberId(): void
+    {
+        /** @var TransactionInfo $transactionInfo */
+        $transactionInfo = $this->serializer->deserialize(
+            json_encode(['fp_message_id' => 'A4321']),
+            TransactionInfo::class
+        );
+
+        $this->assertSame('A4321', $transactionInfo->getFpMessageId());
+        $this->assertNull($transactionInfo->getSbpMemberId());
     }
 }
