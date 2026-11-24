@@ -119,6 +119,7 @@ class RequestSerializerTest extends JsonSerializerTest
     {
         $participant = new Participant();
         $participant->setBeneficiaryId('121231');
+        $participant->setSite('example.com');
         $sessionRequest = RequestBuilderFactory::create()
             ->createPayoutSession()
             ->setBankAccount(
@@ -152,6 +153,7 @@ class RequestSerializerTest extends JsonSerializerTest
             ],
             "participant_details" => [
                 "sender" => [
+                    "site" => "example.com",
                     "beneficiary_id" => "121231"
                 ]
             ]
