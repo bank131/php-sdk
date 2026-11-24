@@ -134,6 +134,11 @@ class Participant
     /**
      * @var string|null
      */
+    protected $site;
+
+    /**
+     * @var string|null
+     */
     protected $code;
 
     /**
@@ -587,6 +592,16 @@ class Participant
     public function setEmail(?string $email): void
     {
         $this->email = $email;
+    }
+
+    public function getSite(): ?string
+    {
+        return $this->site;
+    }
+
+    public function setSite(?string $site): void
+    {
+        $this->site = $site;
     }
 
     public function getMsisdn(): ?string
